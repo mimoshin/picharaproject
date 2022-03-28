@@ -1,0 +1,41 @@
+{% extends 'general/BaseGeneral.html' %}
+{% load static %}
+
+{% block content %}
+<h1 style="color: white;">General TripleMoves</h1>
+<div class="row mt-4">
+  <div class="col-1">
+    {% include  'singleMoves.html' %}
+  </div>
+
+  <div class="col-2">
+    {% include  'doubleMoves.html' %}
+  </div>
+
+  <div class="col-3">
+    {% include 'tripleMoves.html' %}
+  </div>
+  
+  <div class="col-6">
+    <h4 style="color: aliceblue;" >{{name}}</h4>
+    {% include  'table.html' %}
+  </div>
+</div>
+
+<script>
+    colors = ['#00B050','#92D050','#FF0000','#FFFF00','#0070C0','#00B0F0','#F2F2F2','#FF5543','#FC9F6C','#BFBFBF','#ff9d42','#292929']
+    $('.ButtonCell').click(function(){
+        spl = this.id.split('|');
+        if (parseInt(spl[1]) <12){
+            $(this).css('background-color',colors[spl[1]]);
+            newNumber = parseInt(spl[1])+1;
+            this.id = spl[0]+'|'+newNumber;		
+        }
+        else{
+            this.id = spl[0]+'|'+0;	
+            $(this).css('background-color',colors[0]);	
+        }
+    });
+</script>
+
+{% endblock %}

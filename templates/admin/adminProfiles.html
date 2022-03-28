@@ -1,0 +1,68 @@
+{% extends 'admin/BaseAdmin.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row mt-4">
+        <div class="col-6">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'admin_principal' %}">Jugadas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'profiles_list' %}">Perfiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'all_clients' %}">Clientes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <h4 class="text-light text-center mt-4">{{profile}}</h4>
+    
+    <div class="row mt-4">
+        <div class="col-1">
+            {% include 'singleMoves.html' with view='profiles' %}
+        </div>
+        <div class="col-2">
+            {% include  'doubleMoves.html' with view='profiles' %}
+        </div>
+        <div class="col-3">
+            {% include 'tripleMoves.html' with view='profiles' %}
+        </div>
+
+        <div class="col-6">
+            {% include  'versions.html' with view='profiles' %}
+            {% include 'table.html' with view='profiles' %}
+         </div>
+    </div>
+
+    <script>
+        base = '{{base}}';
+        move = '{{dbase}}';
+        tmove = '{{tbase}}'; 
+
+        $('#versionsID').change(function(){
+			version = $('#versionsID').val()
+			if(version > 0){
+				$('#TABLEC').load("{% url 'load_version'%}",
+				{'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'select':version});
+			}
+			else{
+				console.log("VERSION GET");
+				$('#TABLEC').load("{% url 'load_version'%}");
+			}
+        });
+
+        $('#assignButton').click(function(){
+            version = $('#versionsID').val()
+            console.log(version);
+            $.post("{% url 'assign_version' %}",
+                {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'version':version,'profile':'{{profile.id}}'},
+                function(){
+                    location.reload();
+                }
+            );
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% if doubles %}
+    <ul style="padding: 0%;">
+    {% for double in doubles %}		
+        <li>
+            {% if view == 'profiles' %} 
+                {% if double.id == dbase %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?base={{base}}&move={{double.id}}">{{double.nameComparation}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?base={{base}}&move={{double.id}}">{{double.nameComparation}}</a>
+                {% endif %}
+            {% elif view == 'client' %} 	
+                {% if double.id == dbase %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?perfil={{profileView.id}}&base={{base}}&move={{double.id}}">{{double.nameComparation}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?perfil={{profileView.id}}&base={{base}}&move={{double.id}}">{{double.nameComparation}}</a>
+                {% endif %}
+            {% elif view == 'admin' %}
+                {% if double.id == dbase %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="{% url 'admin_principal' %}?base={{base}}&move={{double.id}}">{{double.nameComparation}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="{% url 'admin_principal' %}?base={{base}}&move={{double.id}}">{{double.nameComparation}}</a>
+                {% endif %}
+            {% else %}
+                {% if double.id == dbase %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?base={{base}}&move={{double.id}}">{{double.nameComparation}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?base={{base}}&move={{double.id}}">{{double.nameComparation}}</a>
+                {% endif %}
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+               
+

@@ -1,0 +1,37 @@
+{% if moves %}
+    <ul style="padding: 0%;">
+        {% for move in moves %}	
+        <li>
+            {% if view == 'profiles' %} 
+                {% if move.id == base %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?base={{move.id}}">{{move}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?base={{move.id}}">{{move}}</a>
+                {% endif %}
+            {% elif view == 'client' %}    
+                {% if move.id == base %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?perfil={{profileView.id}}&base={{move.id}}">{{move}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?perfil={{profileView.id}}&base={{move.id}}">{{move}}</a>
+                {% endif %}
+            {% elif view == 'admin' %}
+                {% if move.id == base %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="{% url 'admin_principal' %}?base={{move.id}}">{{move}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="{% url 'admin_principal' %}?base={{move.id}}">{{move}}</a>
+                {% endif %}
+            {% else %}
+                {% if move.id == base %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?base={{move.id}}">{{move}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?base={{move.id}}">{{move}}</a>
+                {% endif %}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+        
+    
+

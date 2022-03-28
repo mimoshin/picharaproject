@@ -1,0 +1,150 @@
+{% extends 'admin/BaseAdmin.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row mt-4">
+	<div class="col-3">
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+			  <a class="nav-link active" href="{% url 'admin_principal' %}">Jugadas</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link text-white" href="{% url 'profiles_list' %}">Perfiles</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white" href="{% url 'all_clients' %}">Clientes</a>
+			</li>
+		  </ul>
+	</div>
+</div>
+
+{% if request.user.is_staff %}
+<div class="row mt-4">
+	<div class="col-2">
+		<a type="button" class="btn btn-sm btn-warning" href="{% url 'cargardatos' %}">Cargar Base</a>
+	</div>
+	<div class="col-2">
+		<a type="button" class="btn btn-sm btn-warning" href="{% url 'cargardobles' %}">Cargar Doble</a>	
+	</div>
+	<div class="col-2">
+		<a type="button" class="btn btn-sm btn-warning" href="{% url 'cargartriples' %}">Cargar Triple</a>	
+	</div>
+	<div class="col-2">
+		<a type="button" class="btn btn-sm btn-danger" href="{% url 'eliminardatos' %}">Eliminar</a>	
+	</div>
+</div>
+{% endif %}
+
+<div class="row mt-4">
+	<div class="col-1">
+		{% include  'singleMoves.html' with admin=True %}
+	</div>
+	
+	<div class="col-2">
+		{% include  'doubleMoves.html' with admin=True %}
+  </div>
+	
+	<div class="col-3">
+		{% include 'tripleMoves.html' with admin=True %}
+	</div>
+	  
+	<div class="col-6">
+		<h4 style="color: aliceblue;" >{{name}}</h4>
+		{% include  'versions.html' %}
+		{% include  'table.html' with view='index' %}
+	</div>
+</div>
+
+<script>
+
+	$('.selectCell').spectrum({
+		color:'#f00',
+		showPalette: true,
+		showPaletteOnly: true,
+    	palette: [
+			['#00B050','#92D050','#FF0000','#FFFF00','#0070C0'],
+			['#00B0F0','#F2F2F2','#FF5543','#FC9F6C','#BFBFBF'],
+			['#ff9d42','#292929']
+    	]
+	});
+
+	colors = ['#00b050','#92d050','#ff0000','#ffff00','#0070c0','#00b0f0','#f2f2f2','#ff5543','#fC9f6c','#bfbfbf','#ff9d42','#292929']
+	$('.ButtonVersion').click(function(){
+		//spl = this.id.split('|');
+		//$(this).css('background-color',colors[spl[1]]);
+		//this.id = spl[0]+'|'+newNumber;		
+		//newNumber = parseInt(spl[1])+1
+		spl = this.id.split('|');
+        if (parseInt(spl[1]) <12){
+            $(this).css('background-color',colors[spl[1]]);
+            newNumber = parseInt(spl[1])+1;
+			this.id = spl[0]+'|'+newNumber;		
+        }
+        else{
+            this.id = spl[0]+'|'+0;	
+            $(this).css('background-color',colors[0]);	
+        }	
+	});
+
+		base = '{{base}}';
+        move = '{{dbase}}';
+        tmove = '{{tbase}}'; 
+
+        $('#versionsID').change(function(){
+			version = $('#versionsID').val()
+			if(version > 0){
+				console.log("VERSION post");
+				$('#TABLEC').load("{% url 'load_version'%}",
+				{'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'select':version});
+			}
+			else{
+				console.log("VERSION GET");
+				$('#TABLEC').load("{% url 'load_version'%}");
+			}
+        });
+
+        $('#saveForm').click(function(){
+            quewea = $('.selectCell');
+            texto = '';
+            nameV =$('#versionID')[0].value;
+            descV =  $('#descID')[0].value;
+            counter = 0
+            if(nameV && descV){
+                $.each(quewea,function(index,value){
+					tiny = tinycolor(value.style.backgroundColor);
+					color  = tiny.toHexString()
+					posi = colors.indexOf(color)
+		            if(counter == 12 ){
+						if(posi>=0){
+							texto = texto+value.id+'|'+posi+'.';
+						}
+                        counter = 0;
+                    }
+                    else{
+						if(posi>=0){
+							texto = texto+value.id+'|'+posi+'-';
+						}
+                        counter+=1;
+                    }
+                });	
+                $.post("{% url 'new_version' %}",
+                    {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,
+                    'texto':texto,'name':nameV,'description':descV},
+                    function(response){
+                        location.reload();
+                    }
+                );
+            } 
+            else{
+                alert("Datos no validos");
+            }
+        });
+</script>
+
+{% endblock %}
+
+
+	
+
+
+

@@ -1,0 +1,52 @@
+{% extends 'admin/BaseAdmin.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-white text-center">{{client}}</h1>
+
+
+<div class="table table-responsive mt-2 col-6">
+    <table class="table table-dark table-striped table-bordered" style="border: 1px solid black;width: 100%;">
+        <thead>
+            <tr>
+                <td class="text-center">Nombre del perfil</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profile in profiles %}
+                <tr>
+                    <td>{{profile.profileId}}</td>
+                    <td class="text-center">
+                        <a type="button" href="{% url 'client_view' client.id%}?perfil={{profile.profileId.id}}" class="btn btn-sm btn-primary">Ver</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if profileView %}
+<h1 class="text-center text-white">{{profileView}}</h1>
+<div class="row mt-4">
+    <div class="col-1">
+        {% include  'singleMoves.html' with view='client' %}
+    </div>
+    
+    <div class="col-2">
+        {% include  'doubleMoves.html' with view='client' %}
+  </div>
+    
+    <div class="col-3">
+        {% include 'tripleMoves.html' with view='client' %}
+    </div>
+      
+    <div class="col-6">
+        <h4 style="color: aliceblue;" >{{name}}</h4>
+        {% include  'versions.html' with view='client' %}
+        {% include  'table.html' with view='client' %}
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'admin/BaseAdmin.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row mt-4">
+        <div class="col-3">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'admin_principal' %}">Jugadas</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'profiles_list' %}">Perfiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'all_clients' %}">Clientes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-1"></div>
+
+        <div class="col-10">
+            <h4 class="text-light text-center">Clientes</h4>
+            <a typer="button" class="btn btn-sm btn-primary" href="{% url 'new_client' %}">Nuevo Cliente</a>
+            
+            <!--<button type="button" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#staticBackdrop">Nuevo Cliente</button>
+            -->
+            {% if clients %}
+            <div class="table table-responsive mt-2">
+                <table class="table table-dark table-striped table-bordered" style="border: 1px solid black;width: 100%;">
+                    <thead>
+                        <tr>
+                            <td class="text-center">Estado</td>
+                            <td class="text-center">Cliente</td>
+                            <td class="text-center" colspan="3">Opciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for client in clients %}
+                        <tr>
+                            <td>{{client.status}}</td>
+                            <td>{{client.name}}</td>
+                            <td class="text-center"><a type="button" href="{% url 'client_view' client.id %}" class="btn btn-sm btn-primary">Ver</a></td>
+                            <td class="text-center"><a type="button" href="{% url 'client_profile' client.id %}" class="btn btn-sm btn-success">Perfiles</a></td>
+                            {% if client.is_active %}
+                                <td class="text-center"><a type="button" href="{% url 'desactivate_client' client.id %}" class="btn btn-sm btn-warning">Desactivar</a></td>
+                            {% else %}
+                                <td class="text-center"><a type="button" href="{% url 'desactivate_client' client.id %}" class="btn btn-sm btn-warning">Activar</a></td>
+                            {% endif %}    
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" >
+        <div class="modal-content" style="background-image: url('{% static "picharapoker_bg.jpg"%}');">
+            <div class="modal-header">
+            <h5 class="modal-title text-light" id="staticBackdropLabel">Nueva Version: {{name}} Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                            <label for="versionID" class="form-group text-light">Nombre Cliente</label>
+                            <input type="text" class="form-control" name="perfil" id="perfilID">
+                            <label for="descID" class="form-group text-light">Descripción del Cliente</label>
+                            <textarea class="form-control" name="description" id="descID" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="col-6">
+                        {% include  'table.html' with admin=True %}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="saveForm">Guardar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        $('#saveForm').click(function(){
+            texto = '';
+            perfil =$('#perfilID')[0].value;
+            descV =  $('#descID')[0].value;
+            counter = 0
+            console.log(perfil,descV,"hola");
+
+            $.post("{% url 'new_profile' %}",
+                    {'csrfmiddlewaretoken':'{{csrf_token}}','name':perfil,'description':descV},
+                    function(response){
+                        location.reload();
+                    }
+                );
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'admin/BaseAdmin.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row mt-4">
+        <div class="col-6">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_principal' %}">Jugadas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'profiles_list' %}">Perfiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'all_clients' %}">Clientes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <h4 class="text-light text-center mt-4 mb-4">{{profile}}</h4>
+
+    {% if total %}
+        <div class="table">
+            <table class="table table-dark" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width: 12%;color: azure;">Jugada Principal</th>
+                        <th style="width: 44%;color: azure;">Comparacion doble</th>
+                        <th style="width: 44%;color: azure;">Comparacion triple</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for single in total %}
+                        <tr>
+                            <td style="margin:0%">
+                                <button class="btn btn-sm btn-primary">{{single.move}}</button>
+                            </td>
+                            <td style="margin:0%">
+                                {% for double in single.double %}
+                                    <button class="btn btn-sm btn-success" style="font-size:90%">{{double.nameComparation}}</button>
+                                {% endfor %}
+                            </td>
+                            <td style="margin:0%">
+                                {% for triple in single.triple %}
+                                    <button class="btn btn-sm btn-warning" style="font-size:80%">{{triple.nameComparation}}</button>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p class="text-white">hola</p>
+    {% endif %}
+
+    <script>
+        base = '{{base}}';
+        move = '{{dbase}}';
+        tmove = '{{tbase}}'; 
+
+        $('#versionsID').change(function(){
+			version = $('#versionsID').val()
+			if(version > 0){
+				$('#TABLEC').load("{% url 'load_version'%}",
+				{'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'select':version});
+			}
+			else{
+				console.log("VERSION GET");
+				$('#TABLEC').load("{% url 'load_version'%}");
+			}
+        });
+
+        $('#assignButton').click(function(){
+            version = $('#versionsID').val()
+            console.log(version);
+            $.post("{% url 'assign_version' %}",
+                {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'version':version,'profile':'{{profile.id}}'},
+                function(){
+                    location.reload();
+                }
+            );
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% if triples %}
+    <ul style="padding: 0%;">
+        {% for triple in triples %}		
+        <li>
+            {% if view == 'profiles' %}
+                {% if triple.id == tbase %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?base={{base}}&move={{dbase}}&Tmove={{triple.id}}">{{triple.nameComparation}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?base={{base}}&move={{dbase}}&Tmove={{triple.id}}">{{triple.nameComparation}}</a>
+                {% endif %}
+            {% elif view == 'client' %}
+                {% if triple.id == tbase %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?perfil={{profileView.id}}&base={{base}}&move={{dbase}}&Tmove={{triple.id}}">{{triple.nameComparation}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?perfil={{profileView.id}}&base={{base}}&move={{dbase}}&Tmove={{triple.id}}">{{triple.nameComparation}}</a>
+                {% endif %}
+            {% elif view == 'admin' %}
+                {% if triple.id == tbase %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="{% url 'admin_principal' %}?base={{base}}&move={{dbase}}&Tmove={{triple.id}}">{{triple.nameComparation}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="{% url 'admin_principal' %}?base={{base}}&move={{dbase}}&Tmove={{triple.id}}">{{triple.nameComparation}}</a>
+                {% endif %}
+            {% else %}
+                {% if triple.id == tbase %}
+                    <a type="button" class="btn btn-sm btn-success mb-2" href="?base={{base}}&move={{dbase}}&Tmove={{triple.id}}">{{triple.nameComparation}}</a>
+                {% else %}
+                    <a type="button" class="btn btn-sm btn-primary mb-2" href="?base={{base}}&move={{dbase}}&Tmove={{triple.id}}">{{triple.nameComparation}}</a>
+                {% endif %}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}

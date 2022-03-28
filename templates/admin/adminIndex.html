@@ -1,0 +1,22 @@
+{% extends 'admin/BaseAdmin.html' %}
+
+{% block content %}
+    <div class="row mt-4">
+        <div class="col-1">
+            {% include  'singleMoves.html' with view='index' %}
+        </div>
+        
+        <div class="col-2">
+            {% include  'doubleMoves.html' with view='index' %}
+    </div>
+        
+        <div class="col-3">
+            {% include 'tripleMoves.html' with view='index' %}
+        </div>
+        
+        <div class="col-6">
+            <h4 style="color: aliceblue;" >{{name}}</h4>
+            {% include  'table.html' with view='index' %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'Base.html' %}
+{% load static %}
+
+{% block content %}
+    <form class="mt-4" method="post" action="{% url 'new_client' %}" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3 form-group">
+                <label class="text-white" for="uss">Nombre de usuario</label>
+                <input class="form-control" type="user" name="username" id="uss" required>
+            </div>
+            <div class="col-3 form-group">
+                <label class="text-white" for="pass">Contraseña</label>
+                <input class="form-control" type="password" name="password" id="pass" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3 form-group">
+                <label class="text-white" for="fnam">Nombre</label>
+                <input class="form-control" type="text" name="firstname" id="fnam" required>
+            </div>
+            <div class="col-3 form-group">
+                <label class="text-white" for="lnam">Apellido</label>
+                <input class="form-control" type="text" name="lastname" id="lnam" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3 form-group">
+                <label class="text-white" for="email">Correo</label>
+                <input class="form-control" type="text" name="email">
+            </div>
+            <div class="col-3 form-group">
+                <label class="text-white" for="age">Edad</label>
+                <input class="form-control" type="text" name="age">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% load static %}
+
+{% if view == 'profiles' %}
+    <div class="row">
+        {% if versions %}
+        <div class="col-4 from-group">
+            <select class="form-group" name="versionsselect" id="versionsID">
+                <option value="0">Version principal</option>
+                {% for version in versions %}
+                    {% if version.id == assigned.versionId.id %}
+                        <option value="{{version.id}}" selected>{{version.versionname}}<span> Asignada</span></option>
+                    {% else %}
+                        <option value="{{version.id}}">{{version.versionname}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-4 ">
+            <button class="btn btn-sm btn-warning" id="assignButton">Asignar</button>
+        </div>
+        {% endif %}
+    </div>
+
+{% elif view == 'client' %}
+    <div class="row">
+        {% if versions %}
+        <div class="col-4 from-group">
+                {% for version in versions %}
+                    {% if version.id == assigned.versionId.id %}
+                        <p class="text-white">{{version.versionname}}</p>
+                    {% endif %}
+                {% endfor %}
+        </div>
+        {% else %}
+            <div class="col-4">
+                <p style="color: aliceblue;">Version principal</p>
+            </div>
+        {% endif %}
+    </div>
+
+{% else %}
+    <div class="row">
+        {% if versions %}
+        <div class="col-4 from-group">
+            <select class="form-group" name="versionsselect" id="versionsID">
+                <option value="0">Version principal</option>
+                {% for version in versions %}
+                    <option value="{{version.id}}">{{version.versionname}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% else %}
+            <div class="col-4">
+                <p style="color: aliceblue;">Version principal</p>
+            </div>
+        {% endif %}
+        <div class="col-4 ">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#staticBackdrop">Nueva Version</button>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" >
+        <div class="modal-content" style="background-image: url('{% static "picharapoker_bg.jpg"%}');">
+            <div class="modal-header">
+            <h5 class="modal-title text-light" id="staticBackdropLabel">Nueva Version: {{name}} Modal title que mierda este modal</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                            <label for="versionID" class="form-group text-light">Nombre Version</label>
+                            <input type="text" class="form-control" name="version" id="versionID">
+                            <label for="descID" class="form-group text-light">Descripción de la Version</label>
+                            <textarea class="form-control" name="description" id="descID" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="col-6">
+                        <div class="table table-responsive">
+                            <table class="table table-sm" style="margin-bottom: 0%;">
+                              <tbody>
+                                {% for fila in tabla %}
+                                <tr>
+                                  {% for columna in fila %}
+                                    <td class="selectCell" id="{{columna}}" style="background-color: #292929;color: aliceblue;border: solid 1px white;">
+                                      {{columna}}
+                                    </td>
+                                  {% endfor %}
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="saveForm">Guardar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endif %}

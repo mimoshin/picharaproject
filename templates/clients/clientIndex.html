@@ -1,0 +1,7 @@
+{% extends 'clients/BaseClient.html' %}
+
+{% block content %}
+    <div class="container-fluid mt-4">
+        <h1 class="text-center text-white">Bienvenido {{request.user.first_name}}</h1>
+    </div>
+{% endblock %}
