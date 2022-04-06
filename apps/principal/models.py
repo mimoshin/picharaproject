@@ -1,6 +1,7 @@
 from shutil import move
 from django.db import models
 from poker.utils import COLORS,TABLA
+from .BASEMOVES import SINGLE,DOUBLES,TRIPLES
 # Create your models here.
 
 class Move(models.Model):
@@ -107,10 +108,10 @@ class MovesFactory():
                 vars['tbase'] = triple.id
                 vars['triples'] = triples
                 color = triple.colors
-            vars['load_table'] = MovesFactory.load_table2(color)
+            vars['load_table'] = MovesFactory.load_table(color)
             return vars  
         except Exception as e:
-            print("Error al cargar datos",e,data)
+            print("Error al cargar datos admin",e,data)
             return {'tabla':TABLA}
     
     @staticmethod
@@ -120,6 +121,7 @@ class MovesFactory():
             move = moves.get(id=data['base'])
             doubles = move.get_my_doubles()
             vars = {'moves':moves,'base':move.id,'doubles':doubles,'name':move.__str__(),'tabla':TABLA}
+            
             if mtype == 'double':
                 doub = doubles.get(id=data['move'])
                 version = doub.get_my_version()
@@ -140,46 +142,37 @@ class MovesFactory():
             else:
                 color = move.colors
                 version = move.get_my_version()
-            vars['load_table'] = MovesFactory.load_table2(color)
+
+            vars['load_table'] = MovesFactory.load_table(color)
             vars['versions'] = version
             return vars  
         except Exception as e:
-            print("Error al cargar datos",e,data)
+            print("Error al cargar datos 2",e,data)
             return {'tabla':TABLA}
-       
+
     @staticmethod
     def load_table(data):
-        filas = data.split('.')
-        texto = ''
-        for x in filas:
-            columna = x.split('-')
-            texto += '<tr>'
-            for a in columna:
-                if a:
-                    name = a.split('|')[0]
-                    color = int(a.split('|')[1])
-                    texto += '<td  class="ButtonCell" id="%s" style="background-color:%s;" >%s</td>'%(a,COLORS[color],name)
-            texto += '</tr>'
-        return texto
-
-    @staticmethod
-    def load_table2(data):
-        if data == 'DEFAULT':
-            return ''
-        else:
-            filas = data.split('.')
-            total = []
-            for x in filas:
-                if x:
-                    columna = x.split('-')
-                    columnas = []
-                    for a in columna:
-                        name = a.split('|')[0]
-                        color = int(a.split('|')[1])
-                        columnas.append([name,color,COLORS[color]])
-                    total.append(columnas)
-            return total
-
+        "USAR ESTA VERSION DE LOAD_TABLE"
+        if data:
+            if data == 'DEFAULT':
+                return ''
+            else:
+                filas = data.split('.')
+                total = []
+                for x in range(13):
+                    select = filas[x]
+                    if select:
+                        columna = select.split('-')
+                        columnas = []
+                        for a in range(13):
+                            selected = columna[a]
+                            if selected:
+                                name = TABLA[x][a]
+                                color = int(selected)
+                                columnas.append([name,color])
+                        total.append(columnas)
+                return total
+                        
     @staticmethod
     def format_table(asign):
         if asign:
@@ -206,6 +199,69 @@ class MovesFactory():
     @staticmethod
     def set():
         pass
+
+    @staticmethod
+    def create_base():
+        for data in SINGLE:
+            celdas = ''
+            for a in data['cell']:
+                index = 0
+                for b in a:
+                    if index <12:
+                        celdas+= str(b)+'-'
+                        index+=1
+                    else:
+                        celdas+= str(b)+'.'
+            try:
+                Move.objects.create(id=data['id'],moveName=data['title'],colors=celdas)
+            except Exception as e:
+                print("Error al cargar data",e)
+
+    @staticmethod
+    def create_double():
+        for data in DOUBLES:
+            for doubles in data['comps']:
+                celdas = ''
+                cells = doubles['cell']
+                if cells =='DEFAULT':
+                    celdas = cells
+                else:
+                    for cell in cells:
+                        index = 0
+                        for b in cell:
+                            if index <12:
+                                celdas+= str(b)+'-'
+                                index+=1
+                            else:
+                                celdas+= str(b)+'.'
+                try:
+                    #moveId nameComparation colors
+                    DoubleComparation.objects.create(id=doubles['id'],moveId_id=data['base'],nameComparation=doubles['title'],colors=celdas)
+                except Exception as e:
+                    print("Error al cargar data",e)
+
+    @staticmethod
+    def create_triple():
+        for data in TRIPLES:
+            for doubles in data['comps']:
+                celdas = ''
+                cells = doubles['cell']
+                if cells =='DEFAULT':
+                    celdas = cells
+                else:
+                    for cell in cells:
+                        index = 0
+                        for b in cell:
+                            if index <12:
+                                celdas+= str(b)+'-'
+                                index+=1
+                            else:
+                                celdas+= str(b)+'.'
+                    try:
+                        #doubleId nameComparation colors
+                        TripleComparation.objects.create(id=doubles['id'],doubleId_id=data['base'],nameComparation=doubles['title'],colors=celdas)
+                    except Exception as e:
+                        print("Error al cargar data",e)
 
     @staticmethod
     def save_colors(data):

@@ -1,20 +1,25 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from profilemoves.models import ProfilesFactory as PF
 from principal.models import Move, MovesFactory as MF
 from .models import UsersFactory as UF
 
+
+@login_required(login_url=('/'))
 def AdminClientList(request):
     client_list = UF.get_all_clients()
+    print("required")
     return render(request,'admin/adminClientList.html',{'clients':client_list})
 
+@login_required(login_url=('/'))
 def AdminReviewProfileClient(request,client):
     client = UF.get_client(client)
     profiles_list = PF.get_all_profiles()
     my_profiles = PF.get_my_profiles(client)
     return render(request,'admin/adminModClient.html',{'client':client,'profiles':profiles_list,'my_profiles':my_profiles})
 
+@login_required(login_url=('/'))
 def NewClient(request):
-
     if request.method == 'POST':
         data = request.POST.dict()
         new_client = UF.new_client(data)
@@ -24,16 +29,17 @@ def NewClient(request):
         pass
     return render(request,'admin/new_client.html')
 
-
+@login_required(login_url=('/'))
 def DesactivateClient(request,client):
     UF.desactivate_client(client)
     return redirect('all_clients')
 
+@login_required(login_url=('/'))
 def DeleteClient(request,client):
     UF.delete_client(client)
     return redirect('all_clients')
 
-
+@login_required(login_url=('/'))
 def ClientView(request,client):
     user = request.user
     if user.is_authenticated:
@@ -44,6 +50,7 @@ def ClientView(request,client):
     else:
         return redirect('principalView')
 
+@login_required(login_url=('/'))
 def ClientCV(request,client):
     selected = UF.get_client(client)
     profiles = PF.get_my_profiles(client)
@@ -62,7 +69,7 @@ def ClientCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['Tmove'],'triple')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table2(assigned.versionId.colors)
+                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
                 else:
                     pass
                 return render(request,'clients/clientePrincipal.html',total_Data)
@@ -75,7 +82,7 @@ def ClientCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['move'],'double')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table2(assigned.versionId.colors)
+                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
                 else:
                     pass
                 return render(request,'clients/clientePrincipal.html',total_Data)
@@ -88,9 +95,9 @@ def ClientCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['base'],'single')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table2(assigned.versionId.colors)
+                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
                 else:
-                    #total_Data['load_table'] = MF.load_table2()
+                    #total_Data['load_table'] = MF.load_table()
                     pass
                 return render(request,'clients/clientePrincipal.html',total_Data)
 
@@ -98,6 +105,7 @@ def ClientCV(request,client):
             {'client':selected,'profiles':profiles,'profileView':perfilView,'moves':moves})
     return render(request,'clients/clientePrincipal.html',{'client':selected,'profiles':profiles})
 
+@login_required(login_url=('/'))
 def AdminCV(request,client):
     selected = UF.get_client(client)
     profiles = PF.get_my_profiles(client)
@@ -115,7 +123,7 @@ def AdminCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['Tmove'],'triple')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table2(assigned.versionId.colors)
+                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
                 else:
                     pass
                 return render(request,'admin/clientePrincipal.html',total_Data)
@@ -128,7 +136,7 @@ def AdminCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['move'],'double')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table2(assigned.versionId.colors)
+                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
                 else:
                     pass
                 return render(request,'admin/clientePrincipal.html',total_Data)
@@ -141,9 +149,9 @@ def AdminCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['base'],'single')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table2(assigned.versionId.colors)
+                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
                 else:
-                    #total_Data['load_table'] = MF.load_table2()
+                    #total_Data['load_table'] = MF.load_table()
                     pass
                 return render(request,'admin/clientePrincipal.html',total_Data)
 

@@ -1,4 +1,4 @@
-from cmath import sin
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from poker.utils import TABLA
@@ -20,13 +20,16 @@ def load_version(request):
         load_table = PF.get_version_table(data)
         return render(request,'table.html',{'load_table':load_table,'view':'version'})
     elif request.method == 'GET':
-        print("ierda2")
+        #print("ierda2")
         return render(request,'table.html',{'tabla':TABLA,'view':'version'})
 
+@login_required(login_url=('/'))
 def adminProfilesView(request):
     profiles_list = PF.get_all_profiles()
+    #print("required")
     return render(request,'admin/adminProfilesList.html',{'profiles':profiles_list})
 
+@login_required(login_url=('/'))
 def adminProfileMoves(request,profile):
     if request.method == 'GET':
         data = request.GET.dict()
@@ -66,10 +69,10 @@ def adminProfile(request,profile):
             assigned = PF.get_assigned(profile,data['base'],'single')
     if base_data:
         as_table = MF.format_table(assigned)
-        print(as_table)
         base_data['as_table'] = as_table
         base_data['assigned'] = assigned
         base_data['profile'] = selected
+        #print(base_data['load_table'])
         return render(request,'admin/adminProfiles.html',base_data)
     
     selected = PF.get_profile(profile)
@@ -86,7 +89,7 @@ def assignVersion(request):
 
 def newProfile(request):
     data = request.POST.dict()
-    print(data)
+    #print(data)
     Profile.objects.create(profileName=data['name'],description=data['description'])
     return HttpResponse("hola")
 

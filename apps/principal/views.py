@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Move,DoubleComparation, TripleComparation,ComparativeADD,ComparativeHeader, MovesFactory as MF
 from poker.utils import TABLA,BASE,DOUBLE,TRIPLE
 from pokerusers.models import UsersFactory as UF
+from pokerusers.BASEMOVES import SINGLE as sg,DOUBLES as db,TRIPLES as tp
 
 #_____GENERAL VIEWS____________
 def loginView(request):
@@ -35,7 +36,6 @@ def principalView(request):
         if user.is_client:
             return clientPV(request)
         elif user.is_admin or user.is_staff:
-            print("QUE WEA 1")
             return adminPV(request)
     else:
         return render(request,'general/generalIndex.html')
@@ -117,7 +117,7 @@ def buttonView(request,idMove):
         move = Move.objects.get(id=idMove)
         move.imagenMove = request.FILES['imagenp']
         move.save()
-        print("METODO POST",move,request.FILES)
+        #print("METODO POST",move,request.FILES)
         #fileimg.objects.create(doc=request.FILES['imagenp'])
         return redirect('login')
 
@@ -127,32 +127,15 @@ def buttonView(request,idMove):
     return render(request,'index3.html',{'move':move})
 
 def crearbase(request):
-    for bas in BASE:
-        try:
-            Move.objects.create(id=bas['id'],moveName=bas['name'],colors=bas['colors'])
-        except:
-            print("Error al crear MOVE")
+    MF.create_base()
     return redirect('admin_principal')
 
 def creardoble(request):
-    for bas in DOUBLE:
-        for comp in bas['comps']:
-            try:
-                if comp.get('colors'):
-                    DoubleComparation.objects.create(id=comp['id'],moveId_id=bas['base'],nameComparation=comp['name'],colors=comp['colors'])
-                else:
-                    DoubleComparation.objects.create(id=comp['id'],moveId_id=bas['base'],nameComparation=comp['name'])
-            except Exception as e:
-                print("Error al crear doble",e)
+    MF.create_double()
     return redirect('admin_principal')
 
 def creartriple(request):
-    for bas in TRIPLE:
-        for comp in bas['comps']:
-            try:
-                TripleComparation.objects.create(id=comp['id'],doubleId_id=bas['base'],nameComparation=comp['name'])
-            except Exception as e:
-                print("Error al crear doble",e)
+    MF.create_triple()
     return redirect('admin_principal')
 
 
@@ -176,6 +159,9 @@ def deletedata(request):
         return HttpResponse("hola")
 
 #Pruebas
+def probando(request):
+    return redirect('admin_principal')
+
 def vistaPrueba(request):
     moves = Move.objects.all()
     headers = ComparativeHeader.objects.all()

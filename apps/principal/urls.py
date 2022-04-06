@@ -20,6 +20,7 @@ urlpatterns = [
     path('savedata',savedata,name='save_data'),
     path('deletedata',deletedata,name='delete_data'),
     path('prueba',vistaPrueba,name='vistaprueba'),
+    path('probando',probando,name='probandolawea'),
 
 ]
 
