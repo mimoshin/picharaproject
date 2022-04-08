@@ -19,6 +19,15 @@ def AdminReviewProfileClient(request,client):
     return render(request,'admin/adminModClient.html',{'client':client,'profiles':profiles_list,'my_profiles':my_profiles})
 
 @login_required(login_url=('/'))
+def modifyClient(request,client):
+    if request.method == 'POST':
+        data = request.POST.dict()
+        UF.modify_client(client,data)
+        return redirect('all_clients')
+    client = UF.get_client(client)
+    return render(request,'admin/modifyClient.html',{'client':client})
+
+@login_required(login_url=('/'))
 def NewClient(request):
     if request.method == 'POST':
         data = request.POST.dict()

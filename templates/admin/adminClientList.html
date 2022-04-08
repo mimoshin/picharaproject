@@ -34,7 +34,7 @@
                         <tr>
                             <td class="text-center">Estado</td>
                             <td class="text-center">Cliente</td>
-                            <td class="text-center" colspan="3">Opciones</td>
+                            <td class="text-center" colspan="4">Opciones</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,19 +42,43 @@
                         <tr>
                             <td>{{client.status}}</td>
                             <td>{{client.name}}</td>
-                            <td class="text-center"><a type="button" href="{% url 'client_view' client.id %}" class="btn btn-sm btn-primary">Ver</a></td>
+                            <td class="text-center"><a type="button" href="{% url 'client_modify' client.id %}" class="btn btn-sm btn-primary">Ver</a></td>
                             <td class="text-center"><a type="button" href="{% url 'client_profile' client.id %}" class="btn btn-sm btn-success">Perfiles</a></td>
                             {% if client.is_active %}
                                 <td class="text-center"><a type="button" href="{% url 'desactivate_client' client.id %}" class="btn btn-sm btn-warning">Desactivar</a></td>
                             {% else %}
                                 <td class="text-center"><a type="button" href="{% url 'desactivate_client' client.id %}" class="btn btn-sm btn-warning">Activar</a></td>
                             {% endif %}    
+                            <td><button type="button" class="btn btn-sm btn-danger deleteButton" id="{{client.id}}">
+                                Eliminar
+                              </button></td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
             {% endif %}
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Seguro que desea eliminar el cliente.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{% static 'iconos.png' %}" alt="">
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <a type="button" class="btn btn-primary" href="" id="seguro">Sí, Seguro.</a>
+            </div>
+        </div>
         </div>
     </div>
 
@@ -90,6 +114,11 @@
     </div>
 
     <script>
+        $('.deleteButton').click(function(){
+            $('#seguro')[0].href = "{% url 'delete_client' 0 %}".replace('0',this.id)
+            $('#deleteModal').modal('show');
+            console.log($('#deleteModal'));
+        });
         $('#saveForm').click(function(){
             texto = '';
             perfil =$('#perfilID')[0].value;

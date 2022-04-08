@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'principal.apps.PrincipalConfig',
-    'generators.apps.GeneratorsConfig',
     'profilemoves.apps.ProfilemovesConfig',
     'pokerusers.apps.PokerusersConfig',
 ]

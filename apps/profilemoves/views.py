@@ -17,8 +17,12 @@ def newVersion(request):
 def load_version(request):
     if request.method == 'POST':
         data = request.POST.dict()
-        load_table = PF.get_version_table(data)
+        if data['select'] == '0':
+            load_table = MF.get_table(data)
+        else:
+            load_table = PF.get_version_table(data)
         return render(request,'table.html',{'load_table':load_table,'view':'version'})
+
     elif request.method == 'GET':
         #print("ierda2")
         return render(request,'table.html',{'tabla':TABLA,'view':'version'})
@@ -84,7 +88,11 @@ def adminProfile(request,profile):
 def assignVersion(request):
     if request.method == 'POST':
         data = request.POST.dict()
-        PF.assign_version(data)
+        if data['version'] != '0':
+            if data['type'] == 'des':
+                PF.desassign_version(data)
+            elif data['type'] == 'as':
+                PF.assign_version(data)
     return HttpResponse('hola')
 
 def newProfile(request):

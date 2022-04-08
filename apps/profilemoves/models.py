@@ -1,8 +1,9 @@
+from ast import Return
 import profile
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
-from poker.utils import COLORS
-from principal.models import Move,DoubleComparation,TripleComparation
+from poker.utils import  TABLA
+from principal.models import Move,DoubleComparation,TripleComparation, MovesFactory
 from pokerusers.models import ClientPoker
 
 class Profile(models.Model):
@@ -88,6 +89,7 @@ class ProfilesFactory():
         elif data.get('base'):
             SingleVersion.objects.create(colors=data['texto'][:-1],description=data['description'],versionname=data['name'],moveId_id=data['base'])
         
+
     @staticmethod
     def get_version_table(data):
         if data.get('tbase'):
@@ -99,19 +101,24 @@ class ProfilesFactory():
 
         if selected.colors == 'DEFAULT':
             return ''
+
         else:
             filas = selected.colors.split('.')
             total = []
-            for x in filas:
-                if x:
-                    columna = x.split('-')
+            for x in range(13):
+                select = filas[x]
+                if select:
+                    columna = select.split('-')
                     columnas = []
-                    for a in columna:
-                        name = a.split('|')[0]
-                        color = int(a.split('|')[1])
-                        columnas.append([name,color,COLORS[color]])
+                    for a in range(13):
+                        selected = columna[a]
+                        if selected:
+                            name = TABLA[x][a]
+                            color = int(selected)
+                            columnas.append([name,color])
                     total.append(columnas)
             return total
+            
     @staticmethod
     def get_profile(pid):
         profile = Profile.objects.get(id=pid)
@@ -170,7 +177,27 @@ class ProfilesFactory():
                 assigned.save()
             except ObjectDoesNotExist:
                 SingleAssignation.objects.create(perfilId_id=data['profile'],versionId_id=data['version']) 
-    
+
+    @staticmethod
+    def desassign_version(data):
+        #perfilId | versionId 
+        if data.get('tbase'):
+            try:
+                assigned = TripleAssignation.objects.get(perfilId_id=data['profile'],versionId__moveId_id=data['base'])
+            except ObjectDoesNotExist:
+                return False 
+        elif data.get('dbase'):
+            try:
+                assigned = DoubleAssignation.objects.get(perfilId_id=data['profile'],versionId__moveId_id=data['base'])
+            except ObjectDoesNotExist:
+                return False 
+        elif data.get('base'):
+            try:
+                assigned = SingleAssignation.objects.get(perfilId_id=data['profile'],versionId__moveId_id=data['base'])
+            except ObjectDoesNotExist:
+                return False 
+        assigned.delete()
+
     @staticmethod
     def assign_profile(profile,client):
         ClientProfile.objects.create(profileId_id=profile,clientId_id=client)

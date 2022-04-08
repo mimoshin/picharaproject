@@ -60,7 +60,10 @@
         palette: [["#ffffff", "#000000", "#ff0000", "#ff8000", "#ffff00", "#008000", "#0000ff", "#4b0082", "#9400d3"]],
         selectionPalette: [],
         disabled: false,
-        offset: null
+        offset: null,
+        colorsDict : {'292929':'color0','00b050':'color1','92d050':'color2' ,
+        'ff0000':'color3' ,'ffff00':'color4' ,'0070c0':'color5','0070c1':'color105','00b0f0':'color6' ,
+        'f2f2f2':'color12' ,'ff5543':'color13','fc9f6c':'color14' ,'bfbfbf':'color15','ff9d42':'color16'}
     },
     spectrums = [],
     
@@ -93,7 +96,7 @@
         }
 
         return [
-            "<div class='sp-container sp-hidden que wea'>",
+            "<div class='sp-container sp-hidden que wea' id='macaco'>",
                 "<div class='sp-palette-container'>",
                     "<div class='sp-palette sp-thumb sp-cf'></div>",
                     "<div class='sp-palette-button-container sp-cf'>",
@@ -180,6 +183,7 @@
 
     function spectrum(element, o) {
         //INICIALIZA LA FUNCION
+        //console.log("ID:",element.id);
         o['id'] = element.id
         var opts = instanceOptions(o, element),
             flat = opts.flat,
@@ -523,6 +527,7 @@
 
                 //console.log('CARGANDO COLOR',rgb)
                 //$('.ButtonCell')[0].style.backgroundColor = rgb;
+
                 if (!paletteLookup[rgb] && $.inArray(rgb, selectionPalette) === -1) {
                     selectionPalette.push(rgb);
                     while(selectionPalette.length > maxSelectionSize) {
@@ -629,7 +634,7 @@
 
         function show() {
             var event = $.Event('beforeShow.spectrum');
-
+            console.log("CAPTURAR EVENTO",event);
             if (visible) {
                 reflow();
                 return;
@@ -886,8 +891,13 @@
                 hasChanged = !tinycolor.equals(color, colorOnShow);
             
             //-----------------------------------------
-            var rgb = tinycolor(color).toRgbString()
-            $('#'+opts.id).css('background-color',rgb);
+            //var rgb = tinycolor(color).toRgbString()
+            var hexa = tinycolor(color).toHex()
+            //console.log(rgb,hexa);
+            //console.log("que mierda",opts.colorsDict[hexa]);
+            //console.log($('#'+opts.id)[0].className);
+            $('#'+opts.id)[0].className = 'selectCell border '+opts.colorsDict[hexa];
+            //$('#'+opts.id).css('background-color',rgb);
             //-----------------------------------------
            
             if (color) {

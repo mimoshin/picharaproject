@@ -21,5 +21,4 @@ urlpatterns = [
     path('',include('principal.urls')),
     path('profiles/',include('profilemoves.urls')),
     path('adminusers/',include('pokerusers.urls')),
-    path('generators/',include('generators.urls')),
 ]

@@ -53,10 +53,88 @@
 	  
 	<div class="col-6">
 		<h4 style="color: aliceblue;" >{{name}}</h4>
-		{% include  'versions.html' %}
-		{% include  'table.html' with view='index' %}
+		{% if base or dbase or tbase %}
+			<div class="row">
+				{% if versions %}
+				<div class="col-4 from-group">
+					<select class="form-group" name="versionsselect" id="versionsID">
+						<option value="0">Version principal</option>
+						{% for version in versions %}
+							<option value="{{version.id}}">{{version.versionname}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				{% else %}
+					<div class="col-4">
+						<p style="color: aliceblue;">Version principal</p>
+					</div>
+				{% endif %}
+				<div class="col-4 ">
+					<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#staticBackdrop">Nueva Version</button>
+				</div>
+			</div>
+			{% include  'table.html' with view='index' %}
+		{% endif %}
 	</div>
 </div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl" >
+		<div class="modal-content" style="background-image: url('{% static "picharapoker_bg.jpg"%}');">
+			<div class="modal-header">
+			<h5 class="modal-title text-light" id="staticBackdropLabel">Nueva Version: {{name}}</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-6">
+							<label for="versionID" class="form-group text-light">Nombre Version</label>
+							<input type="text" class="form-control" name="version" id="versionID">
+							<label for="descID" class="form-group text-light">Descripción de la Version</label>
+							<textarea class="form-control" name="description" id="descID" cols="30" rows="10"></textarea>
+					</div>
+					<div class="col-6">
+						<div class="table table-responsive">
+							<table class="table table-sm" style="margin-bottom: 0%;">
+							<tbody>
+								{% if load_table %}
+									{% for fila in load_table %}
+									<tr>
+									{% for columna in fila %}
+										<td class="selectCell border color{{columna.1}}" id="{{columna.0}}-{{columna.1}}">
+										{{columna.0}}
+										</td>
+									{% endfor %}
+									</tr>
+									{% endfor %}
+								{% else %}
+									{% for fila in tabla %}
+									<tr>
+									{% for columna in fila %}
+										<td class="selectCell border {{columna.1}}" id="{{columna.0}}-{{columna.1}}">
+										{{columna}}
+										</td>
+									{% endfor %}
+									</tr>
+									{% endfor %}
+								{% endif %}
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+			<button type="button" class="btn btn-primary" id="saveForm">Guardar</button>
+			</div>
+		</div>
+		</div>
+	</div>
 
 <script>
 
@@ -65,83 +143,56 @@
 		showPalette: true,
 		showPaletteOnly: true,
     	palette: [
-			['#00B050','#92D050','#FF0000','#FFFF00','#0070C0'],
+			['#00B050','#92D050','#FF0000','#FFFF00','#0070C0','#0070c1'],
 			['#00B0F0','#F2F2F2','#FF5543','#FC9F6C','#BFBFBF'],
 			['#ff9d42','#292929']
     	]
 	});
 
-	colors = ['#00b050','#92d050','#ff0000','#ffff00','#0070c0','#00b0f0','#f2f2f2','#ff5543','#fC9f6c','#bfbfbf','#ff9d42','#292929']
-	$('.ButtonVersion').click(function(){
-		//spl = this.id.split('|');
-		//$(this).css('background-color',colors[spl[1]]);
-		//this.id = spl[0]+'|'+newNumber;		
-		//newNumber = parseInt(spl[1])+1
-		spl = this.id.split('|');
-        if (parseInt(spl[1]) <12){
-            $(this).css('background-color',colors[spl[1]]);
-            newNumber = parseInt(spl[1])+1;
-			this.id = spl[0]+'|'+newNumber;		
-        }
+
+	base = '{{base}}';
+    move = '{{dbase}}';
+    tmove = '{{tbase}}'; 
+
+    $('#versionsID').change(function(){
+		version = $('#versionsID').val()
+		$('#TABLEC').load("{% url 'load_version'%}",
+		{'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'select':version});
+    });
+
+    $('#saveForm').click(function(){
+        celdas = $('.selectCell');
+        texto = '';
+        nameV = $('#versionID')[0].value;
+        descV =  $('#descID')[0].value;
+        counter = 0
+        if(nameV && descV){
+            $.each(celdas,function(index,value){
+				//tiny = tinycolor(value.style.backgroundColor);
+				//color  = tiny.toHexString()
+				//posi = colors.indexOf(color)
+				valuecolor = value.className.replace('selectCell border color','');
+		        if(counter == 12 ){
+					texto = texto+valuecolor+'.';
+                    counter = 0;
+                }
+                else{
+					texto = texto+valuecolor+'-';	
+                    counter+=1;
+                }
+            });	
+            $.post("{% url 'new_version' %}",
+                {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,
+                'texto':texto,'name':nameV,'description':descV},
+                function(response){
+                    location.reload();
+                }
+            );
+        } 
         else{
-            this.id = spl[0]+'|'+0;	
-            $(this).css('background-color',colors[0]);	
-        }	
-	});
-
-		base = '{{base}}';
-        move = '{{dbase}}';
-        tmove = '{{tbase}}'; 
-
-        $('#versionsID').change(function(){
-			version = $('#versionsID').val()
-			if(version > 0){
-				console.log("VERSION post");
-				$('#TABLEC').load("{% url 'load_version'%}",
-				{'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'select':version});
-			}
-			else{
-				console.log("VERSION GET");
-				$('#TABLEC').load("{% url 'load_version'%}");
-			}
-        });
-
-        $('#saveForm').click(function(){
-            quewea = $('.selectCell');
-            texto = '';
-            nameV =$('#versionID')[0].value;
-            descV =  $('#descID')[0].value;
-            counter = 0
-            if(nameV && descV){
-                $.each(quewea,function(index,value){
-					tiny = tinycolor(value.style.backgroundColor);
-					color  = tiny.toHexString()
-					posi = colors.indexOf(color)
-		            if(counter == 12 ){
-						if(posi>=0){
-							texto = texto+value.id+'|'+posi+'.';
-						}
-                        counter = 0;
-                    }
-                    else{
-						if(posi>=0){
-							texto = texto+value.id+'|'+posi+'-';
-						}
-                        counter+=1;
-                    }
-                });	
-                $.post("{% url 'new_version' %}",
-                    {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,
-                    'texto':texto,'name':nameV,'description':descV},
-                    function(response){
-                        location.reload();
-                    }
-                );
-            } 
-            else{
-                alert("Datos no validos");
-            }
-        });
+            alert("Datos no validos");
+		}
+    });
 </script>
 
 {% endblock %}

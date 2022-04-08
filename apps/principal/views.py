@@ -2,10 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Move,DoubleComparation, TripleComparation,ComparativeADD,ComparativeHeader, MovesFactory as MF
-from poker.utils import TABLA,BASE,DOUBLE,TRIPLE
 from pokerusers.models import UsersFactory as UF
-from pokerusers.BASEMOVES import SINGLE as sg,DOUBLES as db,TRIPLES as tp
+from poker.utils import TABLA
+from .models import MovesFactory as MF
 
 #_____GENERAL VIEWS____________
 def loginView(request):
@@ -14,9 +13,15 @@ def loginView(request):
         if data.get('username') and data.get('password'):
             username,password = data['username'],data['password']
             user_auth = authenticate(username=username,password=password)
+            print(user_auth)
             if user_auth:
                 login(request,user_auth)
+                print("cliente Activo")
                 return redirect('principalView')
+            elif not UF.client_active(username):
+                print("QUE WEA")
+                return render(request,'login.html',{'mensaje':'Usuario Inactivo'})
+                
         return render(request,'login.html')
     elif request.method == 'GET':
         if request.user.is_authenticated:
@@ -57,7 +62,7 @@ def adminPV(request):
         elif data.get('base'):
             total_Data = MF.get_base_data_admin('single',data) 
             return render(request,'admin/adminIndex.html',total_Data)
-    moves = Move.objects.all()
+    moves = MF.get_all_smoves()
     return render(request,'admin/adminIndex.html',{'moves':moves,'tabla':TABLA,'view':'index'})
 
 @login_required(login_url=('/'))
@@ -74,7 +79,7 @@ def administrationView(request):
             total_Data = MF.get_base_data_admin('single',data) 
             return render(request,'admin/adminPrincipal.html',total_Data)
 
-    moves = Move.objects.all()
+    moves = MF.get_all_smoves()
     return render(request,'admin/adminPrincipal.html',{'moves':moves,'tabla':TABLA})
 #______END ADMIN VIEWS_________
 
@@ -104,17 +109,15 @@ def tripleView(request):
     
 
 def principalSaveView(request):
-    moves = Move.objects.all()
-    headers = ComparativeHeader.objects.all()
-    adds = ComparativeADD.objects.all()
-    return render(request,'principal.html',{'moves':moves,'groups':headers,'adds':adds,'tabla':TABLA})
+    moves = MF.get_all_smoves()
+    return render(request,'principal.html',{'moves':moves,'tabla':TABLA})
 #____________End General Views_____________________________
 
 
 
 def buttonView(request,idMove):
     if request.method == 'POST':
-        move = Move.objects.get(id=idMove)
+        move = MF.get_smove(idMove)
         move.imagenMove = request.FILES['imagenp']
         move.save()
         #print("METODO POST",move,request.FILES)
@@ -123,7 +126,7 @@ def buttonView(request,idMove):
 
     if request.method == 'GET':
         data = request.GET.dict()
-        move = Move.objects.get(id=data['id'])
+        move = MF.get_smove(data['id'])
     return render(request,'index3.html',{'move':move})
 
 def crearbase(request):
@@ -140,7 +143,7 @@ def creartriple(request):
 
 
 def eliminardata(request):
-    todos = Move.objects.all()
+    todos = MF.get_all_smoves()
     for x in todos:
         x.delete()
     return redirect('admin_principal')
@@ -163,7 +166,5 @@ def probando(request):
     return redirect('admin_principal')
 
 def vistaPrueba(request):
-    moves = Move.objects.all()
-    headers = ComparativeHeader.objects.all()
-    adds = ComparativeADD.objects.all()
-    return render(request,'index4.html',{'moves':moves,'groups':headers,'adds':adds,'tabla':TABLA})
+    moves = MF.get_all_smoves()
+    return render(request,'index4.html',{'moves':moves,'tabla':TABLA})

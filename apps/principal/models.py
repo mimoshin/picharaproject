@@ -1,13 +1,14 @@
-from shutil import move
 from django.db import models
 from poker.utils import COLORS,TABLA
-from .BASEMOVES import SINGLE,DOUBLES,TRIPLES
+from .basemoves import SINGLE,DOUBLES,TRIPLES, get_table, get_tags
 # Create your models here.
 
 class Move(models.Model):
     moveName = models.CharField(max_length=200,blank=False,null=False,default='DF_Move')
-    #imagenMove = models.ImageField(upload_to='images')
     colors = models.CharField(max_length=1010,null=False,blank=False,default='DEFAULT')
+    tags = models.CharField(max_length=200,null=False,blank=False,default='DEFAULT')
+    observation = models.CharField(max_length=500,null=False,blank=False,default='DEFAULT')
+
     def __str__(self):
         return self.moveName
 
@@ -23,6 +24,8 @@ class DoubleComparation(models.Model):
     moveId = models.ForeignKey(Move,related_name="%(class)s",null=False,blank=False,on_delete=models.CASCADE)
     nameComparation = models.CharField(max_length=200,null=False,blank=False,default='Comparation')
     colors = models.CharField(max_length=1010,null=False,blank=False,default='DEFAULT')
+    tags = models.CharField(max_length=200,null=False,blank=False,default='DEFAULT')
+    observation = models.CharField(max_length=500,null=False,blank=False,default='DEFAULT')
 
     def __str__(self):
         return "%s %s "%(self.moveId,self.nameComparation)
@@ -39,7 +42,9 @@ class TripleComparation(models.Model):
     doubleId = models.ForeignKey(DoubleComparation,related_name="%(class)s",null=False,blank=False,on_delete=models.CASCADE)
     nameComparation = models.CharField(max_length=200,null=False,blank=False,default='Comparation')
     colors = models.CharField(max_length=1010,null=False,blank=False,default='DEFAULT')
-
+    tags = models.CharField(max_length=200,null=False,blank=False,default='DEFAULT')
+    observation = models.CharField(max_length=500,null=False,blank=False,default='DEFAULT')
+    
     def __str__(self):
         return "%s %s "%(self.doubleId,self.nameComparation)
     
@@ -76,14 +81,50 @@ class MovesFactory():
         return moves_list
 
     @staticmethod
+    def get_smove(moveId):
+        try:
+            move = Move.objects.get(id=moveId)
+            return move
+        except Exception as e:
+            return False
+
+    @staticmethod
     def get_all_dmoves():
         moves_list = DoubleComparation.objects.all()
         return moves_list
+
+    @staticmethod
+    def get_dmove(moveId):
+        try:
+            move = DoubleComparation.objects.get(id=moveId)
+            return move
+        except Exception as e:
+            return False
     
     @staticmethod
     def get_triples(id):
         moves_list = TripleComparation.objects.filter(doubleId_id=id)
         return moves_list
+    
+    @staticmethod
+    def get_tmove(moveId):
+        try:
+            move = TripleComparation.objects.get(id=moveId)
+            return move
+        except Exception as e:
+            return False
+    
+    @staticmethod
+    def get_table(data):
+        if data.get('tbase'):
+            selected = TripleComparation.objects.get(id=data['tbase'])
+        elif data.get('dbase'):
+            selected = DoubleComparation.objects.get(id=data['dbase'])
+        elif data.get('base'):
+            selected = Move.objects.get(id=data['base'])
+        table = MovesFactory.load_table(selected.colors)
+        return table
+
 
     @staticmethod
     def get_base_data(mtype,data):
@@ -129,6 +170,7 @@ class MovesFactory():
                 vars['name'] = doub.__str__()
                 vars['dbase'] = doub.id
                 vars['triples'] = triples
+                vars['tags'] = MovesFactory.load_tags(doub.tags)
                 color = doub.colors
             elif mtype == 'triple':
                 triples = TripleComparation.objects.filter(doubleId_id=data['move'])
@@ -138,10 +180,12 @@ class MovesFactory():
                 vars['dbase'] = int(data['move'])
                 vars['tbase'] = triple.id
                 vars['triples'] = triples
+                vars['tags'] = MovesFactory.load_tags(triple.tags)
                 color = triple.colors
             else:
                 color = move.colors
                 version = move.get_my_version()
+                vars['tags'] = MovesFactory.load_tags(move.tags)
 
             vars['load_table'] = MovesFactory.load_table(color)
             vars['versions'] = version
@@ -172,6 +216,18 @@ class MovesFactory():
                                 columnas.append([name,color])
                         total.append(columnas)
                 return total
+    
+    @staticmethod
+    def load_tags(data):
+        totaltags =[]
+        if data:
+            if data == 'DEFAULT':
+                totaltags.append([0,'Default'])
+            else:
+                tags = data.split('¿')[:-1]
+                for tag in tags:
+                    totaltags.append(tag.split(';'))
+        return totaltags
                         
     @staticmethod
     def format_table(asign):
@@ -180,17 +236,7 @@ class MovesFactory():
             if color == 'DEFAULT':
                 return ''
             else:
-                filas = color.split('.')
-                total = []
-                for x in filas:
-                    if x:
-                        columna = x.split('-')
-                        columnas = []
-                        for a in columna:
-                            name = a.split('|')[0]
-                            color = int(a.split('|')[1])
-                            columnas.append([name,color,COLORS[color]])
-                        total.append(columnas)
+                total = MovesFactory.load_table(color)
                 return total
         else:
             return ''
@@ -203,17 +249,10 @@ class MovesFactory():
     @staticmethod
     def create_base():
         for data in SINGLE:
-            celdas = ''
-            for a in data['cell']:
-                index = 0
-                for b in a:
-                    if index <12:
-                        celdas+= str(b)+'-'
-                        index+=1
-                    else:
-                        celdas+= str(b)+'.'
+            celdas = get_table(data['cell'])
+            tags = get_tags(data['tag'])
             try:
-                Move.objects.create(id=data['id'],moveName=data['title'],colors=celdas)
+                Move.objects.create(id=data['id'],moveName=data['title'],colors=celdas,tags=tags)
             except Exception as e:
                 print("Error al cargar data",e)
 
@@ -221,47 +260,25 @@ class MovesFactory():
     def create_double():
         for data in DOUBLES:
             for doubles in data['comps']:
-                celdas = ''
-                cells = doubles['cell']
-                if cells =='DEFAULT':
-                    celdas = cells
-                else:
-                    for cell in cells:
-                        index = 0
-                        for b in cell:
-                            if index <12:
-                                celdas+= str(b)+'-'
-                                index+=1
-                            else:
-                                celdas+= str(b)+'.'
+                celdas = get_table(doubles['cell'])
+                tags = get_tags(doubles['tag'])
                 try:
                     #moveId nameComparation colors
-                    DoubleComparation.objects.create(id=doubles['id'],moveId_id=data['base'],nameComparation=doubles['title'],colors=celdas)
+                    DoubleComparation.objects.create(id=doubles['id'],moveId_id=data['base'],nameComparation=doubles['title'],colors=celdas,tags=tags)
                 except Exception as e:
                     print("Error al cargar data",e)
 
     @staticmethod
     def create_triple():
         for data in TRIPLES:
-            for doubles in data['comps']:
-                celdas = ''
-                cells = doubles['cell']
-                if cells =='DEFAULT':
-                    celdas = cells
-                else:
-                    for cell in cells:
-                        index = 0
-                        for b in cell:
-                            if index <12:
-                                celdas+= str(b)+'-'
-                                index+=1
-                            else:
-                                celdas+= str(b)+'.'
-                    try:
-                        #doubleId nameComparation colors
-                        TripleComparation.objects.create(id=doubles['id'],doubleId_id=data['base'],nameComparation=doubles['title'],colors=celdas)
-                    except Exception as e:
-                        print("Error al cargar data",e)
+            for triples in data['comps']:
+                celdas = get_table(triples['cell'])
+                tags = get_tags(triples['tag'])
+                try:
+                    #doubleId nameComparation colors
+                    TripleComparation.objects.create(id=triples['id'],doubleId_id=data['base'],nameComparation=triples['title'],colors=celdas,tags=tags)
+                except Exception as e:
+                    print("Error al cargar data",e)
 
     @staticmethod
     def save_colors(data):
@@ -276,18 +293,3 @@ class MovesFactory():
         to_save = option[data['type']].objects.get(id=data['id'])
         to_save.colors = 'DEFAULT'
         to_save.save()
-
-
-
-#REMOVER
-class ComparativeHeader(models.Model):
-    nameComparative = models.CharField(max_length=200,blank=False,null=False,default='DF_Comparative')
-    def __str__(self):
-        return self.nameComparative
-
-class ComparativeADD(models.Model):
-    HeaderID = models.ForeignKey(ComparativeHeader,default=False,null=False,on_delete=models.CASCADE)
-    moveId = models.ForeignKey(Move,default=False,blank=False,on_delete=models.CASCADE)
-    def __str__(self):
-        return "%s de comparativa %s "%(self.moveId.moveName,self.HeaderID)
-

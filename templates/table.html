@@ -1,4 +1,14 @@
 {% if view == 'index' %}
+  {% if tags %}
+  <div class="column is-one-fifth control mb-2">
+    <div class="tags has-addons">
+      {% for tag in tags %}
+        <span class="tag  ccolor{{tag.0}}"></span>
+        <span class="tag is-grey mr-2">{{tag.1}}</span>
+      {% endfor %}
+    </div>
+  </div>		
+  {% endif %}
   <div class="table table-responsive" id="TABLEC">
     <table class="table table-sm" style="margin-bottom: 0%;">
       <tbody>
@@ -8,18 +18,12 @@
             {% for columna in fila %}
               {% if view == 'version' %}
                 <td  style="background-color: {{columna.2}};color: aliceblue;border: solid 1px white;">
-                  {{columna.0}}
+                  {{columna.0}} VERS
                 </td>
               {% else %}
-                {% if columna.1 == 4 or columna.1 == '#92d050' %}
-                  <td  class="ButtonCell color{{columna.1}}" id="{{columna.0}}|{{columna.1}}" style="color: black;border: solid 1px white;">
+                  <td  class="bordado color{{columna.1}}">
                     {{columna.0}}
                   </td>
-                {% else %}
-                  <td  class="ButtonCell color{{columna.1}}" id="{{columna.0}}|{{columna.1}}" style="color: aliceblue;border: solid 1px white;">
-                    {{columna.0}}
-                  </td>
-                {% endif %}
               {% endif %}
             {% endfor %}
           </tr>
@@ -55,6 +59,14 @@
   </div>
 
 {% elif view == 'profiles' %}
+  <div class="column is-one-fifth control mb-2">
+    <div class="tags has-addons">
+      {% for tag in tags %}
+        <span class="tag  ccolor{{tag.0}}"></span>
+        <span class="tag is-grey mr-2">{{tag.1}}</span>
+      {% endfor %}
+    </div>
+  </div>	
   <div class="table table-responsive" id="TABLEC">
     <table class="table table-sm" style="margin-bottom: 0%;">
       <tbody>
@@ -63,8 +75,8 @@
           <tr>
             {% for columna in fila %}
               {% if view == 'version' or view == 'profiles' %}
-                <td style="background-color: {{columna.2}};color: aliceblue;border: solid 1px white;">
-                  {{columna.0}} 
+                <td class=" bordado color{{columna.1}}">
+                  {{columna.0}}
                 </td>
               {% endif %}
             {% endfor %}
@@ -77,8 +89,8 @@
             <tr>
               {% for columna in fila %}
                 {% if view == 'version' or view == 'profiles' %}
-                  <td class="color{{columna.1}}" style="color: aliceblue;border: solid 1px white;">
-                    {{columna.0}} 
+                  <td class="bordado color{{columna.1}}">
+                    {{columna.0}}
                   </td>
                 {% endif %}
               {% endfor %}
@@ -111,7 +123,7 @@
           <tr>
             {% for columna in fila %}
               {% if view == 'version' or view == 'profiles' or view == 'client' %}
-                <td style="background-color: {{columna.2}};color: aliceblue;border: solid 1px white;">
+                <td class="color{{columna.1}} bordado">
                   {{columna.0}}
                 </td>
               {% endif %}
@@ -134,128 +146,3 @@
   </div>
   
 {% endif %}
-
-
-<!--
-  Respaldo
-  {% if view == 'index' %}
-  <div class="table table-responsive" id="TABLEC">
-    <table class="table table-sm" style="margin-bottom: 0%;">
-      <tbody>
-        {% if load_table %}       
-          {% for fila in load_table %}
-          <tr>
-            {% for columna in fila %}
-              {% if view == 'version' %}
-                <td  style="background-color: {{columna.2}};color: aliceblue;border: solid 1px white;">
-                  {{columna.0}}
-                </td>
-              {% else %}
-                {% if columna.2 == '#ffff00' or columna.2 == '#92d050' %}
-                  <td  class="ButtonCell" id="{{columna.0}}|{{columna.1}}" style="background-color: {{columna.2}};color: black;border: solid 1px white;">
-                    {{columna.0}}
-                  </td>
-                {% else %}
-                  <td  class="ButtonCell color{{columna.1}}" id="{{columna.0}}|{{columna.1}}" style="background-color: {{columna.2}};color: aliceblue;border: solid 1px white;">
-                    {{columna.0}}
-                  </td>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </tr>
-          {% endfor %}
-
-        {% elif tabla %}
-          {% for fila in tabla %}
-          <tr>
-            {% for columna in fila %}
-              {% if admin %}
-                <td  class="ButtonVersion" id="{{columna}}|0" style="background-color: #292929;color: aliceblue;border: solid 1px white;">
-                  {{columna}}
-                </td>
-              {% elif view == 'profiles' or view == 'client'%}
-                <td  class="ButtonCell" id="{{columna}}|0" style="background-color: #292929; color: aliceblue;border: solid 1px white;">
-                  {{columna}} 
-                </td>
-              {% elif view == 'version' %}
-                <td style="background-color: {{columna.2}};color: aliceblue;border: solid 1px white;">
-                  {{columna.0}}
-                </td>
-              {% else %}
-                <td style="background-color: #292929; color: aliceblue;border: solid 1px white;">
-                  {{columna}}
-                </td>
-              {% endif %}
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
-
-{% elif view == 'profiles' %}
-  <div class="table table-responsive" id="TABLEC">
-    <table class="table table-sm" style="margin-bottom: 0%;">
-      <tbody>
-        {% if assigned %}
-          {% for fila in as_table %}
-          <tr>
-            {% for columna in fila %}
-              {% if view == 'version' or view == 'profiles' %}
-                <td style="background-color: {{columna.2}};color: aliceblue;border: solid 1px white;">
-                  {{columna.0}}
-                </td>
-              {% endif %}
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        {% else %}
-        {% for fila in tabla %}
-        <tr>
-          {% for columna in fila %}
-            <td style="background-color: #292929;color: aliceblue;border: solid 1px white;">
-              {{columna}}
-            </td>
-          {% endfor %}
-        </tr>
-        {% endfor %}
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
-  
-
-{% else %}
-  <div class="table table-responsive" id="TABLEC">
-    <table class="table table-sm" style="margin-bottom: 0%;">
-      <tbody>
-        {% if load_table %}
-          {% for fila in load_table %}
-          <tr>
-            {% for columna in fila %}
-              {% if view == 'version' or view == 'profiles' or view == 'client' %}
-                <td style="background-color: {{columna.2}};color: aliceblue;border: solid 1px white;">
-                  {{columna.0}}
-                </td>
-              {% endif %}
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        {% else %}
-        {% for fila in tabla %}
-        <tr>
-          {% for columna in fila %}
-            <td style="background-color: #292929;color: aliceblue;border: solid 1px white;">
-              {{columna}}
-            </td>
-          {% endfor %}
-        </tr>
-        {% endfor %}
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
-  
-{% endif %}
--->

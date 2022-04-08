@@ -18,7 +18,10 @@
         </div>
     </div>
     
+    
     <h4 class="text-light text-center mt-4">{{profile}}</h4>
+    <p class="text-center text-white mt-2">{{profile.description}}</p>
+    <a type="button" class="btn btn-sm btn-secondary mt-2" href="{% url 'profiles_list' %}">Volver</a>
     
     <div class="row mt-4">
         <div class="col-1">
@@ -32,7 +35,27 @@
         </div>
 
         <div class="col-6">
-            {% include  'versions.html' with view='profiles' %}
+            <h4 style="color: aliceblue;" >{{name}}</h4>
+            <div class="row">
+                {% if versions %}
+                <div class="col-4 from-group">
+                    <select class="form-group" name="versionsselect" id="versionsID">
+                        <option value="0">Version principal</option>
+                        {% for version in versions %}
+                            {% if version.id == assigned.versionId.id %}
+                                <option value="{{version.id}}" selected>{{version.versionname}}<span> Asignada</span></option>
+                            {% else %}
+                                <option value="{{version.id}}">{{version.versionname}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4" id="buttoncontainer">
+
+                </div>
+                {% endif %}
+            </div>
             {% include 'table.html' with view='profiles' %}
          </div>
     </div>
@@ -42,27 +65,49 @@
         move = '{{dbase}}';
         tmove = '{{tbase}}'; 
 
-        $('#versionsID').change(function(){
-			version = $('#versionsID').val()
-			if(version > 0){
-				$('#TABLEC').load("{% url 'load_version'%}",
-				{'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'select':version});
-			}
-			else{
-				console.log("VERSION GET");
-				$('#TABLEC').load("{% url 'load_version'%}");
-			}
+        $(document).ready(function(){
+            vals = $('#versionsID').val()
+            if(vals == '{{assigned.versionId.id}}'){
+                $('#buttoncontainer').html('<button class="btn btn-sm btn-danger" id="desassignButton">Desasignar</button>');
+            }            
         });
 
-        $('#assignButton').click(function(){
+        $('#buttoncontainer').on('click','button',function(){
             version = $('#versionsID').val()
-            console.log(version);
-            $.post("{% url 'assign_version' %}",
-                {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'version':version,'profile':'{{profile.id}}'},
-                function(){
-                    location.reload();
-                }
-            );
+            
+            if(this.id == 'desassignButton'){
+                $.post("{% url 'assign_version' %}",
+                    {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'version':version,'profile':'{{profile.id}}','type':'des'},
+                    function(){
+                        location.reload();
+                    }
+                );
+            }
+            else if(this.id == 'assignButton')
+            {
+                $.post("{% url 'assign_version' %}",
+                    {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'version':version,'profile':'{{profile.id}}','type':'as'},
+                    function(){
+                        location.reload();
+                    }
+                );
+            }
+        });
+
+        $('#versionsID').change(function(){
+			version = $('#versionsID').val()
+			$('#TABLEC').load("{% url 'load_version'%}",
+			    {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,'select':version});
+            
+            if(version == '{{assigned.versionId.id}}'){
+                $('#buttoncontainer').html('<button class="btn btn-sm btn-danger" id="desassignButton">Desasignar</button>');
+            }  
+            else if (version == '0'){
+                $('#buttoncontainer').html('');
+            }
+            else{
+                $('#buttoncontainer').html('<button class="btn btn-sm btn-warning" id="assignButton">Asignar</button>');
+            }
         });
     </script>
 {% endblock %}
