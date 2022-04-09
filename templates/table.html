@@ -1,14 +1,15 @@
 {% if view == 'index' %}
   {% if tags %}
-  <div class="column is-one-fifth control mb-2">
-    <div class="tags has-addons">
-      {% for tag in tags %}
-        <span class="tag  ccolor{{tag.0}}"></span>
-        <span class="tag is-grey mr-2">{{tag.1}}</span>
-      {% endfor %}
-    </div>
-  </div>		
+    <div class="column is-one-fifth control mb-2">
+      <div class="tags has-addons">
+        {% for tag in tags %}
+          <span class="tag  ccolor{{tag.0}}"></span>
+          <span class="tag is-grey mr-2">{{tag.1}}</span>
+        {% endfor %}
+      </div>
+    </div>		
   {% endif %}
+
   <div class="table table-responsive" id="TABLEC">
     <table class="table table-sm" style="margin-bottom: 0%;">
       <tbody>
@@ -38,7 +39,7 @@
                   {{columna}}
                 </td>
               {% elif view == 'profiles' or view == 'client'%}
-                <td  class="ButtonCell" id="{{columna}}|0" style="background-color: #292929; color: aliceblue;border: solid 1px white;">
+                <td  class="bordado color{{columna.0}}" id="{{columna}}|0" style="background-color: #292929; color: aliceblue;border: solid 1px white;">
                   {{columna}} 
                 </td>
               {% elif view == 'version' %}
@@ -115,11 +116,21 @@
   
 
 {% else %}
+{% if tags %}
+    <div class="column is-one-fifth control mb-2">
+      <div class="tags has-addons">
+        {% for tag in tags %}
+          <span class="tag  ccolor{{tag.0}}"></span>
+          <span class="tag is-grey mr-2">{{tag.1}}</span>
+        {% endfor %}
+      </div>
+    </div>		
+  {% endif %}
   <div class="table table-responsive" id="TABLEC">
     <table class="table table-sm" style="margin-bottom: 0%;">
       <tbody>
         {% if load_table %}
-          {% for fila in load_table %}
+          {% for fila in load_table.cols %}
           <tr>
             {% for columna in fila %}
               {% if view == 'version' or view == 'profiles' or view == 'client' %}
@@ -129,7 +140,7 @@
               {% endif %}
             {% endfor %}
           </tr>
-          {% endfor %}
+          {% endfor %}   
         {% else %}
         {% for fila in tabla %}
         <tr>
@@ -143,6 +154,9 @@
         {% endif %}
       </tbody>
     </table>
+  </div>
+  <div style="color: white;">
+    {{load_table.coment|linebreaks}}
   </div>
   
 {% endif %}

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 
 class User(AbstractUser):
     is_client = models.BooleanField(default=False)
@@ -70,27 +72,53 @@ class UsersFactory():
 
     @staticmethod
     def client_active(clientname):
-        client = User.objects.get(username=clientname)  
-        print("CLIENTE ACTIVO ?",client.is_active)   
-        return client.is_active  
-        
+        try:
+            client = User.objects.get(username=clientname)  
+            return client.is_active  
+        except ObjectDoesNotExist:
+            return False
+            
     @staticmethod
     def set():
         pass
+
+    @staticmethod
+    def create_admin():
+        admins = AdminPoker.objects.all()
+        if admins:
+            return False
+        else:
+            new_user = User(username='adminpichara',first_name='administrador',
+                        last_name='.',email='a@a.com',is_admin=True)
+            new_user.set_password('Administrador23.9')
+            new_user.save()
+            AdminPoker.objects.create(baseUser=new_user)
+            return True
+            
     @staticmethod
     def new_client(data):
         try:
             print(data)
-
+            creation = User.objects.filter(email=data['email'])
+            if creation:
+                return {'status':False,'message':'Email ya registrado'}
             creation = User(username=data['username'],first_name=data['firstname'],
-                        last_name=data['lastname'],email=data['email'],cellphone=data['cellphone'],is_client=True)
+                        last_name=data['lastname'],email=data['email'],cellphone=data['cellphone'],is_active=False,is_client=True)
             creation.set_password(data['password'])
             creation.save()
             ClientPoker.objects.create(baseUser=creation)
-            return True
+            return {'status':True,'message':'Registrado con Exito'}
+
+        except IntegrityError as e:
+            print("Integrity error al crear cliente",e)
+            result = str(e)
+            if 'UNIQUE' in result and 'poker_user.username' in result:
+                return {'status':False,'message':'Error al registrar el cliente: /nNombre de usuario ya existente'}
+            return {'status':False,'message':'Error al registrar el cliente, Nombre de usuario ya registrado'}
         except Exception as e:
-            print("error al registrar cliente",e)
-            return False
+            print("error al crear cliente",e)
+            return {'status':False,'message':'Error al registrar el cliente'}
+
         
     @staticmethod
     def modify_client(client,data):

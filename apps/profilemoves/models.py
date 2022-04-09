@@ -8,7 +8,7 @@ from pokerusers.models import ClientPoker
 
 class Profile(models.Model):
     profileName = models.CharField(max_length=200,null=False,blank=False,default='DEFAULT')
-    description = models.CharField(max_length=200,null=False,blank=False,default='DEFAULT')
+    description = models.TextField(max_length=200,null=False,blank=False,default='DEFAULT')
 
     def __str__(self):
         return '%s'%(self.profileName)
@@ -28,7 +28,7 @@ class ClientProfile(models.Model):
 
 class ABSVersion(models.Model):
     colors = models.CharField(max_length=500,null=False,blank=False,default='DEFAULT')
-    description = models.CharField(max_length=200,null=False,blank=False,default='DEFAULT')
+    description = models.TextField(max_length=200,null=False,blank=False,default='DEFAULT')
     versionname = models.CharField(max_length=500,null=False,blank=False,default='DEFAULT')
     class Meta:
         abstract = True
@@ -88,7 +88,6 @@ class ProfilesFactory():
             DoubleVersion.objects.create(colors=data['texto'][:-1],description=data['description'],versionname=data['name'],moveId_id=data['dbase'])
         elif data.get('base'):
             SingleVersion.objects.create(colors=data['texto'][:-1],description=data['description'],versionname=data['name'],moveId_id=data['base'])
-        
 
     @staticmethod
     def get_version_table(data):
@@ -100,11 +99,11 @@ class ProfilesFactory():
             selected = SingleVersion.objects.get(id=data['select'],moveId_id=data['base'])
 
         if selected.colors == 'DEFAULT':
-            return ''
+            return {'cols':'','coment':''}
 
         else:
             filas = selected.colors.split('.')
-            total = []
+            total = {'cols':[],'coment':selected.description}
             for x in range(13):
                 select = filas[x]
                 if select:
@@ -116,7 +115,7 @@ class ProfilesFactory():
                             name = TABLA[x][a]
                             color = int(selected)
                             columnas.append([name,color])
-                    total.append(columnas)
+                    total['cols'].append(columnas)
             return total
             
     @staticmethod

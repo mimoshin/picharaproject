@@ -1,6 +1,9 @@
 .bordado{
 	border: solid 1px white;
 }
+ul{
+list-style-type: none;
+}
 
 .color0{
 	background-color: #292929 ;

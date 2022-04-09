@@ -27,13 +27,18 @@
         <li class="nav-item">
           <a class="nav-link text-light" href="#">---</a>
         </li>
-        <li class="nav-item">
-          {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated %}
+          <li class="nav-item">
             <a class="nav-link text-light " href="{% url 'login' %}">{{request.user}}</a>
-          {% else %}
+          </li>
+        {% else %}
+          <li class="nav-item">
             <a class="nav-link text-light " href="{% url 'login' %}">Iniciar Sesión</a>
-          {% endif %}
-        </li>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link text-light " href="{% url 'client_new' %}">Crear Cuenta</a>
+          </li>
+        {% endif %}
       </ul>
       {% block content %}
       {% endblock %}

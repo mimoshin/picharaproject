@@ -19,8 +19,7 @@ def loginView(request):
                 print("cliente Activo")
                 return redirect('principalView')
             elif not UF.client_active(username):
-                print("QUE WEA")
-                return render(request,'login.html',{'mensaje':'Usuario Inactivo'})
+                return render(request,'login.html',{'mensaje':'Usuario Inactivo o Inexistente'})
                 
         return render(request,'login.html')
     elif request.method == 'GET':

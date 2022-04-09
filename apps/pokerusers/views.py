@@ -38,6 +38,18 @@ def NewClient(request):
         pass
     return render(request,'admin/new_client.html')
 
+def clientNew(request):
+    if request.method == 'POST':
+        data = request.POST.dict()
+        new_client = UF.new_client(data)
+        if new_client['status']:
+            return redirect('all_clients')
+        else:
+            return render(request,'general/new_client.html',{'message':new_client['message']})
+    if request.method == 'GET':
+        pass
+    return render(request,'general/new_client.html')
+
 @login_required(login_url=('/'))
 def DesactivateClient(request,client):
     UF.desactivate_client(client)
@@ -65,7 +77,6 @@ def ClientCV(request,client):
     profiles = PF.get_my_profiles(client)
     if request.method == 'GET':
         data = request.GET.dict()
-        
         if data.get('perfil'):
             perfilView = PF.get_profile(data['perfil'])
             moves = Move.objects.all() 
@@ -78,9 +89,11 @@ def ClientCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['Tmove'],'triple')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
+                    table = MF.load_table(assigned.versionId.colors)
+                    coment = assigned.versionId.description
+                    total_Data['load_table'] = {'cols':table,'coment':coment}
                 else:
-                    pass
+                    total_Data['load_table'] = {'cols':total_Data['load_table'],'coment':''}
                 return render(request,'clients/clientePrincipal.html',total_Data)
             elif data.get('move'):
                 total_Data = MF.get_base_data_admin('double',data) 
@@ -91,9 +104,11 @@ def ClientCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['move'],'double')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
+                    table = MF.load_table(assigned.versionId.colors)
+                    coment = assigned.versionId.description
+                    total_Data['load_table'] = {'cols':table,'coment':coment}
                 else:
-                    pass
+                    total_Data['load_table'] = {'cols':total_Data['load_table'],'coment':''}
                 return render(request,'clients/clientePrincipal.html',total_Data)
             elif data.get('base'):
                 total_Data = MF.get_base_data_admin('single',data) 
@@ -104,10 +119,11 @@ def ClientCV(request,client):
                 assigned = PF.get_assigned(data['perfil'],data['base'],'single')
                 total_Data['assigned'] = assigned
                 if assigned:
-                    total_Data['load_table'] = MF.load_table(assigned.versionId.colors)
+                    table = MF.load_table(assigned.versionId.colors)
+                    coment = assigned.versionId.description
+                    total_Data['load_table'] = {'cols':table,'coment':coment}
                 else:
-                    #total_Data['load_table'] = MF.load_table()
-                    pass
+                    total_Data['load_table'] = {'cols':total_Data['load_table'],'coment':''}
                 return render(request,'clients/clientePrincipal.html',total_Data)
 
             return render(request,'clients/clientePrincipal.html',
@@ -168,6 +184,10 @@ def AdminCV(request,client):
             {'client':selected,'profiles':profiles,'profileView':perfilView,'moves':moves})
     return render(request,'admin/clientePrincipal.html',{'client':selected,'profiles':profiles})
 
+@login_required(login_url=('/'))
+def create_adminpoker(request):
+    result = UF.create_admin()
+    return redirect('principalView')
 
 """
 

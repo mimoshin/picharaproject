@@ -115,7 +115,7 @@
 									{% for fila in tabla %}
 									<tr>
 									{% for columna in fila %}
-										<td class="selectCell border {{columna.1}}" id="{{columna.0}}-{{columna.1}}">
+										<td class="selectCell border color0" id="{{columna}}-0">
 										{{columna}}
 										</td>
 									{% endfor %}
@@ -165,6 +165,7 @@
         texto = '';
         nameV = $('#versionID')[0].value;
         descV =  $('#descID')[0].value;
+		console.log(descV)
         counter = 0
         if(nameV && descV){
             $.each(celdas,function(index,value){

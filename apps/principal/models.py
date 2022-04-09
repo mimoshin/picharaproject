@@ -123,7 +123,8 @@ class MovesFactory():
         elif data.get('base'):
             selected = Move.objects.get(id=data['base'])
         table = MovesFactory.load_table(selected.colors)
-        return table
+        print("cargandoTable",selected.colors)
+        return {'cols':table,'coment':''}
 
 
     @staticmethod
