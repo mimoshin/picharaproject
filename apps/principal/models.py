@@ -20,6 +20,19 @@ class Move(models.Model):
         versions = self.singleversion.all()
         return versions
 
+    def format_colors(self):
+        total=[]
+        columns = self.colors.split('.')[:-1]
+        for colum in columns:
+            filas = colum.split('-')
+            total.append(filas)
+        return total
+
+    def data_dict(self):
+        colors = self.format_colors()
+        data = {'name':self.moveName,'colors':colors,'tags':self.tags,'obs':self.observation}
+        return data 
+
 class DoubleComparation(models.Model):
     moveId = models.ForeignKey(Move,related_name="%(class)s",null=False,blank=False,on_delete=models.CASCADE)
     nameComparation = models.CharField(max_length=200,null=False,blank=False,default='Comparation')
@@ -79,11 +92,17 @@ class MovesFactory():
     def get_all_smoves():
         moves_list = Move.objects.all()
         return moves_list
+        
+    @staticmethod
+    def get_all_smoves_dict():
+        moves_list = Move.objects.all()
+        return moves_list
+
 
     @staticmethod
     def get_smove(moveId):
         try:
-            move = Move.objects.get(id=moveId)
+            move = Move.objects.get(id=moveId)  
             return move
         except Exception as e:
             return False

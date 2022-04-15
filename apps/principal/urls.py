@@ -21,6 +21,10 @@ urlpatterns = [
     path('deletedata',deletedata,name='delete_data'),
     path('prueba',vistaPrueba,name='vistaprueba'),
     path('probando',probando,name='probandolawea'),
+    #QUERYS
+    path('QSingle',QSingle,name='Q_single'),
+    path('QDouble',QDouble,name='Q_double'),
+    path('QTriple',QTriple,name='Q_triple'),
 
 ]
 

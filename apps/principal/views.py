@@ -41,8 +41,9 @@ def principalView(request):
             return clientPV(request)
         elif user.is_admin or user.is_staff:
             return adminPV(request)
-    else:
-        return render(request,'general/generalIndex.html')
+    else:    
+        return render(request,'index.html')
+        #return render(request,'general/generalIndex.html')
 #______END FILTER VIEWS________
 
 #______ADMIN VIEWS_____________
@@ -167,3 +168,28 @@ def probando(request):
 def vistaPrueba(request):
     moves = MF.get_all_smoves()
     return render(request,'index4.html',{'moves':moves,'tabla':TABLA})
+
+#:::::::QUERYS:::::::::::
+def consultando(request):
+    if request.method == 'GET':
+        data = request.GET.dict()
+        move = MF.get_smove(data['base'])
+    return HttpResponse(move.colors)
+
+def QSingle(request):
+    if request.method == 'GET':
+        data = request.GET.dict()
+        move = MF.get_smove(data['move'])
+    return HttpResponse(move.colors)
+
+def QDouble(request):
+    if request.method == 'GET':
+        data = request.GET.dict()
+        move = MF.get_dmove(data['move'])
+    return HttpResponse(move.colors)
+
+def QTriple(request):
+    if request.method == 'GET':
+        data = request.GET.dict()
+        move = MF.get_tmove(data['move'])
+    return HttpResponse(move.colors)

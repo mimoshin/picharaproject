@@ -4,125 +4,6 @@ var rangos =[];
 var rangos_tabla = [];
 var col_select = ["","","","","","","",""];
 
-SINGLES = {
-	'UTG':1,
-	'MP':2,
-	'CO':3,
-	'BTN':4,
-	'SB':5,
-	'BB':6,
-}
-
-DOUBLES = {
-	'UTG vs SQ OOP':1,
-	'UTG vs SQ IP':2,
-	'UTG vs C4bet IP':3,
-	'UTG vs C4bet OOP':4,
-	'UTG vs 3bet IP':5,
-	'UTG vs 3bet OOP':6,
-	'MP vs UTG':7,
-	'MP vs SQ OOP':8,
-	'MP vs SQ IP':9,
-	'MP vs C4bet IP':10,
-	'MP vs C4bet OOP':11,
-	'MP vs 3bet IP':12,
-	'MP vs 3bet OOP':13,
-	'CO vs UTG':14,
-	'CO vs MP':15,
-	'CO vs SQ OOP':16,
-	'CO vs SQ IP':17,
-	'CO vs C4bet IP':18,
-	'CO vs C4bet OOP':19,
-	'CO vs 3bet IP':20,
-	'CO vs 3bet OOP':21,
-	'BTN vs UTG':22,
-	'BTN vs MP':23,
-	'BTN vs CO':24,
-	'BTN vs SQ IP':25,
-	'BTN vs C4bet IP':26,
-	'BTN vs 3bet IP':27,
-	'SB vs UTG':28,
-	'SB vs MP':29,
-	'SB vs CO':30,
-	'SB vs BTN':31,
-	'SB vs 3bet OOP':32,
-	'BB vs UTG':33,
-	'BB vs MP':34,
-	'BB vs CO':35,
-	'BB vs BTN':36,
-	'BB vs SB':37,
-}
-  
-TRIPLES = {
-	'MP vs UTG vs C4bet IP':1,
-	'MP vs UTG vs C4bet OOP':2,
-	'MP vs UTG vs Limp':3,
-	'CO vs UTG +MP Caller':4,
-	'CO vs UTG vs C4bet IP':5,
-	'CO vs UTG vs C4bet OOP':6,
-	'CO vs UTG vs Limp':7,
-	'CO vs MP C4bet IP':8,
-	'CO vs MP vs C4bet IP':9,
-	'CO vs MP vs C4bet OOP':10,
-	'CO vs MP vs Limp':11,
-	'BTN vs UTG +MP Caller':12,
-	'BTN vs UTG +CO Caller':13,
-	'BTN vs UTG vs C4bet IP':14,
-	'BTN vs UTG vs Limp':15,
-	'BTN vs MP +CO Caller':16,
-	'BTN vs MP C4bet IP':17,
-	'BTN vs MP vs C4bet IP':18,
-	'BTN vs MP vs Limp':19,
-	'BTN vs CO C4bet IP':20,
-	'BTN vs CO vs C4bet IP':21,
-	'BTN vs CO vs Limp':22,
-	'SB vs UTG +MP Caller':23,
-	'SB vs UTG +CO Caller':24,
-	'SB vs UTG +BTN Caller':25,
-	'SB vs UTG vs C4bet OOP':26,
-	'SB vs UTG vs Limp':27,
-	'SB vs MP +CO Caller':28,
-	'SB vs MP +BTN Caller':29,
-	'SB vs MP C4bet OOP':30,
-	'SB vs MP vs C4bet OOP':31,
-	'SB vs MP vs Limp':32,
-	'SB vs CO +BTN Caller':33,
-	'SB vs CO C4bet OOP':34,
-	'SB vs CO vs C4bet OOP':35,
-	'SB vs CO vs Limp':36,
-	'SB vs BTN C4bet OOP':37,
-	'SB vs BTN vs C4bet OOP':38,
-	'SB vs BTN vs Limp':39,
-	'BB vs UTG +MP Caller':40,
-	'BB vs UTG +CO Caller':41,
-	'BB vs UTG +BTN Caller':42,
-	'BB vs UTG +SB Caller':43,
-	'BB vs UTG vs 3x':44,
-	'BB vs UTG vs 2.5x':45,
-	'BB vs UTG vs Limp':46,
-	'BB vs MP +CO Caller':47,
-	'BB vs MP +BTN Caller':48,
-	'BB vs MP +SB Caller':49,
-	'BB vs MP C4bet OOP':50,
-	'BB vs MP vs 3x':51,
-	'BB vs MP vs 2.5x':52,
-	'BB vs MP vs Limp':53,
-	'BB vs CO +BTN Caller':54,
-	'BB vs CO +SB Caller':55,
-	'BB vs CO C4bet OOP':56,
-	'BB vs CO vs 3x':57,
-	'BB vs CO vs 2.5x':58,
-	'BB vs CO vs Limp':59,
-	'BB vs BTN +SB Caller':60,
-	'BB vs BTN C4bet OOP':61,
-	'BB vs BTN vs 3x':62,
-	'BB vs BTN vs 2.5x':63,
-	'BB vs BTN vs Limp':64,
-	'BB vs SB C4bet IP':65,
-	'BB vs SB vs 3x':66,
-	'BB vs SB vs 2.5x':67,
-	'BB vs SB vs Limp':68,
-}
 var	rangos_tabla = [
 		['AA','AKs','AQs','AJs','ATs','A9s','A8s','A7s','A6s','A5s','A4s','A3s','A2s'],
 		['AKo','KK','KQs','KJs','KTs','K9s','K8s','K7s','K6s','K5s','K4s','K3s','K2s'],
@@ -140,18 +21,18 @@ var	rangos_tabla = [
 	];
 
 
-/*
+
 window.onload = function(){
 
 cargarcondicion();
 crearEstructura();
-//llenarRangosTabla();
+llenarRangosTabla();
 
 seleccionPosicion('button_c0r0',0,'UTG');
-}*/
+}
 
 function cargarcondicion(){
-
+	
 	estructura.push({
 		col_name:"col0",
 		col_type:"posicion",
@@ -160,7 +41,7 @@ function cargarcondicion(){
 	estructura.push({
 		col_name:"col1",
 		col_type:"posicion",
-		row:["","vs UTG","","vs MP","","vs CO","","vs BTN","","vs SB"]
+		row:["","UTG","","MP","","CO","","BTN","","SB"]
 	});
 	estructura.push({
 		col_name:"col2",
@@ -175,7 +56,7 @@ function cargarcondicion(){
 	estructura.push({
 		col_name:"col4",
 		col_type:"accion",
-		row:["vs 3bet IP","","vs 3bet OOP"]
+		row:["vs 3BET IP","","vs 3BET OOP"]
 	});
 	estructura.push({
 		col_name:"col5",
@@ -206,8 +87,7 @@ function cargarcondicion(){
 		col_selected:["UTG","","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
-		cell:[	
-				[3,[4,5,6,7,8,9,10]],
+		cell:[	[3,[4,5,6,7,8,9,10]],
 				[4,[0,1,2]]
 		]
 		});
@@ -373,7 +253,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP",
-		col_selected:["UTG","","","","vs 3bet IP","","",""],
+		col_selected:["UTG","","","","vs 3BET IP","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -381,7 +261,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%",""],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[  [7,9]
 						],
@@ -391,7 +271,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -399,7 +279,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 3% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 3%",""],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[  [7,9]
 						],
@@ -409,7 +289,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 7.4% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 7.4%",""],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[  [7,9]
 						],
@@ -419,7 +299,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 10% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 10%",""],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[  [7,9]
 						],
@@ -429,7 +309,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 12% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 12%",""],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[  [7,9]
 						],
@@ -442,7 +322,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -450,7 +330,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -458,7 +338,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -466,7 +346,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -474,7 +354,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -482,7 +362,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -490,7 +370,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 4.8% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 4.8%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 4.8%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -500,7 +380,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 3% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 3%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 3%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -508,7 +388,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 3% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 3%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 3%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -516,7 +396,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 3% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 3%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 3%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -524,7 +404,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 3% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 3%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 3%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -532,7 +412,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 3% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 3%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 3%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -540,7 +420,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 3% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 3%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 3%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -548,7 +428,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 3% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 3%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 3%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -558,7 +438,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 7.4% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 7.4%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 7.4%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -566,7 +446,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 7.4% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 7.4%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 7.4%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -574,7 +454,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 7.4% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 7.4%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 7.4%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -582,7 +462,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 7.4% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 7.4%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 7.4%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -590,7 +470,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 7.4% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 7.4%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 7.4%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -598,7 +478,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 7.4% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 7.4%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 7.4%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -606,7 +486,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 7.4% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 7.4%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 7.4%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -616,7 +496,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 10% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 10%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 10%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -624,7 +504,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 10% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 10%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 10%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -632,7 +512,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 10% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 10%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 10%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -640,7 +520,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 10% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 10%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 10%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -648,7 +528,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 10% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 10%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 10%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -656,7 +536,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 10% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 10%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 10%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -664,7 +544,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 10% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 10%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 10%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -674,7 +554,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 12% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 12%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 12%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -682,7 +562,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 12% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 12%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 12%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -690,7 +570,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 12% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 12%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 12%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -698,7 +578,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 12% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 12%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 12%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -706,7 +586,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 12% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 12%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 12%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -714,7 +594,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 12% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 12%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 12%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -722,7 +602,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet IP vs 12% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet IP","","vs 12%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET IP","","vs 12%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -736,7 +616,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP",
-		col_selected:["UTG","","","","vs 3bet OOP","","",""],
+		col_selected:["UTG","","","","vs 3BET OOP","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -745,7 +625,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 4.8% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 4.8%",""],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -755,7 +635,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 3% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 3%",""],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -765,7 +645,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 7.4% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 7.4%",""],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -775,7 +655,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 10% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 10%",""],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -785,7 +665,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 12% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 12%",""],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -797,7 +677,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 4.8% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 4.8%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 4.8%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -805,7 +685,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 4.8% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 4.8%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 4.8%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -813,7 +693,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 4.8% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 4.8%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 4.8%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -821,7 +701,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 4.8% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 4.8%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 4.8%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -829,7 +709,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 4.8% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 4.8%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -837,7 +717,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 4.8% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 4.8%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 4.8%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -845,7 +725,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 4.8% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 4.8%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 4.8%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -855,7 +735,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 3% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 3%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 3%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -863,7 +743,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 3% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 3%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 3%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -871,7 +751,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 3% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 3%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 3%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -879,7 +759,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 3% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 3%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 3%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -887,7 +767,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 3% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 3%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 3%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -895,7 +775,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 3% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 3%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 3%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -903,7 +783,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 3% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 3%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 3%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -913,7 +793,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 7.4% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 7.4%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 7.4%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -921,7 +801,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 7.4% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 7.4%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 7.4%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -929,7 +809,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 7.4% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 7.4%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 7.4%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -937,7 +817,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 7.4% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 7.4%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 7.4%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -945,7 +825,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 7.4% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 7.4%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 7.4%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -953,7 +833,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 7.4% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 7.4%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 7.4%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -961,7 +841,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 7.4% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 7.4%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 7.4%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -971,7 +851,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 10% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 10%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 10%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -979,7 +859,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 10% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 10%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 10%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -987,7 +867,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 10% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 10%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 10%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -995,7 +875,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 10% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 10%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 10%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1003,7 +883,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 10% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 10%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 10%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1011,7 +891,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 10% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 10%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 10%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1019,7 +899,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 10% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 10%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 10%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1029,7 +909,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 12% / vs 8bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 12%","vs 8 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 12%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1037,7 +917,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 12% / vs 9bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 12%","vs 9 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 12%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1045,7 +925,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 12% / vs 10bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 12%","vs 10 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 12%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1053,7 +933,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 12% / vs 11bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 12%","vs 11 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 12%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1061,7 +941,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 12% / vs 12bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 12%","vs 12 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 12%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1069,7 +949,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 12% / vs 13bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 12%","vs 13 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 12%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1077,7 +957,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"UTG vs 3bet OOP vs 12% / vs 14bb",
-		col_selected:["UTG","","","","vs 3bet OOP","","vs 12%","vs 14 bb"],
+		col_selected:["UTG","","","","vs 3BET OOP","","vs 12%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1091,7 +971,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG",
-		col_selected:["MP","vs UTG","","","","","",""],
+		col_selected:["MP","UTG","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[3,[8,9,10]],
@@ -1147,7 +1027,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs UTG C4bet IP",
-		col_selected:["MP","vs UTG","","C4bet IP","","","",""],
+		col_selected:["MP","UTG","","C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1155,7 +1035,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG C4bet OOP",
-		col_selected:["MP","vs UTG","","C4bet OOP","","","",""],
+		col_selected:["MP","UTG","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1163,7 +1043,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ OOP vs 4.8%",
-		col_selected:["MP","vs UTG","","vs SQ OOP","","","",""],
+		col_selected:["MP","UTG","","vs SQ OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -1173,7 +1053,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ IP vs 4.8%",
-		col_selected:["MP","vs UTG","","vs SQ IP","","","",""],
+		col_selected:["MP","UTG","","vs SQ IP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -1184,7 +1064,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"MP vs UTG vs C4bet IP",
-		col_selected:["MP","vs UTG","","vs C4bet IP","","","",""],
+		col_selected:["MP","UTG","","vs C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1192,7 +1072,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"MP vs UTG vs C4bet OOP",
-		col_selected:["MP","vs UTG","","vs C4bet OOP","","","",""],
+		col_selected:["MP","UTG","","vs C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1200,7 +1080,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs 3.5x",
-		col_selected:["MP","vs UTG","","","","vs 3.5x","",""],
+		col_selected:["MP","UTG","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1208,7 +1088,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs 3x",
-		col_selected:["MP","vs UTG","","","","vs 3x","",""],
+		col_selected:["MP","UTG","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1216,7 +1096,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs 2.5x",
-		col_selected:["MP","vs UTG","","","","vs 2.5x","",""],
+		col_selected:["MP","UTG","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1224,7 +1104,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs 2x",
-		col_selected:["MP","vs UTG","","","","vs 2x","",""],
+		col_selected:["MP","UTG","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1233,7 +1113,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"MP vs UTG vs Limp",
 		message:"* Si el rival es tight, incluso foldear AQs, JJ-TT.<br>* Si existe mas de un limper, el rango de rol debe ser mas tight y eliminar las manos border.",
-		col_selected:["MP","vs UTG","","","","vs Limp","",""],
+		col_selected:["MP","UTG","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1247,7 +1127,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ OOP vs 4.8%",
-		col_selected:["MP","vs UTG","","vs SQ OOP","","","vs 4.8%",""],
+		col_selected:["MP","UTG","","vs SQ OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1255,7 +1135,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ OOP vs 7.4%",
-		col_selected:["MP","vs UTG","","vs SQ OOP","","","vs 7.4%",""],
+		col_selected:["MP","UTG","","vs SQ OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1263,7 +1143,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ OOP vs 10%",
-		col_selected:["MP","vs UTG","","vs SQ OOP","","","vs 10%",""],
+		col_selected:["MP","UTG","","vs SQ OOP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1271,7 +1151,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ OOP vs 12%",
-		col_selected:["MP","vs UTG","","vs SQ OOP","","","vs 12%",""],
+		col_selected:["MP","UTG","","vs SQ OOP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1285,7 +1165,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ IP vs 4.8%",
-		col_selected:["MP","vs UTG","","vs SQ IP","","","vs 4.8%",""],
+		col_selected:["MP","UTG","","vs SQ IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1293,7 +1173,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ IP vs 7.4%",
-		col_selected:["MP","vs UTG","","vs SQ IP","","","vs 7.4%",""],
+		col_selected:["MP","UTG","","vs SQ IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1301,7 +1181,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ IP vs 10%",
-		col_selected:["MP","vs UTG","","vs SQ IP","","","vs 10%",""],
+		col_selected:["MP","UTG","","vs SQ IP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1309,7 +1189,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs SQ IP vs 12%",
-		col_selected:["MP","vs UTG","","vs SQ IP","","","vs 12%",""],
+		col_selected:["MP","UTG","","vs SQ IP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1323,7 +1203,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs C4bet IP vs 3%",
-		col_selected:["MP","vs UTG","","vs C4bet IP","","","vs 3%",""],
+		col_selected:["MP","UTG","","vs C4bet IP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1331,7 +1211,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs C4bet IP vs 4.8%",
-		col_selected:["MP","vs UTG","","vs C4bet IP","","","vs 4.8%",""],
+		col_selected:["MP","UTG","","vs C4bet IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1339,7 +1219,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs C4bet IP vs 7.4%",
-		col_selected:["MP","vs UTG","","vs C4bet IP","","","vs 7.4%",""],
+		col_selected:["MP","UTG","","vs C4bet IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1352,7 +1232,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs C4bet OOP vs 3%",
-		col_selected:["MP","vs UTG","","vs C4bet OOP","","","vs 3%",""],
+		col_selected:["MP","UTG","","vs C4bet OOP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1360,7 +1240,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs C4bet OOP vs 4.8%",
-		col_selected:["MP","vs UTG","","vs C4bet OOP","","","vs 4.8%",""],
+		col_selected:["MP","UTG","","vs C4bet OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1368,7 +1248,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs UTG vs C4bet OOP vs 7.4%",
-		col_selected:["MP","vs UTG","","vs C4bet OOP","","","vs 7.4%",""],
+		col_selected:["MP","UTG","","vs C4bet OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1383,7 +1263,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet IP",
-		col_selected:["MP","","","","vs 3bet IP","","",""],
+		col_selected:["MP","","","","vs 3BET IP","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1391,7 +1271,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%",""],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -1401,7 +1281,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1409,7 +1289,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 3% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 3%",""],
+		col_selected:["MP","","","","vs 3BET IP","","vs 3%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -1419,7 +1299,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 7.4% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 7.4%",""],
+		col_selected:["MP","","","","vs 3BET IP","","vs 7.4%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -1429,7 +1309,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 10% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 10%",""],
+		col_selected:["MP","","","","vs 3BET IP","","vs 10%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -1439,7 +1319,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 12% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 12%",""],
+		col_selected:["MP","","","","vs 3BET IP","","vs 12%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -1452,7 +1332,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1460,7 +1340,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1468,7 +1348,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1476,7 +1356,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1484,7 +1364,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1492,7 +1372,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1500,7 +1380,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 4.8% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 4.8%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 4.8%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1510,7 +1390,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 3% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 3%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 3%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1518,7 +1398,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 3% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 3%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 3%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1526,7 +1406,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 3% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 3%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 3%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1534,7 +1414,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 3% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 3%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 3%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1542,7 +1422,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 3% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 3%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 3%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1550,7 +1430,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 3% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 3%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 3%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1558,7 +1438,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 3% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 3%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 3%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1568,7 +1448,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 7.4% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 7.4%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 7.4%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1576,7 +1456,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 7.4% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 7.4%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 7.4%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1584,7 +1464,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 7.4% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 7.4%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 7.4%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1592,7 +1472,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 7.4% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 7.4%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 7.4%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1600,7 +1480,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 7.4% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 7.4%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 7.4%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1608,7 +1488,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 7.4% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 7.4%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 7.4%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1616,7 +1496,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 7.4% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 7.4%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 7.4%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1626,7 +1506,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 10% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 10%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 10%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1634,7 +1514,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 10% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 10%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 10%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1642,7 +1522,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 10% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 10%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 10%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1650,7 +1530,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 10% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 10%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 10%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1658,7 +1538,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 10% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 10%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 10%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1666,7 +1546,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 10% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 10%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 10%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1674,7 +1554,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 10% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 10%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 10%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1684,7 +1564,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 12% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 12%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 12%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1692,7 +1572,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 12% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 12%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 12%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1700,7 +1580,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 12% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 12%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 12%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1708,7 +1588,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 12% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 12%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 12%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1716,7 +1596,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 12% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 12%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 12%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1724,7 +1604,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 12% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 12%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 12%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1732,7 +1612,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet IP vs 12% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet IP","","vs 12%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET IP","","vs 12%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1746,7 +1626,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP",
-		col_selected:["MP","","","","vs 3bet OOP","","",""],
+		col_selected:["MP","","","","vs 3BET OOP","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -1755,7 +1635,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 4.8% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 4.8%",""],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 4.8%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -1765,7 +1645,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 3% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 3%",""],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 3%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -1775,7 +1655,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 7.4% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 7.4%",""],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 7.4%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -1785,7 +1665,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 10% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 10%",""],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 10%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -1795,7 +1675,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 12% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 12%",""],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 12%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -1807,7 +1687,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 4.8% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 4.8%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 4.8%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1815,7 +1695,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 4.8% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 4.8%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 4.8%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1823,7 +1703,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 4.8% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 4.8%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 4.8%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1831,7 +1711,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 4.8% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 4.8%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 4.8%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1839,7 +1719,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 4.8% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 4.8%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1847,7 +1727,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 4.8% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 4.8%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 4.8%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1855,7 +1735,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 4.8% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 4.8%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 4.8%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1865,7 +1745,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 3% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 3%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 3%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1873,7 +1753,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 3% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 3%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 3%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1881,7 +1761,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 3% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 3%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 3%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1889,7 +1769,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 3% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 3%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 3%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1897,7 +1777,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 3% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 3%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 3%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1905,7 +1785,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 3% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 3%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 3%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1913,7 +1793,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 3% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 3%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 3%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1923,7 +1803,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 7.4% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 7.4%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 7.4%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1931,7 +1811,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 7.4% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 7.4%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 7.4%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1939,7 +1819,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 7.4% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 7.4%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 7.4%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1947,7 +1827,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 7.4% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 7.4%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 7.4%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1955,7 +1835,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 7.4% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 7.4%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 7.4%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1963,7 +1843,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 7.4% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 7.4%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 7.4%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1971,7 +1851,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 7.4% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 7.4%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 7.4%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1981,7 +1861,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 10% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 10%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 10%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1989,7 +1869,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 10% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 10%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 10%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -1997,7 +1877,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 10% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 10%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 10%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2005,7 +1885,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 10% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 10%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 10%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2013,7 +1893,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 10% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 10%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 10%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2021,7 +1901,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 10% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 10%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 10%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2029,7 +1909,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 10% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 10%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 10%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2039,7 +1919,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 12% / vs 8bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 12%","vs 8 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 12%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2047,7 +1927,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 12% / vs 9bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 12%","vs 9 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 12%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2055,7 +1935,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 12% / vs 10bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 12%","vs 10 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 12%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2063,7 +1943,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 12% / vs 11bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 12%","vs 11 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 12%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2071,7 +1951,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 12% / vs 12bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 12%","vs 12 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 12%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2079,7 +1959,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 12% / vs 13bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 12%","vs 13 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 12%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2087,7 +1967,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"MP vs 3bet OOP vs 12% / vs 14bb",
-		col_selected:["MP","","","","vs 3bet OOP","","vs 12%","vs 14 bb"],
+		col_selected:["MP","","","","vs 3BET OOP","","vs 12%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2102,7 +1982,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG",
-		col_selected:["CO","vs UTG","","","","","",""],
+		col_selected:["CO","UTG","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[2,[4]],
@@ -2113,7 +1993,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP",
-		col_selected:["CO","vs MP","","","","","",""],
+		col_selected:["CO","MP","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[3,[0,3,8,9,10]],
@@ -2176,7 +2056,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs UTG +MP Caller",
-		col_selected:["CO","vs UTG","+MP Caller","","","","",""],
+		col_selected:["CO","UTG","+MP Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2184,7 +2064,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs UTG C4bet IP",
-		col_selected:["CO","vs UTG","","C4bet IP","","","",""],
+		col_selected:["CO","UTG","","C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2192,7 +2072,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG C4bet OOP",
-		col_selected:["CO","vs UTG","","C4bet OOP","","","",""],
+		col_selected:["CO","UTG","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2200,7 +2080,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ OOP vs 4.8%",
-		col_selected:["CO","vs UTG","","vs SQ OOP","","","",""],
+		col_selected:["CO","UTG","","vs SQ OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -2211,7 +2091,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ IP vs 7.4%",
-		col_selected:["CO","vs UTG","","vs SQ IP","","","",""],
+		col_selected:["CO","UTG","","vs SQ IP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,4]
 						],
@@ -2222,7 +2102,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"CO vs UTG vs C4bet IP",
-		col_selected:["CO","vs UTG","","vs C4bet IP","","","",""],
+		col_selected:["CO","UTG","","vs C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2230,7 +2110,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"CO vs UTG vs C4bet OOP",
-		col_selected:["CO","vs UTG","","vs C4bet OOP","","","",""],
+		col_selected:["CO","UTG","","vs C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2238,7 +2118,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs 3.5x",
-		col_selected:["CO","vs UTG","","","","vs 3.5x","",""],
+		col_selected:["CO","UTG","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2246,7 +2126,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs 3x",
-		col_selected:["CO","vs UTG","","","","vs 3x","",""],
+		col_selected:["CO","UTG","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2254,7 +2134,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs 2.5x",
-		col_selected:["CO","vs UTG","","","","vs 2.5x","",""],
+		col_selected:["CO","UTG","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2262,7 +2142,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs 2x",
-		col_selected:["CO","vs UTG","","","","vs 2x","",""],
+		col_selected:["CO","UTG","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2271,7 +2151,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"CO vs UTG vs Limp",
 		message:"* Si el rival es tight, incluso foldear AQs, JJ-TT.<br>* Si existe mas de un limper, el rango de rol debe ser mas tight y eliminar las manos border.",
-		col_selected:["CO","vs UTG","","","","vs Limp","",""],
+		col_selected:["CO","UTG","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2285,7 +2165,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ OOP vs 4.8%",
-		col_selected:["CO","vs UTG","","vs SQ OOP","","","vs 4.8%",""],
+		col_selected:["CO","UTG","","vs SQ OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2293,7 +2173,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ OOP vs 7.4%",
-		col_selected:["CO","vs UTG","","vs SQ OOP","","","vs 7.4%",""],
+		col_selected:["CO","UTG","","vs SQ OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2301,7 +2181,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ OOP vs 10%",
-		col_selected:["CO","vs UTG","","vs SQ OOP","","","vs 10%",""],
+		col_selected:["CO","UTG","","vs SQ OOP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2309,7 +2189,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ OOP vs 12%",
-		col_selected:["CO","vs UTG","","vs SQ OOP","","","vs 12%",""],
+		col_selected:["CO","UTG","","vs SQ OOP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2323,7 +2203,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ IP vs 4.8%",
-		col_selected:["CO","vs UTG","","vs SQ IP","","","vs 4.8%",""],
+		col_selected:["CO","UTG","","vs SQ IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2331,7 +2211,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ IP vs 7.4%",
-		col_selected:["CO","vs UTG","","vs SQ IP","","","vs 7.4%",""],
+		col_selected:["CO","UTG","","vs SQ IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2339,7 +2219,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ IP vs 10%",
-		col_selected:["CO","vs UTG","","vs SQ IP","","","vs 10%",""],
+		col_selected:["CO","UTG","","vs SQ IP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2347,7 +2227,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs SQ IP vs 12%",
-		col_selected:["CO","vs UTG","","vs SQ IP","","","vs 12%",""],
+		col_selected:["CO","UTG","","vs SQ IP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2361,7 +2241,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs C4bet IP vs 3%",
-		col_selected:["CO","vs UTG","","vs C4bet IP","","","vs 3%",""],
+		col_selected:["CO","UTG","","vs C4bet IP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2369,7 +2249,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs C4bet IP vs 4.8%",
-		col_selected:["CO","vs UTG","","vs C4bet IP","","","vs 4.8%",""],
+		col_selected:["CO","UTG","","vs C4bet IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2377,7 +2257,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs C4bet IP vs 7.4%",
-		col_selected:["CO","vs UTG","","vs C4bet IP","","","vs 7.4%",""],
+		col_selected:["CO","UTG","","vs C4bet IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2390,7 +2270,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs C4bet OOP vs 3%",
-		col_selected:["CO","vs UTG","","vs C4bet OOP","","","vs 3%",""],
+		col_selected:["CO","UTG","","vs C4bet OOP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2398,7 +2278,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs C4bet OOP vs 4.8%",
-		col_selected:["CO","vs UTG","","vs C4bet OOP","","","vs 4.8%",""],
+		col_selected:["CO","UTG","","vs C4bet OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2406,7 +2286,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs UTG vs C4bet OOP vs 7.4%",
-		col_selected:["CO","vs UTG","","vs C4bet OOP","","","vs 7.4%",""],
+		col_selected:["CO","UTG","","vs C4bet OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2421,7 +2301,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs MP C4bet IP",
-		col_selected:["CO","vs MP","","C4bet IP","","","",""],
+		col_selected:["CO","MP","","C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2429,7 +2309,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP C4bet OOP",
-		col_selected:["CO","vs MP","","C4bet OOP","","","",""],
+		col_selected:["CO","MP","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2437,7 +2317,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ OOP vs 4.8%",
-		col_selected:["CO","vs MP","","vs SQ OOP","","","",""],
+		col_selected:["CO","MP","","vs SQ OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -2448,7 +2328,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ IP vs 7.4%",
-		col_selected:["CO","vs MP","","vs SQ IP","","","",""],
+		col_selected:["CO","MP","","vs SQ IP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,4]
 						],
@@ -2459,7 +2339,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"CO vs MP vs C4bet IP",
-		col_selected:["CO","vs MP","","vs C4bet IP","","","",""],
+		col_selected:["CO","MP","","vs C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2467,7 +2347,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"CO vs MP vs C4bet OOP",
-		col_selected:["CO","vs MP","","vs C4bet OOP","","","",""],
+		col_selected:["CO","MP","","vs C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2475,7 +2355,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs 3.5x",
-		col_selected:["CO","vs MP","","","","vs 3.5x","",""],
+		col_selected:["CO","MP","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2483,7 +2363,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs 3x",
-		col_selected:["CO","vs MP","","","","vs 3x","",""],
+		col_selected:["CO","MP","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2491,7 +2371,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs 2.5x",
-		col_selected:["CO","vs MP","","","","vs 2.5x","",""],
+		col_selected:["CO","MP","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2499,7 +2379,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs 2x",
-		col_selected:["CO","vs MP","","","","vs 2x","",""],
+		col_selected:["CO","MP","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2508,7 +2388,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"CO vs MP vs Limp",
 		message:"* Si el rival es tight, incluso foldear AQs, JJ-TT.<br>* Si existe mas de un limper, el rango de rol debe ser mas tight y eliminar las manos border.",
-		col_selected:["CO","vs MP","","","","vs Limp","",""],
+		col_selected:["CO","MP","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2522,7 +2402,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ OOP vs 4.8%",
-		col_selected:["CO","vs MP","","vs SQ OOP","","","vs 4.8%",""],
+		col_selected:["CO","MP","","vs SQ OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2530,7 +2410,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ OOP vs 7.4%",
-		col_selected:["CO","vs MP","","vs SQ OOP","","","vs 7.4%",""],
+		col_selected:["CO","MP","","vs SQ OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2538,7 +2418,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ OOP vs 10%",
-		col_selected:["CO","vs MP","","vs SQ OOP","","","vs 10%",""],
+		col_selected:["CO","MP","","vs SQ OOP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2546,7 +2426,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ OOP vs 12%",
-		col_selected:["CO","vs MP","","vs SQ OOP","","","vs 12%",""],
+		col_selected:["CO","MP","","vs SQ OOP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2560,7 +2440,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ IP vs 4.8%",
-		col_selected:["CO","vs MP","","vs SQ IP","","","vs 4.8%",""],
+		col_selected:["CO","MP","","vs SQ IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2568,7 +2448,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ IP vs 7.4%",
-		col_selected:["CO","vs MP","","vs SQ IP","","","vs 7.4%",""],
+		col_selected:["CO","MP","","vs SQ IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2576,7 +2456,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ IP vs 10%",
-		col_selected:["CO","vs MP","","vs SQ IP","","","vs 10%",""],
+		col_selected:["CO","MP","","vs SQ IP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2584,7 +2464,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs SQ IP vs 12%",
-		col_selected:["CO","vs MP","","vs SQ IP","","","vs 12%",""],
+		col_selected:["CO","MP","","vs SQ IP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2598,7 +2478,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs C4bet IP vs 3%",
-		col_selected:["CO","vs MP","","vs C4bet IP","","","vs 3%",""],
+		col_selected:["CO","MP","","vs C4bet IP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2606,7 +2486,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs C4bet IP vs 4.8%",
-		col_selected:["CO","vs MP","","vs C4bet IP","","","vs 4.8%",""],
+		col_selected:["CO","MP","","vs C4bet IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2614,7 +2494,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs C4bet IP vs 7.4%",
-		col_selected:["CO","vs MP","","vs C4bet IP","","","vs 7.4%",""],
+		col_selected:["CO","MP","","vs C4bet IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2627,7 +2507,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs C4bet OOP vs 3%",
-		col_selected:["CO","vs MP","","vs C4bet OOP","","","vs 3%",""],
+		col_selected:["CO","MP","","vs C4bet OOP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2635,7 +2515,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs C4bet OOP vs 4.8%",
-		col_selected:["CO","vs MP","","vs C4bet OOP","","","vs 4.8%",""],
+		col_selected:["CO","MP","","vs C4bet OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2643,7 +2523,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs MP vs C4bet OOP vs 7.4%",
-		col_selected:["CO","vs MP","","vs C4bet OOP","","","vs 7.4%",""],
+		col_selected:["CO","MP","","vs C4bet OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2658,7 +2538,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet IP",
-		col_selected:["CO","","","","vs 3bet IP","","",""],
+		col_selected:["CO","","","","vs 3BET IP","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -2666,7 +2546,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%",""],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -2676,7 +2556,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2684,7 +2564,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 3% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 3%",""],
+		col_selected:["CO","","","","vs 3BET IP","","vs 3%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -2694,7 +2574,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 7.4% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 7.4%",""],
+		col_selected:["CO","","","","vs 3BET IP","","vs 7.4%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -2704,7 +2584,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 10% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 10%",""],
+		col_selected:["CO","","","","vs 3BET IP","","vs 10%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -2714,7 +2594,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 12% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 12%",""],
+		col_selected:["CO","","","","vs 3BET IP","","vs 12%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,9]
 						],
@@ -2727,7 +2607,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2735,7 +2615,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2743,7 +2623,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2751,7 +2631,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2759,7 +2639,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2767,7 +2647,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2775,7 +2655,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 4.8% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 4.8%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 4.8%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2785,7 +2665,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 3% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 3%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 3%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2793,7 +2673,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 3% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 3%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 3%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2801,7 +2681,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 3% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 3%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 3%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2809,7 +2689,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 3% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 3%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 3%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2817,7 +2697,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 3% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 3%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 3%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2825,7 +2705,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 3% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 3%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 3%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2833,7 +2713,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 3% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 3%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 3%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2843,7 +2723,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 7.4% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 7.4%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 7.4%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2851,7 +2731,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 7.4% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 7.4%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 7.4%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2859,7 +2739,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 7.4% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 7.4%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 7.4%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2867,7 +2747,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 7.4% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 7.4%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 7.4%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2875,7 +2755,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 7.4% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 7.4%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 7.4%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2883,7 +2763,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 7.4% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 7.4%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 7.4%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2891,7 +2771,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 7.4% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 7.4%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 7.4%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2901,7 +2781,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 10% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 10%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 10%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2909,7 +2789,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 10% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 10%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 10%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2917,7 +2797,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 10% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 10%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 10%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2925,7 +2805,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 10% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 10%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 10%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2933,7 +2813,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 10% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 10%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 10%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2941,7 +2821,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 10% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 10%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 10%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2949,7 +2829,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 10% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 10%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 10%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2959,7 +2839,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 12% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 12%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 12%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2967,7 +2847,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 12% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 12%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 12%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2975,7 +2855,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 12% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 12%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 12%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2983,7 +2863,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 12% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 12%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 12%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2991,7 +2871,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 12% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 12%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 12%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -2999,7 +2879,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 12% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 12%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 12%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3007,7 +2887,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet IP vs 12% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet IP","","vs 12%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET IP","","vs 12%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3021,7 +2901,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP",
-		col_selected:["CO","","","","vs 3bet OOP","","",""],
+		col_selected:["CO","","","","vs 3BET OOP","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3030,7 +2910,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 4.8% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 4.8%",""],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 4.8%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -3040,7 +2920,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 3% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 3%",""],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 3%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -3050,7 +2930,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 7.4% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 7.4%",""],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 7.4%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -3060,7 +2940,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 10% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 10%",""],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 10%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -3070,7 +2950,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 12% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 12%",""],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 12%",""],
 		col_deleted:[[1]],
 		pre_selected:[  [7,3]
 						],
@@ -3082,7 +2962,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 4.8% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 4.8%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 4.8%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3090,7 +2970,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 4.8% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 4.8%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 4.8%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3098,7 +2978,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 4.8% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 4.8%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 4.8%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3106,7 +2986,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 4.8% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 4.8%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 4.8%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3114,7 +2994,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 4.8% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 4.8%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 4.8%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3122,7 +3002,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 4.8% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 4.8%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 4.8%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3130,7 +3010,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 4.8% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 4.8%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 4.8%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3140,7 +3020,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 3% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 3%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 3%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3148,7 +3028,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 3% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 3%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 3%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3156,7 +3036,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 3% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 3%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 3%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3164,7 +3044,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 3% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 3%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 3%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3172,7 +3052,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 3% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 3%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 3%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3180,7 +3060,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 3% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 3%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 3%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3188,7 +3068,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 3% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 3%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 3%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3198,7 +3078,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 7.4% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 7.4%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 7.4%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3206,7 +3086,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 7.4% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 7.4%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 7.4%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3214,7 +3094,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 7.4% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 7.4%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 7.4%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3222,7 +3102,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 7.4% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 7.4%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 7.4%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3230,7 +3110,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 7.4% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 7.4%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 7.4%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3238,7 +3118,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 7.4% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 7.4%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 7.4%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3246,7 +3126,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 7.4% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 7.4%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 7.4%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3256,7 +3136,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 10% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 10%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 10%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3264,7 +3144,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 10% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 10%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 10%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3272,7 +3152,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 10% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 10%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 10%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3280,7 +3160,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 10% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 10%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 10%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3288,7 +3168,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 10% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 10%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 10%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3296,7 +3176,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 10% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 10%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 10%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3304,7 +3184,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 10% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 10%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 10%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3314,7 +3194,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 12% / vs 8bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 12%","vs 8 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 12%","vs 8 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3322,7 +3202,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 12% / vs 9bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 12%","vs 9 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 12%","vs 9 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3330,7 +3210,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 12% / vs 10bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 12%","vs 10 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 12%","vs 10 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3338,7 +3218,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 12% / vs 11bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 12%","vs 11 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 12%","vs 11 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3346,7 +3226,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 12% / vs 12bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 12%","vs 12 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 12%","vs 12 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3354,7 +3234,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 12% / vs 13bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 12%","vs 13 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 12%","vs 13 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3362,7 +3242,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"CO vs 3bet OOP vs 12% / vs 14bb",
-		col_selected:["CO","","","","vs 3bet OOP","","vs 12%","vs 14 bb"],
+		col_selected:["CO","","","","vs 3BET OOP","","vs 12%","vs 14 bb"],
 		col_deleted:[[1]],
 		pre_selected:[],
 		cell:[]
@@ -3377,7 +3257,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG",
-		col_selected:["BTN","vs UTG","","","","","",""],
+		col_selected:["BTN","UTG","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[2,[4,5,6]],
@@ -3388,7 +3268,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP",
-		col_selected:["BTN","vs MP","","","","","",""],
+		col_selected:["BTN","MP","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[2,[5,6]],
@@ -3399,7 +3279,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO",
-		col_selected:["BTN","vs CO","","","","","",""],
+		col_selected:["BTN","CO","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[3,[0,1,8]],
@@ -3415,7 +3295,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BTN vs UTG +MP Caller",
-		col_selected:["BTN","vs UTG","+MP Caller","","","","",""],
+		col_selected:["BTN","UTG","+MP Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3423,7 +3303,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BTN vs UTG +CO Caller",
-		col_selected:["BTN","vs UTG","+CO Caller","","","","",""],
+		col_selected:["BTN","UTG","+CO Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3431,7 +3311,7 @@ function cargarcondicion(){
 			
 	condicion.push({
 		condicion_name:"BTN vs UTG C4bet IP",
-		col_selected:["BTN","vs UTG","","C4bet IP","","","",""],
+		col_selected:["BTN","UTG","","C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3439,7 +3319,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs SQ IP vs 4.8%",
-		col_selected:["BTN","vs UTG","","vs SQ IP","","","",""],
+		col_selected:["BTN","UTG","","vs SQ IP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -3449,7 +3329,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BTN vs UTG vs C4bet IP",
-		col_selected:["BTN","vs UTG","","vs C4bet IP","","","",""],
+		col_selected:["BTN","UTG","","vs C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3457,7 +3337,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs 3.5x",
-		col_selected:["BTN","vs UTG","","","","vs 3.5x","",""],
+		col_selected:["BTN","UTG","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3465,7 +3345,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs 3x",
-		col_selected:["BTN","vs UTG","","","","vs 3x","",""],
+		col_selected:["BTN","UTG","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3473,7 +3353,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs 2.5x",
-		col_selected:["BTN","vs UTG","","","","vs 2.5x","",""],
+		col_selected:["BTN","UTG","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3481,7 +3361,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs 2x",
-		col_selected:["BTN","vs UTG","","","","vs 2x","",""],
+		col_selected:["BTN","UTG","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3490,7 +3370,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"BTN vs UTG vs Limp",
 		message:"* Si el rival es tight, incluso foldear AQs AJs JJ-99.<br>* Si existe mas de un limper, el rango de rol debe ser mas tight y eliminar las manos border.",
-		col_selected:["BTN","vs UTG","","","","vs Limp","",""],
+		col_selected:["BTN","UTG","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3525,7 +3405,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs SQ IP vs 4.8%",
-		col_selected:["BTN","vs UTG","","vs SQ IP","","","vs 4.8%",""],
+		col_selected:["BTN","UTG","","vs SQ IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3533,7 +3413,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs SQ IP vs 7.4%",
-		col_selected:["BTN","vs UTG","","vs SQ IP","","","vs 7.4%",""],
+		col_selected:["BTN","UTG","","vs SQ IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3541,7 +3421,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs SQ IP vs 10%",
-		col_selected:["BTN","vs UTG","","vs SQ IP","","","vs 10%",""],
+		col_selected:["BTN","UTG","","vs SQ IP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3549,7 +3429,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs SQ IP vs 12%",
-		col_selected:["BTN","vs UTG","","vs SQ IP","","","vs 12%",""],
+		col_selected:["BTN","UTG","","vs SQ IP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3563,7 +3443,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs C4bet IP vs 3%",
-		col_selected:["BTN","vs UTG","","vs C4bet IP","","","vs 3%",""],
+		col_selected:["BTN","UTG","","vs C4bet IP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3571,7 +3451,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs C4bet IP vs 4.8%",
-		col_selected:["BTN","vs UTG","","vs C4bet IP","","","vs 4.8%",""],
+		col_selected:["BTN","UTG","","vs C4bet IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3579,7 +3459,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs UTG vs C4bet IP vs 7.4%",
-		col_selected:["BTN","vs UTG","","vs C4bet IP","","","vs 7.4%",""],
+		col_selected:["BTN","UTG","","vs C4bet IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3594,7 +3474,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BTN vs MP +CO Caller",
-		col_selected:["BTN","vs MP","+CO Caller","","","","",""],
+		col_selected:["BTN","MP","+CO Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3602,7 +3482,7 @@ function cargarcondicion(){
 			
 	condicion.push({
 		condicion_name:"BTN vs MP C4bet IP",
-		col_selected:["BTN","vs MP","","C4bet IP","","","",""],
+		col_selected:["BTN","MP","","C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3610,7 +3490,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs SQ IP vs 4.8%",
-		col_selected:["BTN","vs MP","","vs SQ IP","","","",""],
+		col_selected:["BTN","MP","","vs SQ IP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -3620,7 +3500,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BTN vs MP vs C4bet IP",
-		col_selected:["BTN","vs MP","","vs C4bet IP","","","",""],
+		col_selected:["BTN","MP","","vs C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3628,7 +3508,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs 3.5x",
-		col_selected:["BTN","vs MP","","","","vs 3.5x","",""],
+		col_selected:["BTN","MP","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3636,7 +3516,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs 3x",
-		col_selected:["BTN","vs MP","","","","vs 3x","",""],
+		col_selected:["BTN","MP","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3644,7 +3524,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs 2.5x",
-		col_selected:["BTN","vs MP","","","","vs 2.5x","",""],
+		col_selected:["BTN","MP","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3652,7 +3532,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs 2x",
-		col_selected:["BTN","vs MP","","","","vs 2x","",""],
+		col_selected:["BTN","MP","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3661,7 +3541,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"BTN vs MP vs Limp",
 		message:"* Si el rival es tight, incluso foldear AQs AJs JJ-99.<br>* Si existe mas de un limper, el rango de rol debe ser mas tight y eliminar las manos border.",
-		col_selected:["BTN","vs MP","","","","vs Limp","",""],
+		col_selected:["BTN","MP","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3676,7 +3556,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs SQ IP vs 4.8%",
-		col_selected:["BTN","vs MP","","vs SQ IP","","","vs 4.8%",""],
+		col_selected:["BTN","MP","","vs SQ IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3684,7 +3564,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs SQ IP vs 7.4%",
-		col_selected:["BTN","vs MP","","vs SQ IP","","","vs 7.4%",""],
+		col_selected:["BTN","MP","","vs SQ IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3692,7 +3572,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs SQ IP vs 10%",
-		col_selected:["BTN","vs MP","","vs SQ IP","","","vs 10%",""],
+		col_selected:["BTN","MP","","vs SQ IP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3700,7 +3580,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs SQ IP vs 12%",
-		col_selected:["BTN","vs MP","","vs SQ IP","","","vs 12%",""],
+		col_selected:["BTN","MP","","vs SQ IP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3714,7 +3594,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs C4bet IP vs 3%",
-		col_selected:["BTN","vs MP","","vs C4bet IP","","","vs 3%",""],
+		col_selected:["BTN","MP","","vs C4bet IP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3722,7 +3602,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs C4bet IP vs 4.8%",
-		col_selected:["BTN","vs MP","","vs C4bet IP","","","vs 4.8%",""],
+		col_selected:["BTN","MP","","vs C4bet IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3730,7 +3610,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs C4bet IP vs 7.4%",
-		col_selected:["BTN","vs MP","","vs C4bet IP","","","vs 7.4%",""],
+		col_selected:["BTN","MP","","vs C4bet IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3745,7 +3625,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BTN vs MP +CO Caller",
-		col_selected:["BTN","vs MP","+CO Caller","","","","",""],
+		col_selected:["BTN","MP","+CO Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3753,7 +3633,7 @@ function cargarcondicion(){
 			
 	condicion.push({
 		condicion_name:"BTN vs MP C4bet IP",
-		col_selected:["BTN","vs MP","","C4bet IP","","","",""],
+		col_selected:["BTN","MP","","C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3761,7 +3641,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs SQ IP vs 4.8%",
-		col_selected:["BTN","vs MP","","vs SQ IP","","","",""],
+		col_selected:["BTN","MP","","vs SQ IP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -3771,7 +3651,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BTN vs MP vs C4bet IP vs 3%",
-		col_selected:["BTN","vs MP","","vs C4bet IP","","","",""],
+		col_selected:["BTN","MP","","vs C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,0]
 						],
@@ -3781,7 +3661,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs 3.5x",
-		col_selected:["BTN","vs MP","","","","vs 3.5x","",""],
+		col_selected:["BTN","MP","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3789,7 +3669,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs 3x",
-		col_selected:["BTN","vs MP","","","","vs 3x","",""],
+		col_selected:["BTN","MP","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3797,7 +3677,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs 2.5x",
-		col_selected:["BTN","vs MP","","","","vs 2.5x","",""],
+		col_selected:["BTN","MP","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3805,7 +3685,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs 2x",
-		col_selected:["BTN","vs MP","","","","vs 2x","",""],
+		col_selected:["BTN","MP","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3813,7 +3693,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs MP vs Limp",
-		col_selected:["BTN","vs MP","","","","vs Limp","",""],
+		col_selected:["BTN","MP","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3828,7 +3708,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BTN vs CO +CO Caller",
-		col_selected:["BTN","vs CO","+CO Caller","","","","",""],
+		col_selected:["BTN","CO","+CO Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3836,7 +3716,7 @@ function cargarcondicion(){
 			
 	condicion.push({
 		condicion_name:"BTN vs CO C4bet IP",
-		col_selected:["BTN","vs CO","","C4bet IP","","","",""],
+		col_selected:["BTN","CO","","C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3844,7 +3724,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs SQ IP vs 7.4%",
-		col_selected:["BTN","vs CO","","vs SQ IP","","","",""],
+		col_selected:["BTN","CO","","vs SQ IP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,4]
 						],
@@ -3854,7 +3734,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BTN vs CO vs C4bet IP",
-		col_selected:["BTN","vs CO","","vs C4bet IP","","","",""],
+		col_selected:["BTN","CO","","vs C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3862,7 +3742,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs 3.5x",
-		col_selected:["BTN","vs CO","","","","vs 3.5x","",""],
+		col_selected:["BTN","CO","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3870,7 +3750,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs 3x",
-		col_selected:["BTN","vs CO","","","","vs 3x","",""],
+		col_selected:["BTN","CO","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3878,7 +3758,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs 2.5x",
-		col_selected:["BTN","vs CO","","","","vs 2.5x","",""],
+		col_selected:["BTN","CO","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3886,7 +3766,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs 2x",
-		col_selected:["BTN","vs CO","","","","vs 2x","",""],
+		col_selected:["BTN","CO","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3895,7 +3775,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"BTN vs CO vs Limp",
 		message:"* Si el rival es tight, incluso foldear AQs AJs JJ-99.<br>* Si existe mas de un limper, el rango de rol debe ser mas tight y eliminar las manos border.",
-		col_selected:["BTN","vs CO","","","","vs Limp","",""],
+		col_selected:["BTN","CO","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3909,7 +3789,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs SQ IP vs 4.8%",
-		col_selected:["BTN","vs CO","","vs SQ IP","","","vs 4.8%",""],
+		col_selected:["BTN","CO","","vs SQ IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3917,7 +3797,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs SQ IP vs 7.4%",
-		col_selected:["BTN","vs CO","","vs SQ IP","","","vs 7.4%",""],
+		col_selected:["BTN","CO","","vs SQ IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3925,7 +3805,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs SQ IP vs 10%",
-		col_selected:["BTN","vs CO","","vs SQ IP","","","vs 10%",""],
+		col_selected:["BTN","CO","","vs SQ IP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3933,7 +3813,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs SQ IP vs 12%",
-		col_selected:["BTN","vs CO","","vs SQ IP","","","vs 12%",""],
+		col_selected:["BTN","CO","","vs SQ IP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3947,7 +3827,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs C4bet IP vs 3%",
-		col_selected:["BTN","vs CO","","vs C4bet IP","","","vs 3%",""],
+		col_selected:["BTN","CO","","vs C4bet IP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3955,7 +3835,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs C4bet IP vs 4.8%",
-		col_selected:["BTN","vs CO","","vs C4bet IP","","","vs 4.8%",""],
+		col_selected:["BTN","CO","","vs C4bet IP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3963,7 +3843,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs CO vs C4bet IP vs 7.4%",
-		col_selected:["BTN","vs CO","","vs C4bet IP","","","vs 7.4%",""],
+		col_selected:["BTN","CO","","vs C4bet IP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3977,7 +3857,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP",
-		col_selected:["BTN","","","","vs 3bet IP","","",""],
+		col_selected:["BTN","","","","vs 3BET IP","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -3985,7 +3865,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%",""],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -3995,7 +3875,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 15% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%","vs 9 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4003,7 +3883,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 3% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 3%",""],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -4013,7 +3893,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 7.4% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 7.4%",""],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -4023,7 +3903,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 10% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 10%",""],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -4033,7 +3913,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 12% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 12%",""],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -4043,7 +3923,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 18% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 18%",""],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 18%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -4056,7 +3936,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 15% / vs 8bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%","vs 8 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4064,7 +3944,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 15% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%","vs 9 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4072,7 +3952,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 15% / vs 10bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%","vs 10 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4080,7 +3960,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 15% / vs 11bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%","vs 11 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4088,7 +3968,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 15% / vs 12bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%","vs 12 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4096,7 +3976,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 15% / vs 13bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%","vs 13 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4104,7 +3984,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 15% / vs 14bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 15%","vs 14 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 15%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4114,7 +3994,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 3% / vs 8bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 3%","vs 8 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 3%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4122,7 +4002,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 3% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 3%","vs 9 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 3%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4130,7 +4010,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 3% / vs 10bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 3%","vs 10 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 3%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4138,7 +4018,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 3% / vs 11bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 3%","vs 11 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 3%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4146,7 +4026,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 3% / vs 12bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 3%","vs 12 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 3%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4154,7 +4034,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 3% / vs 13bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 3%","vs 13 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 3%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4162,7 +4042,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 3% / vs 14bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 3%","vs 14 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 3%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4172,7 +4052,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 7.4% / vs 8bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 7.4%","vs 8 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 7.4%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4180,7 +4060,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 7.4% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 7.4%","vs 9 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 7.4%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4188,7 +4068,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 7.4% / vs 10bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 7.4%","vs 10 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 7.4%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4196,7 +4076,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 7.4% / vs 11bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 7.4%","vs 11 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 7.4%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4204,7 +4084,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 7.4% / vs 12bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 7.4%","vs 12 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 7.4%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4212,7 +4092,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 7.4% / vs 13bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 7.4%","vs 13 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 7.4%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4220,7 +4100,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 7.4% / vs 14bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 7.4%","vs 14 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 7.4%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4230,7 +4110,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 10% / vs 8bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 10%","vs 8 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 10%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4238,7 +4118,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 10% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 10%","vs 9 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 10%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4246,7 +4126,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 10% / vs 10bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 10%","vs 10 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 10%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4254,7 +4134,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 10% / vs 11bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 10%","vs 11 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 10%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4262,7 +4142,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 10% / vs 12bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 10%","vs 12 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 10%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4270,7 +4150,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 10% / vs 13bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 10%","vs 13 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 10%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4278,7 +4158,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 10% / vs 14bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 10%","vs 14 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 10%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4288,7 +4168,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 12% / vs 8bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 12%","vs 8 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 12%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4296,7 +4176,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 12% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 12%","vs 9 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 12%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4304,7 +4184,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 12% / vs 10bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 12%","vs 10 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 12%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4312,7 +4192,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 12% / vs 11bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 12%","vs 11 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 12%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4320,7 +4200,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 12% / vs 12bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 12%","vs 12 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 12%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4328,7 +4208,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 12% / vs 13bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 12%","vs 13 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 12%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4336,7 +4216,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 12% / vs 14bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 12%","vs 14 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 12%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4346,7 +4226,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 18% / vs 8bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 18%","vs 8 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 18%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4354,7 +4234,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 18% / vs 9bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 18%","vs 9 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 18%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4362,7 +4242,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 18% / vs 10bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 18%","vs 10 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 18%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4370,7 +4250,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 18% / vs 11bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 18%","vs 11 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 18%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4378,7 +4258,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 18% / vs 12bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 18%","vs 12 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 18%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4386,7 +4266,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 18% / vs 13bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 18%","vs 13 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 18%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4394,7 +4274,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BTN vs 3bet IP vs 18% / vs 14bb",
-		col_selected:["BTN","","","","vs 3bet IP","","vs 18%","vs 14 bb"],
+		col_selected:["BTN","","","","vs 3BET IP","","vs 18%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4409,7 +4289,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG",
-		col_selected:["SB","vs UTG","","","","","",""],
+		col_selected:["SB","UTG","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[2,[4,5,6,7,8]],
@@ -4420,7 +4300,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP",
-		col_selected:["SB","vs MP","","","","","",""],
+		col_selected:["SB","MP","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[2,[6,7,8]],
@@ -4431,7 +4311,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO",
-		col_selected:["SB","vs CO","","","","","",""],
+		col_selected:["SB","CO","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[2,[7,8]],
@@ -4442,7 +4322,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN",
-		col_selected:["SB","vs BTN","","","","","",""],
+		col_selected:["SB","BTN","","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[	[3,[2,3,10]],
@@ -4458,7 +4338,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs UTG +MP Caller",
-		col_selected:["SB","vs UTG","+MP Caller","","","","",""],
+		col_selected:["SB","UTG","+MP Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4466,7 +4346,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"SB vs UTG +CO Caller",
-		col_selected:["SB","vs UTG","+CO Caller","","","","",""],
+		col_selected:["SB","UTG","+CO Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4474,7 +4354,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG +BTN Caller",
-		col_selected:["SB","vs UTG","+BTN Caller","","","","",""],
+		col_selected:["SB","UTG","+BTN Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4482,7 +4362,7 @@ function cargarcondicion(){
 			
 	condicion.push({
 		condicion_name:"SB vs UTG C4bet OOP",
-		col_selected:["SB","vs UTG","","C4bet OOP","","","",""],
+		col_selected:["SB","UTG","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4490,7 +4370,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs SQ OOP vs 4.8%",
-		col_selected:["SB","vs UTG","","vs SQ OOP","","","",""],
+		col_selected:["SB","UTG","","vs SQ OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -4500,7 +4380,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"SB vs UTG vs C4bet OOP",
-		col_selected:["SB","vs UTG","","vs C4bet OOP","","","",""],
+		col_selected:["SB","UTG","","vs C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4508,7 +4388,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs 3.5x",
-		col_selected:["SB","vs UTG","","","","vs 3.5x","",""],
+		col_selected:["SB","UTG","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4516,7 +4396,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs 3x",
-		col_selected:["SB","vs UTG","","","","vs 3x","",""],
+		col_selected:["SB","UTG","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4524,7 +4404,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs 2.5x",
-		col_selected:["SB","vs UTG","","","","vs 2.5x","",""],
+		col_selected:["SB","UTG","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4532,7 +4412,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs 2x",
-		col_selected:["SB","vs UTG","","","","vs 2x","",""],
+		col_selected:["SB","UTG","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4546,7 +4426,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs SQ OOP vs 4.8%",
-		col_selected:["SB","vs UTG","","vs SQ OOP","","","vs 4.8%",""],
+		col_selected:["SB","UTG","","vs SQ OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4554,7 +4434,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs SQ OOP vs 7.4%",
-		col_selected:["SB","vs UTG","","vs SQ OOP","","","vs 7.4%",""],
+		col_selected:["SB","UTG","","vs SQ OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4562,7 +4442,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs SQ OOP vs 10%",
-		col_selected:["SB","vs UTG","","vs SQ OOP","","","vs 10%",""],
+		col_selected:["SB","UTG","","vs SQ OOP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4570,7 +4450,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs SQ OOP vs 12%",
-		col_selected:["SB","vs UTG","","vs SQ OOP","","","vs 12%",""],
+		col_selected:["SB","UTG","","vs SQ OOP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4584,7 +4464,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs C4bet OOP vs 3%",
-		col_selected:["SB","vs UTG","","vs C4bet OOP","","","vs 3%",""],
+		col_selected:["SB","UTG","","vs C4bet OOP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4592,7 +4472,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs C4bet OOP vs 4.8%",
-		col_selected:["SB","vs UTG","","vs C4bet OOP","","","vs 4.8%",""],
+		col_selected:["SB","UTG","","vs C4bet OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4600,7 +4480,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs UTG vs C4bet OOP vs 7.4%",
-		col_selected:["SB","vs UTG","","vs C4bet OOP","","","vs 7.4%",""],
+		col_selected:["SB","UTG","","vs C4bet OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4614,7 +4494,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"SB vs MP +CO Caller",
-		col_selected:["SB","vs MP","+CO Caller","","","","",""],
+		col_selected:["SB","MP","+CO Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4622,7 +4502,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP +BTN Caller",
-		col_selected:["SB","vs MP","+BTN Caller","","","","",""],
+		col_selected:["SB","MP","+BTN Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4630,7 +4510,7 @@ function cargarcondicion(){
 			
 	condicion.push({
 		condicion_name:"SB vs MP C4bet OOP",
-		col_selected:["SB","vs MP","","C4bet OOP","","","",""],
+		col_selected:["SB","MP","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4638,7 +4518,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs SQ OOP vs 4.8%",
-		col_selected:["SB","vs MP","","vs SQ OOP","","","",""],
+		col_selected:["SB","MP","","vs SQ OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,2]
 						],
@@ -4648,7 +4528,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"SB vs MP vs C4bet OOP",
-		col_selected:["SB","vs MP","","vs C4bet OOP","","","",""],
+		col_selected:["SB","MP","","vs C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4656,7 +4536,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs 3.5x",
-		col_selected:["SB","vs MP","","","","vs 3.5x","",""],
+		col_selected:["SB","MP","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4664,7 +4544,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs 3x",
-		col_selected:["SB","vs MP","","","","vs 3x","",""],
+		col_selected:["SB","MP","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4672,7 +4552,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs 2.5x",
-		col_selected:["SB","vs MP","","","","vs 2.5x","",""],
+		col_selected:["SB","MP","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4680,7 +4560,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs 2x",
-		col_selected:["SB","vs MP","","","","vs 2x","",""],
+		col_selected:["SB","MP","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4689,7 +4569,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"SB vs MP vs Limp",
 		message:"* Si el rival es tight, Foldear manos como AQ-AJs,KQs, JJ TT 99<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.<br>* Si existe mas de un limper, se puede completar la ciega en vez de hacer ROL. Se hace desde las suited a lo mas alto de las manos off.",
-		col_selected:["SB","vs MP","","","","vs Limp","",""],
+		col_selected:["SB","MP","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4703,7 +4583,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs SQ OOP vs 4.8%",
-		col_selected:["SB","vs MP","","vs SQ OOP","","","vs 4.8%",""],
+		col_selected:["SB","MP","","vs SQ OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4711,7 +4591,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs SQ OOP vs 7.4%",
-		col_selected:["SB","vs MP","","vs SQ OOP","","","vs 7.4%",""],
+		col_selected:["SB","MP","","vs SQ OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4719,7 +4599,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs SQ OOP vs 10%",
-		col_selected:["SB","vs MP","","vs SQ OOP","","","vs 10%",""],
+		col_selected:["SB","MP","","vs SQ OOP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4727,7 +4607,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs SQ OOP vs 12%",
-		col_selected:["SB","vs MP","","vs SQ OOP","","","vs 12%",""],
+		col_selected:["SB","MP","","vs SQ OOP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4741,7 +4621,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs C4bet OOP vs 3%",
-		col_selected:["SB","vs MP","","vs C4bet OOP","","","vs 3%",""],
+		col_selected:["SB","MP","","vs C4bet OOP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4749,7 +4629,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs C4bet OOP vs 4.8%",
-		col_selected:["SB","vs MP","","vs C4bet OOP","","","vs 4.8%",""],
+		col_selected:["SB","MP","","vs C4bet OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4757,7 +4637,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs MP vs C4bet OOP vs 7.4%",
-		col_selected:["SB","vs MP","","vs C4bet OOP","","","vs 7.4%",""],
+		col_selected:["SB","MP","","vs C4bet OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4771,7 +4651,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs CO +BTN Caller",
-		col_selected:["SB","vs CO","+BTN Caller","","","","",""],
+		col_selected:["SB","CO","+BTN Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4779,7 +4659,7 @@ function cargarcondicion(){
 			
 	condicion.push({
 		condicion_name:"SB vs CO C4bet OOP",
-		col_selected:["SB","vs CO","","C4bet OOP","","","",""],
+		col_selected:["SB","CO","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4787,7 +4667,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs SQ OOP vs 7.4%",
-		col_selected:["SB","vs CO","","vs SQ OOP","","","",""],
+		col_selected:["SB","CO","","vs SQ OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,4]
 						],
@@ -4797,7 +4677,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"SB vs CO vs C4bet OOP",
-		col_selected:["SB","vs CO","","vs C4bet OOP","","","",""],
+		col_selected:["SB","CO","","vs C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4805,7 +4685,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs 3.5x",
-		col_selected:["SB","vs CO","","","","vs 3.5x","",""],
+		col_selected:["SB","CO","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4813,7 +4693,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs 3x",
-		col_selected:["SB","vs CO","","","","vs 3x","",""],
+		col_selected:["SB","CO","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4821,7 +4701,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs 2.5x",
-		col_selected:["SB","vs CO","","","","vs 2.5x","",""],
+		col_selected:["SB","CO","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4829,7 +4709,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs 2x",
-		col_selected:["SB","vs CO","","","","vs 2x","",""],
+		col_selected:["SB","CO","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4838,7 +4718,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"SB vs CO vs Limp",
 		message:"* Si el rival es tight, Foldear manos como AQ-ATs,KQs KJs JJ - 77<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.<br>* Si existe mas de un limper, se puede completar la ciega en vez de hacer ROL. Se hace desde las suited a lo mas alto de las manos off.",
-		col_selected:["SB","vs CO","","","","vs Limp","",""],
+		col_selected:["SB","CO","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4852,7 +4732,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs SQ OOP vs 4.8%",
-		col_selected:["SB","vs CO","","vs SQ OOP","","","vs 4.8%",""],
+		col_selected:["SB","CO","","vs SQ OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4860,7 +4740,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs SQ OOP vs 7.4%",
-		col_selected:["SB","vs CO","","vs SQ OOP","","","vs 7.4%",""],
+		col_selected:["SB","CO","","vs SQ OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4868,7 +4748,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs SQ OOP vs 10%",
-		col_selected:["SB","vs CO","","vs SQ OOP","","","vs 10%",""],
+		col_selected:["SB","CO","","vs SQ OOP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4876,7 +4756,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs SQ OOP vs 12%",
-		col_selected:["SB","vs CO","","vs SQ OOP","","","vs 12%",""],
+		col_selected:["SB","CO","","vs SQ OOP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4890,7 +4770,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs C4bet OOP vs 3%",
-		col_selected:["SB","vs CO","","vs C4bet OOP","","","vs 3%",""],
+		col_selected:["SB","CO","","vs C4bet OOP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4898,7 +4778,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs C4bet OOP vs 4.8%",
-		col_selected:["SB","vs CO","","vs C4bet OOP","","","vs 4.8%",""],
+		col_selected:["SB","CO","","vs C4bet OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4906,7 +4786,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs CO vs C4bet OOP vs 7.4%",
-		col_selected:["SB","vs CO","","vs C4bet OOP","","","vs 7.4%",""],
+		col_selected:["SB","CO","","vs C4bet OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4920,7 +4800,7 @@ function cargarcondicion(){
 			
 	condicion.push({
 		condicion_name:"SB vs BTN C4bet OOP",
-		col_selected:["SB","vs BTN","","C4bet OOP","","","",""],
+		col_selected:["SB","BTN","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4928,7 +4808,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs SQ OOP vs 7.4%",
-		col_selected:["SB","vs BTN","","vs SQ OOP","","","",""],
+		col_selected:["SB","BTN","","vs SQ OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[  [6,4]
 						],
@@ -4939,7 +4819,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"SB vs BTN vs C4bet OOP",
 		message:"* Tabla versus un Cold4bet en BB de 6%",
-		col_selected:["SB","vs BTN","","vs C4bet OOP","","","",""],
+		col_selected:["SB","BTN","","vs C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4947,7 +4827,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs 3.5x",
-		col_selected:["SB","vs BTN","","","","vs 3.5x","",""],
+		col_selected:["SB","BTN","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4955,7 +4835,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs 3x",
-		col_selected:["SB","vs BTN","","","","vs 3x","",""],
+		col_selected:["SB","BTN","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4963,7 +4843,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs 2.5x",
-		col_selected:["SB","vs BTN","","","","vs 2.5x","",""],
+		col_selected:["SB","BTN","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4971,7 +4851,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs 2x",
-		col_selected:["SB","vs BTN","","","","vs 2x","",""],
+		col_selected:["SB","BTN","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4980,7 +4860,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"SB vs BTN vs Limp",
 		message:"* Si el rival es tight, Foldear manos como AQ-ATs,KQs KJs JJ - 77.<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.<br>* Si existe mas de un limper, se puede completar la ciega en vez de hacer ROL. Se hace desde las suited a lo mas alto de las manos off.",
-		col_selected:["SB","vs BTN","","","","vs Limp","",""],
+		col_selected:["SB","BTN","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -4994,7 +4874,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs SQ OOP vs 4.8%",
-		col_selected:["SB","vs BTN","","vs SQ OOP","","","vs 4.8%",""],
+		col_selected:["SB","BTN","","vs SQ OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5002,7 +4882,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs SQ OOP vs 7.4%",
-		col_selected:["SB","vs BTN","","vs SQ OOP","","","vs 7.4%",""],
+		col_selected:["SB","BTN","","vs SQ OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5010,7 +4890,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs SQ OOP vs 10%",
-		col_selected:["SB","vs BTN","","vs SQ OOP","","","vs 10%",""],
+		col_selected:["SB","BTN","","vs SQ OOP","","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5018,7 +4898,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs SQ OOP vs 12%",
-		col_selected:["SB","vs BTN","","vs SQ OOP","","","vs 12%",""],
+		col_selected:["SB","BTN","","vs SQ OOP","","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5032,7 +4912,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs C4bet OOP vs 3%",
-		col_selected:["SB","vs BTN","","vs C4bet OOP","","","vs 3%",""],
+		col_selected:["SB","BTN","","vs C4bet OOP","","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5040,7 +4920,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs C4bet OOP vs 4.8%",
-		col_selected:["SB","vs BTN","","vs C4bet OOP","","","vs 4.8%",""],
+		col_selected:["SB","BTN","","vs C4bet OOP","","","vs 4.8%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5048,7 +4928,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs C4bet OOP vs 6%",
-		col_selected:["SB","vs BTN","","vs C4bet OOP","","","vs 6%",""],
+		col_selected:["SB","BTN","","vs C4bet OOP","","","vs 6%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5056,7 +4936,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs BTN vs C4bet OOP vs 7.4%",
-		col_selected:["SB","vs BTN","","vs C4bet OOP","","","vs 7.4%",""],
+		col_selected:["SB","BTN","","vs C4bet OOP","","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5069,7 +4949,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP",
-		col_selected:["SB","","","","vs 3bet OOP","","",""],
+		col_selected:["SB","","","","vs 3BET OOP","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5077,7 +4957,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%",""],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -5087,7 +4967,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5095,7 +4975,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 3% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 3%",""],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 3%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -5105,7 +4985,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 7.4% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 7.4%",""],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 7.4%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -5115,7 +4995,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 10% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 10%",""],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 10%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -5125,7 +5005,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 12% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 12%",""],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 12%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -5135,7 +5015,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 18% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 18%",""],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 18%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -5145,7 +5025,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 22% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 22%",""],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 22%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -5155,7 +5035,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 25% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 25%",""],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 25%",""],
 		col_deleted:[],
 		pre_selected:[  [7,3]
 						],
@@ -5168,7 +5048,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 8bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%","vs 8 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5176,7 +5056,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5184,7 +5064,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 10bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%","vs 10 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5192,7 +5072,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 11bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%","vs 11 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5200,7 +5080,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 12bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%","vs 12 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5208,7 +5088,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 13bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%","vs 13 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5216,7 +5096,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 15% / vs 14bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 15%","vs 14 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 15%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5226,7 +5106,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 3% / vs 8bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 3%","vs 8 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 3%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5234,7 +5114,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 3% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 3%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 3%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5242,7 +5122,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 3% / vs 10bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 3%","vs 10 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 3%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5250,7 +5130,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 3% / vs 11bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 3%","vs 11 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 3%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5258,7 +5138,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 3% / vs 12bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 3%","vs 12 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 3%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5266,7 +5146,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 3% / vs 13bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 3%","vs 13 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 3%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5274,7 +5154,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 3% / vs 14bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 3%","vs 14 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 3%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5284,7 +5164,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 7.4% / vs 8bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 7.4%","vs 8 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 7.4%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5292,7 +5172,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 7.4% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 7.4%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 7.4%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5300,7 +5180,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 7.4% / vs 10bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 7.4%","vs 10 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 7.4%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5308,7 +5188,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 7.4% / vs 11bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 7.4%","vs 11 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 7.4%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5316,7 +5196,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 7.4% / vs 12bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 7.4%","vs 12 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 7.4%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5324,7 +5204,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 7.4% / vs 13bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 7.4%","vs 13 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 7.4%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5332,7 +5212,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 7.4% / vs 14bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 7.4%","vs 14 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 7.4%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5342,7 +5222,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 10% / vs 8bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 10%","vs 8 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 10%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5350,7 +5230,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 10% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 10%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 10%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5358,7 +5238,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 10% / vs 10bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 10%","vs 10 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 10%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5366,7 +5246,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 10% / vs 11bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 10%","vs 11 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 10%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5374,7 +5254,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 10% / vs 12bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 10%","vs 12 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 10%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5382,7 +5262,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 10% / vs 13bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 10%","vs 13 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 10%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5390,7 +5270,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 10% / vs 14bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 10%","vs 14 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 10%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5400,7 +5280,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 12% / vs 8bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 12%","vs 8 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 12%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5408,7 +5288,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 12% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 12%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 12%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5416,7 +5296,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 12% / vs 10bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 12%","vs 10 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 12%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5424,7 +5304,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 12% / vs 11bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 12%","vs 11 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 12%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5432,7 +5312,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 12% / vs 12bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 12%","vs 12 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 12%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5440,7 +5320,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 12% / vs 13bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 12%","vs 13 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 12%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5448,7 +5328,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 12% / vs 14bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 12%","vs 14 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 12%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5458,7 +5338,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 18% / vs 8bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 18%","vs 8 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 18%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5466,7 +5346,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 18% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 18%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 18%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5474,7 +5354,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 18% / vs 10bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 18%","vs 10 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 18%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5482,7 +5362,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 18% / vs 11bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 18%","vs 11 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 18%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5490,7 +5370,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 18% / vs 12bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 18%","vs 12 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 18%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5498,7 +5378,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 18% / vs 13bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 18%","vs 13 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 18%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5506,7 +5386,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 18% / vs 14bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 18%","vs 14 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 18%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5516,7 +5396,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 22% / vs 8bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 22%","vs 8 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 22%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5524,7 +5404,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 22% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 22%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 22%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5532,7 +5412,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 22% / vs 10bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 22%","vs 10 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 22%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5540,7 +5420,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 22% / vs 11bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 22%","vs 11 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 22%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5548,7 +5428,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 22% / vs 12bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 22%","vs 12 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 22%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5556,7 +5436,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 22% / vs 13bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 22%","vs 13 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 22%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5564,7 +5444,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 22% / vs 14bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 22%","vs 14 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 22%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5574,7 +5454,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 25% / vs 8bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 25%","vs 8 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 25%","vs 8 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5582,7 +5462,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 25% / vs 9bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 25%","vs 9 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 25%","vs 9 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5590,7 +5470,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 25% / vs 10bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 25%","vs 10 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 25%","vs 10 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5598,7 +5478,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 25% / vs 11bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 25%","vs 11 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 25%","vs 11 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5606,7 +5486,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 25% / vs 12bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 25%","vs 12 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 25%","vs 12 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5614,7 +5494,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 25% / vs 13bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 25%","vs 13 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 25%","vs 13 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5622,7 +5502,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"SB vs 3bet OOP vs 25% / vs 14bb",
-		col_selected:["SB","","","","vs 3bet OOP","","vs 25%","vs 14 bb"],
+		col_selected:["SB","","","","vs 3BET OOP","","vs 25%","vs 14 bb"],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5631,7 +5511,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"SB vs UTG vs Limp",
 		message:"* Si el rival es tight, Foldear manos como AQ-AJs,KQs, JJ TT 99<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.<br>* Si existe mas de un limper, se puede completar la ciega en vez de hacer ROL. Se hace desde las suited a lo mas alto de las manos off.",
-		col_selected:["SB","vs UTG","","","","vs Limp","",""],
+		col_selected:["SB","UTG","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5646,7 +5526,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs UTG vs 3x",
-		col_selected:["BB","vs UTG","","","","","",""],
+		col_selected:["BB","UTG","","","","","",""],
 		col_deleted:[],
 		pre_selected:[	[5,4]
 		],
@@ -5658,7 +5538,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs MP vs 3x",
-		col_selected:["BB","vs MP","","","","","",""],
+		col_selected:["BB","MP","","","","","",""],
 		col_deleted:[],
 		pre_selected:[	[5,4]
 		],
@@ -5671,7 +5551,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs CO vs 3x",
-		col_selected:["BB","vs CO","","","","","",""],
+		col_selected:["BB","CO","","","","","",""],
 		col_deleted:[],
 		pre_selected:[	[5,4]
 		],
@@ -5684,7 +5564,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs BTN vs 2.5x",
-		col_selected:["BB","vs BTN","","","","","",""],
+		col_selected:["BB","BTN","","","","","",""],
 		col_deleted:[],
 		pre_selected:[	[5,6]
 		],
@@ -5697,7 +5577,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs SB vs 3x",
-		col_selected:["BB","vs SB","","","","","",""],
+		col_selected:["BB","SB","","","","","",""],
 		col_deleted:[],
 		pre_selected:[	[5,4]
 		],
@@ -5715,7 +5595,7 @@ function cargarcondicion(){
 	
 	condicion.push({
 		condicion_name:"BB vs UTG +MP Caller",
-		col_selected:["BB","vs UTG","+MP Caller","","","","",""],
+		col_selected:["BB","UTG","+MP Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5723,7 +5603,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs UTG +CO Caller",
-		col_selected:["BB","vs UTG","+CO Caller","","","","",""],
+		col_selected:["BB","UTG","+CO Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5731,7 +5611,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs UTG +BTN Caller",
-		col_selected:["BB","vs UTG","+BTN Caller","","","","",""],
+		col_selected:["BB","UTG","+BTN Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5739,7 +5619,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs UTG +SB Caller",
-		col_selected:["BB","vs UTG","+SB Caller","","","","",""],
+		col_selected:["BB","UTG","+SB Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5747,7 +5627,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs UTG C4bet OOP",
-		col_selected:["BB","vs UTG","","C4bet OOP","","","",""],
+		col_selected:["BB","UTG","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5755,7 +5635,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs UTG vs 3.5x",
-		col_selected:["BB","vs UTG","","","","vs 3.5x","",""],
+		col_selected:["BB","UTG","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5763,7 +5643,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs UTG vs 3x",
-		col_selected:["BB","vs UTG","","","","vs 3x","",""],
+		col_selected:["BB","UTG","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5771,7 +5651,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs UTG vs 2.5x",
-		col_selected:["BB","vs UTG","","","","vs 2.5x","",""],
+		col_selected:["BB","UTG","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5779,7 +5659,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs UTG vs 2x",
-		col_selected:["BB","vs UTG","","","","vs 2x","",""],
+		col_selected:["BB","UTG","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5788,7 +5668,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"BB vs UTG vs Limp",
 		message:"* Si el rival es tight, Foldear manos como AQ-AJs,KQs, JJ TT 99<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.",
-		col_selected:["BB","vs UTG","","","","vs Limp","",""],
+		col_selected:["BB","UTG","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5802,7 +5682,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs MP +CO Caller",
-		col_selected:["BB","vs MP","+CO Caller","","","","",""],
+		col_selected:["BB","MP","+CO Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5810,7 +5690,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs MP +BTN Caller",
-		col_selected:["BB","vs MP","+BTN Caller","","","","",""],
+		col_selected:["BB","MP","+BTN Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5818,7 +5698,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs MP +SB Caller",
-		col_selected:["BB","vs MP","+SB Caller","","","","",""],
+		col_selected:["BB","MP","+SB Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5826,7 +5706,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs MP C4bet OOP",
-		col_selected:["BB","vs MP","","C4bet OOP","","","",""],
+		col_selected:["BB","MP","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5834,7 +5714,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs MP vs 3.5x",
-		col_selected:["BB","vs MP","","","","vs 3.5x","",""],
+		col_selected:["BB","MP","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5842,7 +5722,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs MP vs 3x",
-		col_selected:["BB","vs MP","","","","vs 3x","",""],
+		col_selected:["BB","MP","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5850,7 +5730,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs MP vs 2.5x",
-		col_selected:["BB","vs MP","","","","vs 2.5x","",""],
+		col_selected:["BB","MP","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5858,7 +5738,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs MP vs 2x",
-		col_selected:["BB","vs MP","","","","vs 2x","",""],
+		col_selected:["BB","MP","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5867,7 +5747,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"BB vs MP vs Limp",
 		message:"* Si el rival es tight, Foldear manos como AQ-AJs,KQs, JJ TT 99.<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.",
-		col_selected:["BB","vs MP","","","","vs Limp","",""],
+		col_selected:["BB","MP","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5882,7 +5762,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs CO +BTN Caller",
-		col_selected:["BB","vs CO","+BTN Caller","","","","",""],
+		col_selected:["BB","CO","+BTN Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5890,7 +5770,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs CO +SB Caller",
-		col_selected:["BB","vs CO","+SB Caller","","","","",""],
+		col_selected:["BB","CO","+SB Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5898,7 +5778,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs CO C4bet OOP",
-		col_selected:["BB","vs CO","","C4bet OOP","","","",""],
+		col_selected:["BB","CO","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5906,7 +5786,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs CO vs 3.5x",
-		col_selected:["BB","vs CO","","","","vs 3.5x","",""],
+		col_selected:["BB","CO","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5914,7 +5794,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs CO vs 3x",
-		col_selected:["BB","vs CO","","","","vs 3x","",""],
+		col_selected:["BB","CO","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5922,7 +5802,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs CO vs 2.5x",
-		col_selected:["BB","vs CO","","","","vs 2.5x","",""],
+		col_selected:["BB","CO","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5930,7 +5810,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs CO vs 2x",
-		col_selected:["BB","vs CO","","","","vs 2x","",""],
+		col_selected:["BB","CO","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5939,7 +5819,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"BB vs CO vs Limp",
 		message:"* Si el rival es tight, solamente continuar con JJ+ AK. Y algunas de ellas pueden ser call en vez de 4bet.<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.",
-		col_selected:["BB","vs CO","","","","vs Limp","",""],
+		col_selected:["BB","CO","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5954,7 +5834,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs BTN +SB Caller",
-		col_selected:["BB","vs BTN","+SB Caller","","","","",""],
+		col_selected:["BB","BTN","+SB Caller","","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5962,7 +5842,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs BTN C4bet OOP",
-		col_selected:["BB","vs BTN","","C4bet OOP","","","",""],
+		col_selected:["BB","BTN","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5970,7 +5850,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs BTN vs 3.5x",
-		col_selected:["BB","vs BTN","","","","vs 3.5x","",""],
+		col_selected:["BB","BTN","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5978,7 +5858,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs BTN vs 3x",
-		col_selected:["BB","vs BTN","","","","vs 3x","",""],
+		col_selected:["BB","BTN","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5986,7 +5866,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs BTN vs 2.5x",
-		col_selected:["BB","vs BTN","","","","vs 2.5x","",""],
+		col_selected:["BB","BTN","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -5994,7 +5874,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs BTN vs 2x",
-		col_selected:["BB","vs BTN","","","","vs 2x","",""],
+		col_selected:["BB","BTN","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -6002,8 +5882,8 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs BTN vs Limp",
-		message:"*Si el rival es tight, solamente continuar con JJ+ AK. Y algunas de ellas pueden ser call en vez de 4bet.<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.",
-		col_selected:["BB","vs BTN","","","","vs Limp","",""],
+		message:"* Si el rival es tight, solamente continuar con JJ+ AK. Y algunas de ellas pueden ser call en vez de 4bet.<br>* Si existe mas de un limper, las manos mas border solamente hacer check. Es necesario reducir el rango de ROL.",
+		col_selected:["BB","BTN","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -6018,7 +5898,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"BB vs SB C4bet IP",
 		message:"* Tabla de Cold4bet cuando SB hace un 3BET a BTN",
-		col_selected:["BB","vs SB","","C4bet IP","","","",""],
+		col_selected:["BB","SB","","C4bet IP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -6026,7 +5906,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs SB C4bet OOP",
-		col_selected:["BB","vs SB","","C4bet OOP","","","",""],
+		col_selected:["BB","SB","","C4bet OOP","","","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -6034,7 +5914,7 @@ function cargarcondicion(){
 
 	condicion.push({
 		condicion_name:"BB vs SB vs 3.5x",
-		col_selected:["BB","vs SB","","","","vs 3.5x","",""],
+		col_selected:["BB","SB","","","","vs 3.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -6042,7 +5922,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs SB vs 3x",
-		col_selected:["BB","vs SB","","","","vs 3x","",""],
+		col_selected:["BB","SB","","","","vs 3x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -6050,7 +5930,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs SB vs 2.5x",
-		col_selected:["BB","vs SB","","","","vs 2.5x","",""],
+		col_selected:["BB","SB","","","","vs 2.5x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -6058,7 +5938,7 @@ function cargarcondicion(){
 		
 	condicion.push({
 		condicion_name:"BB vs SB vs 2x",
-		col_selected:["BB","vs SB","","","","vs 2x","",""],
+		col_selected:["BB","SB","","","","vs 2x","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -6067,7 +5947,7 @@ function cargarcondicion(){
 	condicion.push({
 		condicion_name:"BB vs SB vs Limp",
 		message:"* Si rival es tight, foldear las letras naranjas y si es loose pagar luego de hacer ROL.<br>* Si rival es regular, letras naranjas pagar luego de hacer ROL.",
-		col_selected:["BB","vs SB","","","","vs Limp","",""],
+		col_selected:["BB","SB","","","","vs Limp","",""],
 		col_deleted:[],
 		pre_selected:[],
 		cell:[]
@@ -8923,7 +8803,7 @@ function cargarcondicion(){
 		cell:[
 				[1,1,0,0,0,0,0,0,0,0,0,0,0],
 				[1,1,0,0,0,0,0,0,0,0,0,0,0],
-				[0,0,1,0,0,0,0,0,4,0,0,0,0],
+				[0,0,1,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -9919,17 +9799,25 @@ function cargarcondicion(){
 
 
 function llenarRangosTabla(){
-	//Funcion que genera la matriz base de la tabla
+	
 	var table = document.getElementById("rangos_tabla");
+	
 	for(var i=0; i<rangos_tabla.length; i++){
+		
 		var row = table.insertRow(i);
+		
 		for(var j=0; j<rangos_tabla[i].length; j++){
+			
 			var cell = row.insertCell(j);
+			
 			cell.innerHTML = rangos_tabla[i][j];
 			cell.id = "range_r"+i+"c"+j;
 			cell.align = "center";
+			
 		}
+		
 	}
+	
 }
 
 function borrarClassTable(){
@@ -9945,7 +9833,6 @@ function borrarClassTable(){
 	}
 	
 }
-
 function crearEstructura(){
 	var html = "";
 
@@ -10001,23 +9888,12 @@ function crearTagsRangos(rangos_tag){
 }
 
 function ocultarColumnas(inicial){
-	console.log("ocultarColumnas");
-	console.log("inicial: %s",inicial)
+	
 	for(var i = 0; i < estructura.length; i++)  {
-		if (i>inicial){//Columna 0 nunca se debe ocultar
-			/*	busca la estructura [i] y la oculta
-				luego revisa cuantas filas hay en esa estructura y tambien las oculta
-			*/
+		if (i>inicial){
 			document.getElementById("col"+i).style.display = "none";
-			//columna = document.getElementById("col"+i)
-			//console.log("OCULTAR: %s",i);
-			//console.log(columna);
-			//estructuraRow = estructura[i].row.length;
-			//console.log("ESTRUCTURA ROW: %s",estructuraRow);
-			//console.log("Ocultando de col %s",i);
-			//console.log(estructura[i]);
+			
 			for(var j = 0; j<estructura[i].row.length; j++){
-				//console.log("ROW: %s",j);
 				document.getElementById("c"+i+"r"+j).style.display = "none";
 				document.getElementById("button_c"+i+"r"+j).style.display = "none";
 			}
@@ -10042,8 +9918,7 @@ function ocultarColumnasPrevias(col_eliminadas){
 	
 }
 function activarCelda(id,col){
-	/*cambia el color del boton seleccionado */
-	console.log("Cambiar color\nID BUTTON: %s | COLUMNA: %s",id,col);
+	
 	for(var i=col;i<estructura.length;i++){
 		for(var j=0; j<estructura[i].row.length; j++){
 			document.getElementById("button_c"+i+"r"+j).classList.remove('is-success');
@@ -10058,16 +9933,14 @@ function activarCelda(id,col){
 }
 
 function guardarSeleccionCol(col,cell_name){
-	//Guardar el nombre y columna seleccionada
-	console.log("guardarSeleccionCol\n")
-	console.log("col: %s\nCell_name: %s",col,cell_name);
-	console.log("variable: %s",col_select);
+	
+	console.log("col: "+col);
 	col_select[col] = cell_name;
-	console.log("variable Modificada: %s",col_select);
+	
 	for(var i=(col+1);i<estructura.length;i++){
 		col_select[i] = "";		
 	}
-}
+	}
 
 function asignarTituloRango(titulo){
 	
@@ -10078,13 +9951,13 @@ function asignarTituloRango(titulo){
 	
 }
 
-function asignarRangoEstiloCelda(titulo,colors){
-	console.log("asignarrandoestilocelda");
+function asignarRangoEstiloCelda(titulo){
+	
 	var rangos_cell = [];
 	var rangos_tag = [];
 	borrarClassTable();
 
-	//console.log("Rangos",rangos);
+	
 	for(var i=0; i<rangos.length; i++){
 		
 		if(titulo == rangos[i].title){
@@ -10092,6 +9965,7 @@ function asignarRangoEstiloCelda(titulo,colors){
 			rangos_tag = rangos[i].tag;
 			break;
 		}
+		
 	}
 	
 	crearTagsRangos(rangos_tag);
@@ -10102,12 +9976,12 @@ function asignarRangoEstiloCelda(titulo,colors){
 			
 				var id = "range_r"+i+"c"+j;
 			
-				document.getElementById(id).classList.add("color"+colors[i][j]);
+				document.getElementById(id).classList.add("color"+rangos_cell[i][j]);
 			
 		}
 	}
 	
-	//console.log(rangos_cell);
+	console.log(rangos_cell);
 }
 
 function asignarMensajeTabla(message){
@@ -10121,97 +9995,25 @@ function asignarMensajeTabla(message){
 	
 }
 
-
-function formatColors(textColors){
-	let text = textColors.slice(0,-1).split('.');
-	let columns = [];
-	text.forEach(element =>{
-		columns.push(element.split('-'));
-	})
-	return columns;
-}
-
-function loadSingle(name,condition){
-	//consulta colores de la jugada
-	//rellena la tabla
-	let result = SINGLES[name]
-	$.get('QSingle?move='+result,function(response){
-		var formatedCols = formatColors(response);
-		asignarRangoEstiloCelda(condition,formatedCols);
-	});
-}	
-
-function loadDouble(name,condition){
-	//consulta colores de la jugada
-	//rellena la tabla
-	let result = DOUBLES[name];
-	$.get('QDouble?'+'&move='+result,function(response){
-		var formatedCols = formatColors(response);
-		asignarRangoEstiloCelda(condition,formatedCols);
-	});
-}
-
-function loadTriple(name,condition){
-	//consulta colores de la jugada
-	//rellena la tabla
-	let result = TRIPLES[name];
-	$.get('QTriple?move='+result,function(response){
-		var formatedCols = formatColors(response);
-		asignarRangoEstiloCelda(condition,formatedCols);
-	});
-}
-
-function buscarJugada(data,condition){
-	//arma el nombre de la jugada elegida
-	let typeMove = 0;
-	let findName = ''
-	data.forEach(element=>{
-		if(element){
-			typeMove+=1;
-			findName+=element+' '
-		}
-	})
-	//nombre de la jugada
-	findName=findName.slice(0,-1);
-
-	//carga el tipo de jugada en base al nombre
-	if(typeMove==1){
-		loadSingle(findName,condition);
-	}
-	
-	else if(typeMove==2){
-		loadDouble(findName,condition);
-	}
-	
-	else if(typeMove==3){
-		loadTriple(findName,condition);
-	}
-}
-
 function seleccionPosicion(id,col,cell_name){
-	console.log("EJECUTANDO SELECCION");
-	console.log("ID del boton: %s\nColumna: %s\nNombre: %s",id,col,cell_name);
+	
 	var condicion_name = "";
-
+	
 	// MOSTRAR LAS COLUMNAS CORRESPONDIENTES
-	guardarSeleccionCol(col,cell_name);//Detecta las seleccionadas
+	guardarSeleccionCol(col,cell_name);
 	ocultarColumnas(col);
 	activarCelda(id,col);
 	
 	//Muestro la columna en la que estoy
 	document.getElementById("col"+col).style.display = "block";
-	//console.log(SINGLES);
-	var condicion_cell = [];
-	//console.log("condiciones",condicion.length);
-	//console.log("COL_SELECT",col_select);
 	
-
-
+	var condicion_cell = [];
+	
 	//Recorro todas las condiciones
 	for(var i=0; i<condicion.length; i++){
 		
 		if(condicion[i].col_selected.equals(col_select) === true){
-			//console.log("COINCIDENCIA %s y %s",condicion[i].col_selected,col_select)
+						
 			// DESPLEGAR LAS NUEVAS CELDAS Y COLUMNAS SEGUN LA COINCIDENCIA ENCONTRADA
 			condicion_cell = condicion[i].cell;
 			
@@ -10231,35 +10033,34 @@ function seleccionPosicion(id,col,cell_name){
 			// ELIMINAR COLUMNAS PREVIAS
 			
 			columnas_previas = condicion[i].col_deleted;
-			//console.log("Largo col eliminadas "+columnas_previas.length);
+			console.log("Largo col eliminadas "+columnas_previas.length);
 			ocultarColumnasPrevias(columnas_previas);
 			
 			// ASIGNAR LAS "PRE SELECCIONES"
 			condicion_pre_selected = condicion[i].pre_selected;
-			//console.log("Largo preselected "+condicion_pre_selected.length);
+			console.log("Largo preselected "+condicion_pre_selected.length);
 			
 			for(var j=0;j<condicion_pre_selected.length; j++){
 				
 				activarCelda("button_c"+condicion_pre_selected[j][0]+"r"+condicion_pre_selected[j][1],condicion_pre_selected[j][0]);
 				guardarSeleccionCol(condicion_pre_selected[j][0],estructura[condicion_pre_selected[j][0]].row[condicion_pre_selected[j][1]]);
+				
 			}
 			
 			condicion_name = condicion[i].condicion_name;
 			message = condicion[i].message;
-			//console.log("Mensaje este si: "+message);
+			console.log("Mensaje este si: "+message);
 					
 			break;
 		}
 	}	
 	
-	//console.log(col_select);
-	//console.log("Nombre de lo que se debe mostrar: %s",condicion_name)
-
+	console.log(col_select);
 	asignarTituloRango(condicion_name);
 	asignarMensajeTabla(message);
-	//asignarRangoEstiloCelda(condicion_name);
-	//detecta la jugada luego llena la tabla
-	buscarJugada(col_select,condicion_name);
+	asignarRangoEstiloCelda(condicion_name);
+
+	
 }
 
 // FUNCION PARA AGREGAR COMPARACION DE ARRAYS
