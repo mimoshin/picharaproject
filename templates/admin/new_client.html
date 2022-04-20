@@ -1,46 +1,69 @@
 {% extends 'admin/BaseAdmin.html' %}
 {% load static %}
 
-{% block content %}
-    <form class="mt-4" method="post" action="{% url 'new_client' %}" autocomplete="off">
+{% block content %} 
+    <form method="post" action="{% url 'new_client' %}" autocomplete="off" style="margin-top: 100px;">
         {% csrf_token %}
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="uss">Nombre de usuario</label>
-                <input class="form-control" type="user" name="username" id="uss" required>
-            </div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="pass">Contraseña</label>
-                <input class="form-control" type="password" name="password" id="pass" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="fnam">Nombre</label>
-                <input class="form-control" type="text" name="firstname" id="fnam" required>
-            </div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="lnam">Apellido</label>
-                <input class="form-control" type="text" name="lastname" id="lnam" required>
+
+        <div class="columns">
+            <div class="column is-3"></div>
+            <div class="column is-6">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label has-text-white">Nombre de usuario</label>
+                        <input class="input is-small" type="text" name="username" id="uss" required>
+                    </div>
+                    <div class="field">
+                        <label class="label has-text-white">Contraseña</label>
+                        <input class="input is-small" type="password" name="password" id="pass" required>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="email">Correo</label>
-                <input class="form-control" type="text" name="email">
-            </div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="age">Telefono</label>
-                <input class="form-control" type="text" name="cellphone" maxlength="9">
+
+        <div class="columns">
+            <div class="column is-3"></div>
+            <div class="column is-6">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label has-text-white">Nombre</label>
+                        <input class="input is-small" type="text" name="firstname" id="fnam" required>
+                    </div>
+                    <div class="field">
+                        <label class="label has-text-white">Apellido</label>
+                        <input class="input is-small" type="text" name="lastname" id="lnam" required>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+
+        <div class="columns">
+            <div class="column is-3"></div>
+            <div class="column is-6">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label has-text-white">Correo</label>
+                        <input class="input is-small" type="email" name="email" id="em" required>
+                    </div>
+                    <div class="field">
+                        <label class="label has-text-white">Telefono</label>
+                        <input class="input is-small" type="text" name="cellphone" maxlength="9" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="columns">
+            <div class="column is-3"></div>
+            <div class="column is-3">
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-small is-link">Enviar</button>
+                    </div>
+                    <div class="control">
+                        <a type="button" class="button is-small is-light" href="{% url 'all_clients' %}">Cancelar</a>
+                    </div>
+                </div>
             </div>
         </div>
     </form>

@@ -15,7 +15,9 @@
     else { // Browser
         factory(jQuery);
     }
-})(function($, undefined) {
+})
+
+(function($, undefined) {
     "use strict";
     //VER QUE PASA
     var defaultOpts = {
@@ -366,7 +368,7 @@
                 //ESTO PASA LUEGO DE ELEGIR EL COLOR QUE QUIERO DAR
                 //IMPORTANTE
                 //console.log(e);
-                
+                //console.log("apretado color 1 ");
                 e.stopPropagation();
                 e.preventDefault();
 
@@ -384,6 +386,7 @@
 
             toggleButton.text(opts.showPaletteOnly ? opts.togglePaletteMoreText : opts.togglePaletteLessText);
             toggleButton.on("click.spectrum", function (e) {
+                console.log("apretado color 2 ");
                 e.stopPropagation();
                 e.preventDefault();
 
@@ -471,6 +474,10 @@
             }
 
             function paletteElementClick(e) {
+                let myColor = e.target.style.backgroundColor;
+                console.log("CLICK SPECTRUM",myColor);
+                let hexac = tinycolor(myColor).toHex();
+                selectedColor = opts.colorsDict[hexac]; 
                 if (e.data && e.data.ignore) {
                     set($(e.target).closest(".sp-thumb-el").data("color"));
                     move();
@@ -498,9 +505,8 @@
         }
 
         function updateSelectionPaletteFromStorage() {
-
+            
             if (localStorageKey && window.localStorage) {
-
                 // Migrate old palettes over to new format.  May want to remove this eventually.
                 try {
                     var oldPalette = window.localStorage[localStorageKey].split(",#");
@@ -511,7 +517,7 @@
                         });
                     }
                 }
-                catch(e) { }
+                catch(e) {}
 
                 try {
                     selectionPalette = window.localStorage[localStorageKey].split(";");
@@ -634,7 +640,6 @@
 
         function show() {
             var event = $.Event('beforeShow.spectrum');
-            console.log("CAPTURAR EVENTO",event);
             if (visible) {
                 reflow();
                 return;
@@ -678,13 +683,21 @@
 
             // If a drag event was happening during the mouseup, don't hide
             // on click.
-            if (isDragging) { return; }
+            if (isDragging) { return;}
 
             if (clickoutFiresChange) {
                 updateOriginalInput(true);
             }
             else {
-                revert();
+                //detecta si clickeo en fuera de la tabla y revierte el color
+                let typeClick = e.target.nodeName;
+                if(typeClick != 'TD')
+                {
+                    revert();
+                } 
+                else{
+                    console.log("CLICKIE LA TABLA");
+                }
             }
             hide();
         }
@@ -697,7 +710,6 @@
             $(doc).off("keydown.spectrum", onkeydown);
             $(doc).off("click.spectrum", clickout);
             $(window).off("resize.spectrum", resize);
-
             replacer.removeClass("sp-active");
             container.addClass("sp-hidden");
 
@@ -706,8 +718,11 @@
         }
 
         function revert() {
+            console.log("revirtiendo");
             set(colorOnShow, true);
             updateOriginalInput(true);
+            selectedColor = 'default';
+            console.log("CAMBIAR COLOR A DEFAULT 1");
         }
 
         function set(color, ignoreFormatChange) {

@@ -2,42 +2,46 @@
 {% load static %}
 
 {% block content %}
-<div class="row mt-4">
-	<div class="col-3">
-		<ul class="nav nav-tabs">
-			<li class="nav-item">
-			  <a class="nav-link active" href="{% url 'admin_principal' %}">Jugadas</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link text-white" href="{% url 'profiles_list' %}">Perfiles</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link text-white" href="{% url 'all_clients' %}">Clientes</a>
-			</li>
-		  </ul>
+	<div class="container">
+		<div class="tabs is-centered is-boxed">
+			<ul>
+			  	<li class="is-active">
+				  <a class="navbar-item has-text-info" href="{% url 'admin_principal' %}">Jugadas</a>
+				</li>
+			  	<li>
+					<a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
+			  	</li>
+			  	<li>
+				  <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Clientes</a>
+			  	</li>
+			</ul>
+		</div>
+		
+		  {% if request.user.is_staff %}
+		<div class="columns">
+			<div class="column">
+				<a type="button" class="button is-small is-warning" href="{% url 'cargardatos' %}">Cargar Base</a>
+			</div>
+			<div class="column">
+				<a type="button" class="button is-small is-warning" href="{% url 'cargardobles' %}">Cargar Doble</a>
+			</div>
+			<div class="column">
+				<a type="button" class="button is-small is-warning" href="{% url 'cargartriples' %}">Cargar Triple</a>
+			</div>
+			<div class="column">
+				<a type="button" class="button is-small is-danger" href="{% url 'eliminardatos' %}">Eliminar</a>
+			</div>
+			<div class="column">
+				<a type="button" class="button is-small is-danger" href="{% url 'probandolawea' %}">Probando</a>
+			</div>
+		</div>
+		{% endif %}
 	</div>
-</div>
 
-{% if request.user.is_staff %}
-<div class="row mt-4">
-	<div class="col-2">
-		<a type="button" class="btn btn-sm btn-warning" href="{% url 'cargardatos' %}">Cargar Base</a>
-	</div>
-	<div class="col-2">
-		<a type="button" class="btn btn-sm btn-warning" href="{% url 'cargardobles' %}">Cargar Doble</a>	
-	</div>
-	<div class="col-2">
-		<a type="button" class="btn btn-sm btn-warning" href="{% url 'cargartriples' %}">Cargar Triple</a>	
-	</div>
-	<div class="col-2">
-		<a type="button" class="btn btn-sm btn-danger" href="{% url 'eliminardatos' %}">Eliminar</a>	
-	</div>
-	<div class="col-2">
-		<a type="button" class="btn btn-sm btn-danger" href="{% url 'probandolawea' %}">Probando</a>	
-	</div>
-</div>
-{% endif %}
+	
 
+{% include 'index2.html' %}
+<!--
 <div class="row mt-4">
 	<div class="col-1">
 		{% include  'singleMoves.html' with admin=True %}
@@ -77,7 +81,7 @@
 		{% endif %}
 	</div>
 </div>
-
+-->
 
 	<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

@@ -1,9 +1,11 @@
+import imp
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from poker.utils import TABLA
 from .models import Profile, ProfilesFactory as PF
 from principal.models import MovesFactory as MF
+from .util import appendVersions
 
 def principalView(request):
     return redirect('login')
@@ -26,6 +28,21 @@ def load_version(request):
     elif request.method == 'GET':
         #print("ierda2")
         return render(request,'table.html',{'tabla':TABLA,'view':'version'})
+
+def deleteVersion(request):
+    if request.method == 'POST':
+        data = request.POST.dict()
+        result = PF.delete_version(data['typeMove'],data['move'],data['version'])
+        return HttpResponse(result)
+
+def loadVersionJS(request):
+    if request.method == 'GET':
+        data = request.GET.dict()
+        if data['version'] == '0':
+            resultado = MF.new_get_table(data['typeMove'],data['move'])
+        else:
+            resultado = PF.new_get_version_table(data['typeMove'],data['version'],data['move'])
+        return HttpResponse(resultado)
 
 @login_required(login_url=('/'))
 def adminProfilesView(request):
@@ -76,13 +93,13 @@ def adminProfile(request,profile):
         base_data['as_table'] = as_table
         base_data['assigned'] = assigned
         base_data['profile'] = selected
-        #print(base_data['load_table'])
         return render(request,'admin/adminProfiles.html',base_data)
     
     selected = PF.get_profile(profile)
     moves_list = MF.get_all_smoves()
     total_moves = MF.get_all_moves_dict()
-    return render(request,'admin/adminProfiles.html',{'profile':selected,'moves':moves_list,'total':total_moves})
+    print("ADMIN PROFILES")
+    return render(request,'admin/adminProfiles.html',{'profile':selected,'moves':moves_list,'total':total_moves,'view':'version'})
 
 
 def assignVersion(request):
@@ -113,3 +130,33 @@ def assignProfile(request,profile,client):
 def desassignProfile(request,profile,client):
     PF.desassign_profile(profile,client)
     return redirect('client_profile',client)
+
+def PQSingle(request):
+    if request.method == 'GET':
+        data = request.GET.dict()
+        if data.get('version'):
+            print('si version')
+        move = MF.get_smove(data['move'])
+        versions = move.get_my_version()
+        formated = appendVersions(move.colors,versions)
+    return HttpResponse(formated)
+
+def PQDouble(request):
+    if request.method == 'GET':
+        data = request.GET.dict()
+        if data.get('version'):
+            print('si version')
+        move = MF.get_dmove(data['move'])
+        versions = move.get_my_version()
+        print(versions)
+    return HttpResponse(move.colors)
+
+def PQTriple(request):
+    if request.method == 'GET':
+        data = request.GET.dict()
+        if data.get('version'):
+            print('si version')
+        move = MF.get_tmove(data['move'])
+        versions = move.get_my_version()
+        print(versions.versionName,versions.colors)
+    return HttpResponse(move.colors)

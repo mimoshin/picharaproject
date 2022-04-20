@@ -2,66 +2,93 @@
 {% load static %}
 
 {% block content %}
-    <div class="row mt-4">
-        <div class="col-3">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'admin_principal' %}">Jugadas</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'profiles_list' %}">Perfiles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'all_clients' %}">Clientes</a>
-                </li>
-            </ul>
+    <div class="columns">
+        <div class="column">
+            <div class="tabs is-centered is-boxed">
+                <ul>
+                    <li>
+                        <a class="navbar-item has-text-info" href="{% url 'admin_principal' %}">Jugadas</a>
+                    </li>
+                    <li>
+                        <a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
+                    </li>
+                    <li class="is-active">
+                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Clientes</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="col-1"></div>
+    <div class="columns">
+        <div class="column is-1"></div>
 
-        <div class="col-10">
-            <h4 class="text-light text-center">Clientes</h4>
-            <a typer="button" class="btn btn-sm btn-primary" href="{% url 'new_client' %}">Nuevo Cliente</a>
+        <div class="column is-10">
+            <h4 class="title has-text-white has-text-centered">Clientes</h4>
+            <a typer="button" class="button is-small is-link" href="{% url 'new_client' %}" style="margin-bottom: 10px;">Nuevo Cliente</a>
             
-            <!--<button type="button" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#staticBackdrop">Nuevo Cliente</button>
-            -->
-            {% if clients %}
-            <div class="table table-responsive mt-2">
-                <table class="table table-dark table-striped table-bordered" style="border: 1px solid black;width: 100%;">
-                    <thead>
-                        <tr>
-                            <td class="text-center">Estado</td>
-                            <td class="text-center">Cliente</td>
-                            <td class="text-center" colspan="4">Opciones</td>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table class="table table-dark is-fullwidth" style="background-color: #343a40;">
+                <thead>
+                    <tr>
+                        <td class="has-text-white has-text-centered" style="border: 1px solid black;">Estado</td>
+                        <td class="has-text-white has-text-centered" style="border: 1px solid black;">Cliente</td>
+                        <td class="has-text-white has-text-centered" style="border: 1px solid black;"colspan="4">Opciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if clients %}
                         {% for client in clients %}
-                        <tr>
-                            <td>{{client.status}}</td>
-                            <td>{{client.name}}</td>
-                            <td class="text-center"><a type="button" href="{% url 'client_modify' client.id %}" class="btn btn-sm btn-primary">Ver</a></td>
-                            <td class="text-center"><a type="button" href="{% url 'client_profile' client.id %}" class="btn btn-sm btn-success">Perfiles</a></td>
+                        <tr style="border: 1px solid black;">
+                            <td class="has-text-white" style="border: 1px solid black;">{{client.status}}</td>
+                            <td class="has-text-white" style="border: 1px solid black;">{{client.name}}</td>
+                            <td class="has-text-centered" style="border: 1px solid black;">
+                                <a type="button" href="{% url 'client_modify' client.id %}" class="button is-small is-link">Ver</a>
+                            </td>
+                            <td class="has-text-centered" style="border: 1px solid black;">
+                                <a type="button" href="{% url 'client_profile' client.id %}" class="button is-small is-success">Perfiles</a>
+                            </td>
                             {% if client.is_active %}
-                                <td class="text-center"><a type="button" href="{% url 'desactivate_client' client.id %}" class="btn btn-sm btn-warning">Desactivar</a></td>
+                                <td class="has-text-centered" style="border: 1px solid black;"><a type="button" href="{% url 'desactivate_client' client.id %}" class="button is-small is-warning">Desactivar</a></td>
                             {% else %}
-                                <td class="text-center"><a type="button" href="{% url 'desactivate_client' client.id %}" class="btn btn-sm btn-warning">Activar</a></td>
+                                <td class="has-text-centered" style="border: 1px solid black;">
+                                    <a type="button" href="{% url 'desactivate_client' client.id %}" class="button is-small is-warning">Activar</a></td>
                             {% endif %}    
-                            <td><button type="button" class="btn btn-sm btn-danger deleteButton" id="{{client.id}}">
+                            <td class="has-text-centered" style="border: 1px solid black;">
+                                <button class="button is-small is-danger deleteButton" data-target="deleteModal" id="{{client.id}}">
                                 Eliminar
-                              </button></td>
+                              </button>
+                            </td>
                         </tr>
                         {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% endif %}
+                    {% endif %}
+                </tbody>
+            </table>
         </div>
     </div>
 
     <!-- Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head" style="background-color: #343a40;">
+              <p class="modal-card-title has-text-white">Seguro que desea eliminar el cliente.</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body" style="background-color: #343a40;">
+                <div class="columns">
+                    <div class="column is-5"></div>
+                    <div class="column is-7">
+                        <img src="{% static 'iconos.png' %}" alt="">
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot" style="background-color: #212121;">
+                <a type="button" class="button is-link" href="" id="seguro">Sí, Seguro.</a>
+                <button class="button" data-dismiss="modal">Cancelar</button>
+            </footer>
+          </div>
+    </div>
+    
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -115,10 +142,9 @@
 
     <script>
         $('.deleteButton').click(function(){
-            $('#seguro')[0].href = "{% url 'delete_client' 0 %}".replace('0',this.id)
-            $('#deleteModal').modal('show');
-            console.log($('#deleteModal'));
+            $('#seguro')[0].href = "{% url 'delete_client' 0 %}".replace('0',this.id);
         });
+
         $('#saveForm').click(function(){
             texto = '';
             perfil =$('#perfilID')[0].value;
@@ -132,6 +158,50 @@
                         location.reload();
                     }
                 );
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Functions to open and close a modal
+            function openModal($el) {
+                $el.classList.add('is-active');
+            }
+
+            function closeModal($el) {
+                $el.classList.remove('is-active');
+            }
+
+            function closeAllModals() {
+                (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+                    closeModal($modal);
+                });
+            }
+
+            // Add a click event on buttons to open a specific modal
+            (document.querySelectorAll('.deleteButton') || []).forEach(($trigger) => {
+                const modal = $trigger.dataset.target;
+                const $target = document.getElementById(modal);
+                console.log($target);
+
+                $trigger.addEventListener('click', () => {
+                    openModal($target);
+                });
+            });
+
+            // Add a click event on various child elements to close the parent modal
+            (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+                const $target = $close.closest('.modal');
+
+                $close.addEventListener('click', () => {
+                    closeModal($target);
+                });
+            });
+
+            // Add a keyboard event to close all modals
+            document.addEventListener('keydown', (event) => {
+                const e = event || window.event;
+                if (e.keyCode === 27) { // Escape key
+                    closeAllModals();
+                }
+            });
         });
     </script>
 

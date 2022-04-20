@@ -10001,8 +10001,8 @@ function crearTagsRangos(rangos_tag){
 }
 
 function ocultarColumnas(inicial){
-	console.log("ocultarColumnas");
-	console.log("inicial: %s",inicial)
+	//console.log("ocultarColumnas");
+	//console.log("inicial: %s",inicial)
 	for(var i = 0; i < estructura.length; i++)  {
 		if (i>inicial){//Columna 0 nunca se debe ocultar
 			/*	busca la estructura [i] y la oculta
@@ -10043,7 +10043,7 @@ function ocultarColumnasPrevias(col_eliminadas){
 }
 function activarCelda(id,col){
 	/*cambia el color del boton seleccionado */
-	console.log("Cambiar color\nID BUTTON: %s | COLUMNA: %s",id,col);
+	//console.log("Cambiar color\nID BUTTON: %s | COLUMNA: %s",id,col);
 	for(var i=col;i<estructura.length;i++){
 		for(var j=0; j<estructura[i].row.length; j++){
 			document.getElementById("button_c"+i+"r"+j).classList.remove('is-success');
@@ -10059,11 +10059,11 @@ function activarCelda(id,col){
 
 function guardarSeleccionCol(col,cell_name){
 	//Guardar el nombre y columna seleccionada
-	console.log("guardarSeleccionCol\n")
-	console.log("col: %s\nCell_name: %s",col,cell_name);
-	console.log("variable: %s",col_select);
+	//console.log("guardarSeleccionCol\n")
+	//console.log("col: %s\nCell_name: %s",col,cell_name);
+	//console.log("variable: %s",col_select);
 	col_select[col] = cell_name;
-	console.log("variable Modificada: %s",col_select);
+	//console.log("variable Modificada: %s",col_select);
 	for(var i=(col+1);i<estructura.length;i++){
 		col_select[i] = "";		
 	}
@@ -10079,7 +10079,7 @@ function asignarTituloRango(titulo){
 }
 
 function asignarRangoEstiloCelda(titulo,colors){
-	console.log("asignarrandoestilocelda");
+	//console.log("asignarrandoestilocelda");
 	var rangos_cell = [];
 	var rangos_tag = [];
 	borrarClassTable();
@@ -10123,21 +10123,119 @@ function asignarMensajeTabla(message){
 
 
 function formatColors(textColors){
-	let text = textColors.slice(0,-1).split('.');
+	let separated = textColors.split('|');
+	let text = separated[0].slice(0,-1).split('.');
 	let columns = [];
 	text.forEach(element =>{
 		columns.push(element.split('-'));
 	})
-	return columns;
+	if(separated[1]){
+		var versions = separated[1].slice(0,-1).split('-');
+		return [columns,versions];
+	}
+	return [columns,null];
 }
+
+function clearVersions(){
+	let versionx = $('#versionsSelect');	
+	versionx.empty();
+	versionx.append(`<option value="0">Version Principal</option>`);
+}
+
+function changeVersions(data){
+	if(data){
+		let selectVersions = document.getElementById('versionsSelect');
+		data.forEach(element =>{
+			let separa = element.split(':')
+			selectVersions.add(new Option(separa[0],separa[1]));
+		});
+	}
+}
+
+//VERSION
+function loadnewTable(){
+	let tabla = document.getElementById('rangos_tabla').cloneNode(true);
+	let newBody = document.getElementById('newBody');
+	newBody.innerHTML ='';
+	document.getElementById('newBody').appendChild(tabla);
+}
+
+//VERSION
+function loadTableVersion(name,colors){
+	//format colors
+	let text = colors.slice(0,-1).split('.');
+	let columns = [];
+	text.forEach(element =>{
+		columns.push(element.split('-'));
+	})
+	borrarClassTable();
+	for(var i=0; i<columns.length; i++){
+		for(var j=0; j<columns[i].length; j++){
+				var id = "range_r"+i+"c"+j;
+				document.getElementById(id).classList.add("color"+columns[i][j]);
+		}
+	}
+}
+
+//VERSION
+function loadJSVersion(name,version,typeMove){
+	let result = SINGLES[name];	
+	$.get('QJSVersion?move='+result+'&version='+version+'&typeMove='+typeMove,function(response){
+		loadTableVersion(name,response);
+	});
+}
+
+function getDelURL(){
+	//arma el nombre de la jugada elegida
+	let typeMove = 0;
+	let findName = '';
+	col_select.forEach(element=>{
+		if(element){
+			typeMove+=1;
+			findName+=element+' '
+		}
+	})
+	var result =0;
+	//nombre de la jugada
+	findName=findName.slice(0,-1);
+	if(typeMove == 1){
+		result = SINGLES[findName]
+	}
+	else if(typeMove == 2){
+		result = DOUBLES[findName]
+	}
+	else if(typeMove == 3){
+		result = TRIPLES[findName]
+	}
+	return [typeMove,result];
+}
+
+//VERSION
+function buscarVersion(version){
+	//arma el nombre de la jugada elegida
+	let typeMove = 0;
+	let findName = '';
+	col_select.forEach(element=>{
+		if(element){
+			typeMove+=1;
+			findName+=element+' '
+		}
+	})
+	//nombre de la jugada
+	findName=findName.slice(0,-1);
+	//carga la version seleccionada de la jugada
+	loadJSVersion(findName,version,typeMove);
+}
+
 
 function loadSingle(name,condition){
 	//consulta colores de la jugada
 	//rellena la tabla
 	let result = SINGLES[name]
-	$.get('QSingle?move='+result,function(response){
+	$.get('QSingle?move='+result+'&version=True',function(response){
 		var formatedCols = formatColors(response);
-		asignarRangoEstiloCelda(condition,formatedCols);
+		changeVersions(formatedCols[1])
+		asignarRangoEstiloCelda(condition,formatedCols[0]);
 	});
 }	
 
@@ -10145,9 +10243,10 @@ function loadDouble(name,condition){
 	//consulta colores de la jugada
 	//rellena la tabla
 	let result = DOUBLES[name];
-	$.get('QDouble?'+'&move='+result,function(response){
+	$.get('QDouble?'+'&move='+result+'&version=True',function(response){
 		var formatedCols = formatColors(response);
-		asignarRangoEstiloCelda(condition,formatedCols);
+		changeVersions(formatedCols[1])
+		asignarRangoEstiloCelda(condition,formatedCols[0]);
 	});
 }
 
@@ -10155,11 +10254,14 @@ function loadTriple(name,condition){
 	//consulta colores de la jugada
 	//rellena la tabla
 	let result = TRIPLES[name];
-	$.get('QTriple?move='+result,function(response){
+	$.get('QTriple?move='+result+'&version=True',function(response){
 		var formatedCols = formatColors(response);
-		asignarRangoEstiloCelda(condition,formatedCols);
+		changeVersions(formatedCols[1])
+		asignarRangoEstiloCelda(condition,formatedCols[0]);
 	});
 }
+
+
 
 function buscarJugada(data,condition){
 	//arma el nombre de la jugada elegida
@@ -10188,9 +10290,11 @@ function buscarJugada(data,condition){
 	}
 }
 
+
+
 function seleccionPosicion(id,col,cell_name){
-	console.log("EJECUTANDO SELECCION");
-	console.log("ID del boton: %s\nColumna: %s\nNombre: %s",id,col,cell_name);
+	//console.log("EJECUTANDO SELECCION posicion version");
+	//console.log("ID del boton: %s\nColumna: %s\nNombre: %s",id,col,cell_name);
 	var condicion_name = "";
 
 	// MOSTRAR LAS COLUMNAS CORRESPONDIENTES
@@ -10259,6 +10363,7 @@ function seleccionPosicion(id,col,cell_name){
 	asignarMensajeTabla(message);
 	//asignarRangoEstiloCelda(condicion_name);
 	//detecta la jugada luego llena la tabla
+	clearVersions();
 	buscarJugada(col_select,condicion_name);
 }
 

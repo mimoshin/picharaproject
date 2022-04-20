@@ -144,6 +144,14 @@ class MovesFactory():
         table = MovesFactory.load_table(selected.colors)
         print("cargandoTable",selected.colors)
         return {'cols':table,'coment':''}
+    
+    
+    @staticmethod
+    def new_get_table(typeMove,move):
+        #ACTUALMENTE EN USO, RENDERIZADO MEDIANTE JS
+        options = {'1':Move,'2':DoubleComparation,'3':TripleComparation}
+        selected = options[typeMove].objects.get(id=move)
+        return selected.colors
 
 
     @staticmethod

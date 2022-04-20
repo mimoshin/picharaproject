@@ -25,7 +25,6 @@ urlpatterns = [
     path('QSingle',QSingle,name='Q_single'),
     path('QDouble',QDouble,name='Q_double'),
     path('QTriple',QTriple,name='Q_triple'),
-
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,47 +1,66 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>    
+<html style="background-color: #292929;">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pichara Poker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'indexstyle.css' %}">
+    <script src="https://bulma.io/vendor/native.js"></script>
+    <script src="https://bulma.io/vendor/clipboard-1.7.1.min.js"></script>
+    <script src="https://bulma.io/vendor/js.cookie-2.1.4.min.js"></script>
+    <script src="https://bulma.io/vendor/cupcakes-3.1.0.min.js"></script>
+    
+    <script src="https://bulma.io/lib/main.js?v=202204041328"></script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-82634666-2"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="{% static 'indexfunc.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'custom.css' %}">
     <!--COLORPICKER-->
     <link rel="stylesheet" type="text/css" href="{% static 'spectrum.css' %}">
     <script type="text/javascript" src="{% static 'spectrum.js' %}"></script>
   </head>
-<body style="background-color:#212121">
-    
-  <div class="container-fluid mt-2">
-    <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link active text-light" href="{% url 'principalView' %}"><img src="{% static 'picharapoker_logo.png'%}" width="200px"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="#">---</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="#">---</a>
-        </li>
-        {% if request.user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link text-light " href="{% url 'login' %}">{{request.user}}</a>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link text-light " href="{% url 'login' %}">Iniciar Sesión</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link text-light " href="{% url 'client_new' %}">Crear Cuenta</a>
-          </li>
-        {% endif %}
-      </ul>
-      {% block content %}
-      {% endblock %}
+
+  <body>
+    <div class="container-fluid">
+      <nav class="navbar is-dark" role="navigation" aria-label="main navigation" style="background-color: #292929;">
+        <div class="navbar-brand">
+          <a class="nav-item" href="{% url 'principalView' %}">
+            <img src="{% static 'picharapoker_logo.png'%}" width="200px">
+          </a>
+          
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarTop">
+            <span aria-hidden="false"></span>
+            <span aria-hidden="false"></span>
+            <span aria-hidden="false"></span>
+          </a>
+        </div>
+      
+        <div id="navbarTop" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button has-text-info-light" href="{% url 'login' %}">
+                  <strong>Iniciar sesión</strong>
+                </a>
+                <a class="button has-background-grey-light" href="{% url 'login' %}">
+                  Crear cuenta
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
-</body>
+      
+    <div class="container-fluid mt-2">
+        {% block content %}
+        {% endblock %}
+    </div>
+  </body>
 </html>

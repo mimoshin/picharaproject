@@ -1,0 +1,294 @@
+{% load static %}
+{% load pages_extras %}
+<div class="columns is-desktop is-body" style="margin-top:15px;">
+    <div class="column is-5">
+		<div class="columns" id="estructura"></div>
+    </div>
+			
+	<div class="column is-7">
+		<h3 class="title is-4 is-centered" id="rangos-title" style="color:white;text-align:center;"></h3>
+        {% if versions %}
+            <h1 class="has-text-white">Con versiones</h1>
+        {% else %}
+            <div class="columns">
+                <div class="colum is-6 select">
+                    <select id="versionsSelect">
+                        <option value="0">Version Principal</option>
+                    </select>
+                </div>
+                <div class="colum is-6">    
+                    <button class="button is-small is-link" style="margin-left: 10px;" id="newButton" data-target="newModal">Nueva Version</button>
+                    <button class="button is-small is-warning" style="margin-left: 10px;" id="modButton" data-target="modifyModal">Modificar Version</button>
+                    <button class="button is-small is-danger" style="margin-left: 10px;"  id="deleteButton" data-target="deleteModal">Eliminar Version</button>
+                </div>
+            </div>
+        {% endif %}
+        <div class="columns" id="rangos_tag"></div>
+		    <div class="column is-11">
+				<table class="table is-bordered is-narrow is-fullwidth" id="rangos_tabla">
+                </table>
+				<article class="message">
+				    <div id ="table_message" class="message-body">
+				    </div>
+				</article>
+			</div>
+		</div>
+		<!-- MENSAJE BAJO TABLA -->
+	</div>
+			
+	<footer class="footer" style="color:white; margin-top: 30px; background-color: #212121;">
+        <div class="content has-text-centered">
+            <p style="font-size: 12px;">
+                © 2021 Escuela de Poker PicharaPoker probando cambios. Todos los derechos reservados.<!-- Versión 1.3 (Actualizado al 7 de marzo de 2021)-->
+            </p>
+        </div>
+	</footer>			
+</div>
+
+    <!--New Modal-->
+    <div class="modal" id="newModal">
+        <div class="modal-background"></div>
+        <div class="modal-card" style="width: 60%;">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Nueva Version</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body" style=" background-color: #292929;">
+                <div class="columns" style="margin-top: 5px;margin-bottom: 5px;">
+                    <div class="column is-6">
+                    </div>
+                    <div class="column is-6" id="spectrum">
+                        <p>parte 2</p>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-4">
+                        <div class="control" style="margin-bottom: 20px;">
+                            <div class="field">
+                                <label class="label has-text-white">Version</label>
+                                <input class="input is-small" type="text">
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="field">
+                                <label class="label has-text-white">Descripción</label>
+                                <textarea class="textarea" name="" id="" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="column is-6" id="newBody">
+
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot" style="background-color: #292929;">
+                <button class="button is-link" id="saveForm">Guardar</button>
+                <button class="button">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+    <!--Modify Modal-->
+    <div class="modal" id="modifyModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Modificar Version</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body" id="modifyBody">
+              
+            <!-- Content ... -->
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+          </footer>
+        </div>
+    </div>
+    
+    <!--Delete Modal-->
+    <div class="modal" id="deleteModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Eliminar Version</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body" id="deleteBody">
+                <!-- Content ... -->
+            </section>
+            <footer class="modal-card-foot" style="background-color: #212121;">
+                <button class="button is-link" id="seguro">Sí, Seguro.</button>
+                <button class="button" data-dismiss="modal">Cancelar</button>
+            </footer>
+        </div>
+    </div>
+
+
+	<script>
+        var deletes;
+        var selectedColor = 'default';
+
+        $('#spectrum').spectrum({
+            flat: true,
+            clickoutFiresChange: false,
+            hideAfterPaletteSelect: true,
+             
+            color:'#f00',      
+            showPalette: true,
+            showPaletteOnly: true,
+            palette: [
+                ['#00B050','#92D050','#FF0000','#FFFF00','#0070C0','#0070c1','#00B0F0'],
+                ['#ff9d42','#292929','#F2F2F2','#FF5543','#FC9F6C','#BFBFBF'],
+            ]
+        });
+
+        $('#newBody,td').on('click',(element)=>{
+            if(selectedColor == 'default'){
+                console.log("default color")
+            }
+            else{
+                let seleccionado = element.target;
+                seleccionado.className = selectedColor;
+                console.log("el clickeado",element.target);
+            }
+        })
+
+	    window.onload = function(){
+			cargarcondicion();
+			crearEstructura();
+			llenarRangosTabla();
+			seleccionPosicion('button_c0r0',0,'UTG');
+		}
+
+
+        $('#versionsSelect').change(function(){
+			let version = $('#versionsSelect').val();
+            buscarVersion(version);
+        });
+
+        $('#deleteButton').click(()=>{
+            let selected = $('#versionsSelect').val();
+            deletes = selected;
+        })
+        $('#seguro').on('click',()=>{
+            if(deletes>0){
+                let durl = getDelURL();
+                $.post("{% url 'delete_version' %}",
+                    {'csrfmiddlewaretoken':'{{csrf_token}}','typeMove':durl[0],'move':durl[1],'version':deletes},
+                    (response)=>{
+                        if(response == 'True'){
+                            $('#versionsSelect').find("option[value='"+deletes+"']").remove();
+                        }
+                    });
+            }
+        });
+            
+        document.addEventListener('DOMContentLoaded', () => {
+            // Functions to open and close a modal
+            function openModal($el) {
+                console.log("EJECUTA OPENMODAL");
+                $el.classList.add('is-active');
+            }
+
+            function closeModal($el) {
+                console.log("EJECUTA CLOSEMODAL");
+                $el.classList.remove('is-active');
+            }
+
+            function closeAllModals() {
+                console.log("EJECUTA CLOSEMODALS");
+                (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+                    closeModal($modal);
+                });
+            }
+            
+            // Add a click event on buttons to open a specific modal
+            (document.querySelectorAll('#newButton') || []).forEach(($trigger) => {
+                const modal = $trigger.dataset.target;
+                const $target = document.getElementById(modal);
+
+                $trigger.addEventListener('click', () => {
+                    openModal($target);
+                    loadnewTable();
+                });
+            });
+
+            (document.querySelectorAll('#modButton') || []).forEach(($trigger) => {
+                console.log("TRIGER ?",$trigger);
+                const modal = $trigger.dataset.target;
+                const $target = document.getElementById(modal);
+
+                $trigger.addEventListener('click', () => {
+                    openModal($target);
+                });
+            });
+
+            (document.querySelectorAll('#deleteButton') || []).forEach(($trigger) => {
+                const modal = $trigger.dataset.target;
+                const $target = document.getElementById(modal);
+
+                $trigger.addEventListener('click', () => {
+                    openModal($target);
+                });
+            });
+
+            // Add a click event on various child elements to close the parent modal
+            (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+                const $target = $close.closest('.modal');
+
+                $close.addEventListener('click', () => {
+                closeModal($target);
+                });
+            });
+
+            // Add a keyboard event to close all modals
+            document.addEventListener('keydown', (event) => {
+                const e = event || window.event;
+
+                if (e.keyCode === 27) { // Escape key
+                closeAllModals();
+                    }
+            });
+        });
+
+        $('#saveForm').click(function(){
+            celdas = $('#newBody, table');
+            texto = '';
+            console.log(celdas);
+            /*
+            nameV = $('#versionID')[0].value;
+            descV =  $('#descID')[0].value;
+            console.log(descV)
+            counter = 0
+            if(nameV && descV){
+                $.each(celdas,function(index,value){
+                    //tiny = tinycolor(value.style.backgroundColor);
+                    //color  = tiny.toHexString()
+                    //posi = colors.indexOf(color)
+                    valuecolor = value.className.replace('selectCell border color','');
+                    if(counter == 12 ){
+                        texto = texto+valuecolor+'.';
+                        counter = 0;
+                    }
+                    else{
+                        texto = texto+valuecolor+'-';	
+                        counter+=1;
+                    }
+                });	
+                $.post("{% url 'new_version' %}",
+                    {'csrfmiddlewaretoken':'{{csrf_token}}','base':base,'dbase':move,'tbase':tmove,
+                    'texto':texto,'name':nameV,'description':descV},
+                    function(response){
+                        location.reload();
+                    }
+                );
+            } 
+            else{
+                alert("Datos no validos");
+            }*/
+        });
+	</script>
+</html>

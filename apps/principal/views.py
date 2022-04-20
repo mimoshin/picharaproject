@@ -42,8 +42,8 @@ def principalView(request):
         elif user.is_admin or user.is_staff:
             return adminPV(request)
     else:    
-        return render(request,'index.html')
-        #return render(request,'general/generalIndex.html')
+        #return render(request,'index2.html')
+        return render(request,'general/generalIndex.html')
 #______END FILTER VIEWS________
 
 #______ADMIN VIEWS_____________

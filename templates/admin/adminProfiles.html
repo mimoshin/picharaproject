@@ -2,27 +2,33 @@
 {% load static %}
 
 {% block content %}
-    <div class="row mt-4">
-        <div class="col-6">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'admin_principal' %}">Jugadas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'profiles_list' %}">Perfiles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'all_clients' %}">Clientes</a>
-                </li>
-            </ul>
+    <div class="columns">
+        <div class="column">
+            <div class="tabs is-centered is-boxed">
+                <ul>
+                    <li>
+                        <a class="navbar-item has-text-info" href="{% url 'admin_principal' %}">Jugadas</a>
+                    </li>
+                    <li class="is-active">
+                        <a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
+                    </li>
+                    <li>
+                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Clientes</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     
     
-    <h4 class="text-light text-center mt-4">{{profile}}</h4>
-    <p class="text-center text-white mt-2">{{profile.description}}</p>
+
+    <h1 class="title has-text-white has-text-centered">{{profile}}</h1>
+    <p class="has-text-white has-text-centered">{{profile.description}}</p>
     <a type="button" class="btn btn-sm btn-secondary mt-2" href="{% url 'profiles_list' %}">Volver</a>
-    
+
+    {% include 'indexVersion.html' %}
+
+    <!--
     <div class="row mt-4">
         <div class="col-1">
             {% include 'singleMoves.html' with view='profiles' %}
@@ -59,8 +65,9 @@
             {% include 'table.html' with view='profiles' %}
          </div>
     </div>
+-->
 
-    <script>
+    <script>   
         base = '{{base}}';
         move = '{{dbase}}';
         tmove = '{{tbase}}'; 

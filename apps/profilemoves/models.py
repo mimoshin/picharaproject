@@ -1,5 +1,3 @@
-from ast import Return
-import profile
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from poker.utils import  TABLA
@@ -119,6 +117,13 @@ class ProfilesFactory():
             return total
             
     @staticmethod
+    def new_get_version_table(typeMove,version,move):
+        #ACTUALMENTE EN USO, RENDERIZADO MEDIANTE JS
+        options = {'1':SingleVersion,'2':DoubleVersion,'3':TripleVersion}
+        selected = options[typeMove].objects.get(id=version)
+        return selected.colors
+    
+    @staticmethod
     def get_profile(pid):
         profile = Profile.objects.get(id=pid)
         return profile
@@ -205,3 +210,14 @@ class ProfilesFactory():
     def desassign_profile(profile,client):
         clientprofile = ClientProfile.objects.get(profileId_id=profile,clientId_id=client)
         clientprofile.delete()
+
+    @staticmethod
+    def delete_version(typeMove,move,version):
+        try:
+            options = {'1':SingleVersion,'2':DoubleVersion,'3':TripleVersion}
+            selected = options[typeMove].objects.get(id=version)
+            selected.delete()
+            return True
+        except Exception as e:
+            print("eeror al eliminar version",e)
+            return False

@@ -1,65 +1,88 @@
 {% extends 'admin/BaseAdmin.html'%}
 
 {% block content %}
-    <div class="row mt-4">
-        <div class="col-3">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'admin_principal' %}">Jugadas</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'profiles_list' %}">Perfiles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'all_clients' %}">Clientes</a>
-                </li>
-            </ul>
+    <div class="columns">
+        <div class="column">
+            <div class="tabs is-centered is-boxed">
+                <ul>
+                    <li>
+                        <a class="navbar-item has-text-info" href="{% url 'admin_principal' %}">Jugadas</a>
+                    </li>
+                    <li>
+                        <a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
+                    </li>
+                    <li class="is-active">
+                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Clientes</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-
-    <h1 class="text-center text-white mt-2">{{client.name}}</h1>
-    <a type="button" class="btn btn-sm btn-secondary" href="{% url 'all_clients' %}">Volver</a>
+    
+    <h1 class="title has-text-white has-text-centered">{{client.name}}</h1>
     <form class="mt-4" method="post" action="{% url 'client_modify' client.id %}" autocomplete="off">
         {% csrf_token %}
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="uss">Nombre de usuario</label>
-                <input class="form-control" type="user" name="username" id="uss" placeholder="{{client.baseUser.username}}" disabled>
-            </div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="pass">Contraseña</label>
-                <input class="form-control" type="password" name="password" id="pass" placeholder="******" disabled>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="fnam">Nombre</label>
-                <input class="form-control" type="text" name="firstname" id="fnam" placeholder="{{client.baseUser.first_name}}">
-            </div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="lnam">Apellido</label>
-                <input class="form-control" type="text" name="lastname" id="lnam" placeholder="{{client.baseUser.last_name}}">
+
+        <div class="columns">
+            <div class="column is-3"></div>
+            <div class="column is-6">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label has-text-white">Nombre de usuario</label>
+                        <input class="input is-small has-text-danger" type="text" name="username" id="uss" placeholder="{{client.baseUser.username}}" disabled>
+                    </div>
+                    <div class="field">
+                        <label class="label has-text-white">Contraseña</label>
+                        <input class="input is-small" type="password" name="password" id="pass" placeholder="******" disabled>    
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="email">Correo</label>
-                <input class="form-control" type="text" name="email" placeholder="{{client.baseUser.email}}">
-            </div>
-            <div class="col-3 form-group">
-                <label class="text-white" for="age">Telefono</label>
-                <input class="form-control" type="text" name="cellphone" placeholder="{{client.baseUser.cellphone}}">
+
+        <div class="columns">
+            <div class="column is-3"></div>
+            <div class="column is-6">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label has-text-white">Nombre</label>
+                        <input class="input is-small" type="text" name="firstname" id="fnam" placeholder="{{client.baseUser.first_name}}">
+                    </div>
+                    <div class="field">
+                        <label class="label has-text-white">Apellido</label>
+                        <input class="input is-small" type="text" name="lastname" id="lnam" placeholder="{{client.baseUser.last_name}}">
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+
+        <div class="columns">
+            <div class="column is-3"></div>
+            <div class="column is-6">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label has-text-white">Correo</label>
+                        <input class="input is-small has-text-danger" type="email" name="email" id="em" placeholder="{{client.baseUser.email}}">
+                    </div>
+                    <div class="field">
+                        <label class="label has-text-white">Telefono</label>
+                        <input class="input is-small" type="text" name="cellphone" id="cell"placeholder="{{client.baseUser.cellphone}}">    
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="columns">
+            <div class="column is-3"></div>
+            <div class="column is-3">
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-small is-link">Enviar</button>
+                    </div>
+                    <div class="control">
+                        <a type="button" class="button is-small is-light" href="{% url 'all_clients' %}">Cancelar</a>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
-    {{client.name}}
 {% endblock %}
