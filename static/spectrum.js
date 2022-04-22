@@ -695,9 +695,7 @@
                 {
                     revert();
                 } 
-                else{
-                    console.log("CLICKIE LA TABLA");
-                }
+                //else{console.log("CLICKIE LA TABLA");}
             }
             hide();
         }
@@ -718,11 +716,10 @@
         }
 
         function revert() {
-            console.log("revirtiendo");
+            //console.log("revirtiendo");
             set(colorOnShow, true);
             updateOriginalInput(true);
             selectedColor = 'default';
-            console.log("CAMBIAR COLOR A DEFAULT 1");
         }
 
         function set(color, ignoreFormatChange) {

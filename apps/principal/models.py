@@ -1,4 +1,7 @@
+from traceback import print_tb
 from django.db import models
+from django.http import HttpResponse
+from requests import options
 from poker.utils import COLORS,TABLA
 from .basemoves import SINGLE,DOUBLES,TRIPLES, get_table, get_tags
 # Create your models here.
@@ -86,7 +89,16 @@ class MovesFactory():
             total.append(move)
             move = {}
         return total
-                
+
+    @staticmethod
+    def get_move(move,typemove):
+        try:
+            options = {'1':Move,'2':DoubleComparation,'3':TripleComparation}
+            selected = options[typemove].objects.get(id=int(move))
+            return selected  
+        except Exception as e:
+            print("error al cargar jugada",e)
+            return False 
 
     @staticmethod
     def get_all_smoves():
@@ -149,9 +161,12 @@ class MovesFactory():
     @staticmethod
     def new_get_table(typeMove,move):
         #ACTUALMENTE EN USO, RENDERIZADO MEDIANTE JS
-        options = {'1':Move,'2':DoubleComparation,'3':TripleComparation}
-        selected = options[typeMove].objects.get(id=move)
-        return selected.colors
+        try:
+            options = {'1':Move,'2':DoubleComparation,'3':TripleComparation}
+            selected = options[typeMove].objects.get(id=move)
+            return HttpResponse(selected.colors)
+        except Exception as e:
+            return HttpResponse(False)
 
 
     @staticmethod

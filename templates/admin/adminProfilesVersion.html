@@ -6,25 +6,11 @@
     </div>
 			
 	<div class="column is-7">
-		<h3 class="title is-4 is-centered" id="rangos-title" style="color:white;text-align:center;"> </h3>
+		<h3 class="title is-4 is-centered" id="rangos-title" style="color:white;text-align:center;"></h3>
         {% if versions %}
             <h1 class="has-text-white">Con versiones</h1>
         {% else %}
-            <div class="columns">
-                <div class="colum is-6 select">
-                    <select id="versionsSelect">
-                        <option value="0">Version Principal</option>
-                    </select>
-                </div>
-                <div class="colum is-6">    
-                    <button class="button is-small is-link" style="margin-left: 10px;" id="newButton" data-target="newModal">Nueva Version</button>
-                    <button class="button is-small is-warning is-hidden" style="margin-left: 10px;" id="modButton" data-target="modifyModal">Modificar Version</button>
-                    <button class="button is-small is-danger is-hidden" style="margin-left: 10px; margin-right: 10px;"  id="deleteButton" data-target="deleteModal">Eliminar Version</button>
-                    <button class="button is-small is-primary is-hidden asdsButton" data-func="as" id="assignedButton">Asignar</button>
-                    <button class="button is-small is-danger is-hidden asdsButton" data-func="des" id="desasButton">Desasignar</button>
-
-                </div>
-            </div>
+           
         {% endif %}
         <div class="columns" id="rangos_tag"></div>
 		    <div class="column is-11">
@@ -87,7 +73,7 @@
             </section>
             <footer class="modal-card-foot" style="background-color: #292929;">
                 <button class="button is-link" id="saveForm">Guardar</button>
-                <button class="button">Cancelar</button>
+                <button class="button">Cancel</button>
             </footer>
         </div>
     </div>
@@ -131,7 +117,7 @@
           </section>
           <footer class="modal-card-foot" style="background-color: #292929;">
             <button class="button is-link" id="saveModify">Guardar cambios</button>
-            <button class="button">Cancelar</button>
+            <button class="button">Cancel</button>
           </footer>
         </div>
     </div>
@@ -158,20 +144,6 @@
 	<script>
         var deletes;
         var selectedColor = 'default';
-
-        $('.asdsButton').on('click',function(){
-            let version = $('#versionsSelect').val();
-            let profile = window.location.href.split('/').pop();
-            let durl = getDelURL();
-            let data = {'csrfmiddlewaretoken':'{{csrf_token}}','typeMove':durl[0],'move':durl[1],'version':version,'profile':profile}
-            data['type'] = this.dataset.func;
-
-            $.post("{% url 'assign_version' %}",data,
-                function(){
-                    location.reload();
-                }
-            );
-        });
 
         $('#spectrum').spectrum({
             flat: true,
@@ -231,18 +203,8 @@
 
 
         $('#versionsSelect').change(function(){
-            this.classList = '';
-            classes = this.selectedOptions[0].classList.value;
-            this.classList.add(classes);
 			let version = $('#versionsSelect').val();
-            if(version >0){
-                buscarVersion(version,true);
-            }
-            else{
-                hidenButtons();
-                buscarVersion(version,false);
-            }
-            
+            buscarVersion(version,true);
         });
 
         $('#deleteButton').click(()=>{
@@ -334,6 +296,7 @@
         });
 
         $('#saveForm').click(function(){
+            
             celdas = $('#newBody table td');
             texto = '';
             nameV = $('#versionID')[0].value;

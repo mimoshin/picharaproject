@@ -123,7 +123,6 @@ TRIPLES = {
 	'BB vs SB vs 2.5x':67,
 	'BB vs SB vs Limp':68,
 }
-var options_dict = {1:SINGLES,2:DOUBLES,3:TRIPLES}
 var	rangos_tabla = [
 		['AA','AKs','AQs','AJs','ATs','A9s','A8s','A7s','A6s','A5s','A4s','A3s','A2s'],
 		['AKo','KK','KQs','KJs','KTs','K9s','K8s','K7s','K6s','K5s','K4s','K3s','K2s'],
@@ -10002,8 +10001,8 @@ function crearTagsRangos(rangos_tag){
 }
 
 function ocultarColumnas(inicial){
-	//console.log("ocultarColumnas");
-	//console.log("inicial: %s",inicial)
+	console.log("ocultarColumnas");
+	console.log("inicial: %s",inicial)
 	for(var i = 0; i < estructura.length; i++)  {
 		if (i>inicial){//Columna 0 nunca se debe ocultar
 			/*	busca la estructura [i] y la oculta
@@ -10044,7 +10043,7 @@ function ocultarColumnasPrevias(col_eliminadas){
 }
 function activarCelda(id,col){
 	/*cambia el color del boton seleccionado */
-	//console.log("Cambiar color\nID BUTTON: %s | COLUMNA: %s",id,col);
+	console.log("Cambiar color\nID BUTTON: %s | COLUMNA: %s",id,col);
 	for(var i=col;i<estructura.length;i++){
 		for(var j=0; j<estructura[i].row.length; j++){
 			document.getElementById("button_c"+i+"r"+j).classList.remove('is-success');
@@ -10060,11 +10059,11 @@ function activarCelda(id,col){
 
 function guardarSeleccionCol(col,cell_name){
 	//Guardar el nombre y columna seleccionada
-	//console.log("guardarSeleccionCol\n")
-	//console.log("col: %s\nCell_name: %s",col,cell_name);
-	//console.log("variable: %s",col_select);
+	console.log("guardarSeleccionCol\n")
+	console.log("col: %s\nCell_name: %s",col,cell_name);
+	console.log("variable: %s",col_select);
 	col_select[col] = cell_name;
-	//console.log("variable Modificada: %s",col_select);
+	console.log("variable Modificada: %s",col_select);
 	for(var i=(col+1);i<estructura.length;i++){
 		col_select[i] = "";		
 	}
@@ -10080,7 +10079,7 @@ function asignarTituloRango(titulo){
 }
 
 function asignarRangoEstiloCelda(titulo,colors){
-	//console.log("asignarrandoestilocelda");
+	console.log("asignarrandoestilocelda");
 	var rangos_cell = [];
 	var rangos_tag = [];
 	borrarClassTable();
@@ -10103,7 +10102,7 @@ function asignarRangoEstiloCelda(titulo,colors){
 			
 				var id = "range_r"+i+"c"+j;
 			
-				document.getElementById(id).classList.add("color"+colors[i][j]);
+				document.getElementById(id).classList.add("color"+rangos_cell[i][j]);
 			
 		}
 	}
@@ -10124,211 +10123,21 @@ function asignarMensajeTabla(message){
 
 
 function formatColors(textColors){
-	let separated = textColors.split('|');
-	let text = separated[0].slice(0,-1).split('.');
+	let text = textColors.slice(0,-1).split('.');
 	let columns = [];
 	text.forEach(element =>{
 		columns.push(element.split('-'));
 	})
-	if(separated[1]){
-		var versions = separated[1].slice(0,-1).split('-');
-		return [columns,versions];
-	}
-	return [columns,null];
+	return columns;
 }
 
-function clearVersions(){
-	let versionx = $('#versionsSelect');	
-	versionx.empty();
-	versionx.append(`<option value="0" class="has-background-white">Version Principal</option>`);
-}
-
-function changeVersions(data){
-	if(data){
-		let selectVersions = document.getElementById('versionsSelect');
-		//console.log(selectVersions);
-		data.forEach(element =>{
-			let separa = element.split(':')
-			option = new Option(separa[0],separa[1])
-			if(separa[2] == 'True'){
-				option.classList.add('has-background-primary');
-			}
-			else{
-				option.classList.add('has-background-white');
-			}
-			selectVersions.add(option);
-		});
-	}
-}
-
-//VERSION
-function loadnewTable(element){
-	let tabla = document.getElementById('rangos_tabla').cloneNode(true);
-	document.getElementById(element).innerHTML ='';
-	document.getElementById(element).appendChild(tabla);
-}
-
-
-function getDelURL(){
-	//arma el nombre de la jugada elegida
-	let typeMove = 0;
-	let findName = '';
-	col_select.forEach(element=>{
-		if(element){
-			typeMove+=1;
-			findName+=element+' '
-		}
-	})
-	var result =0;
-	//nombre de la jugada
-	findName=findName.slice(0,-1);
-	if(typeMove == 1){
-		result = SINGLES[findName]
-	}
-	else if(typeMove == 2){
-		result = DOUBLES[findName]
-	}
-	else if(typeMove == 3){
-		result = TRIPLES[findName]
-	}
-	return [typeMove,result];
-}
-
-//VERSION
-function getDataVersion(version){
-	//arma el nombre de la jugada elegida
-	let typeMove = 0;
-	let findName = '';
-	col_select.forEach(element=>{
-		if(element){
-			typeMove+=1;
-			findName+=element+' '
-		}
-	})
-	//nombre de la jugada
-	findName=findName.slice(0,-1);
-	let result = SINGLES[name];	
-	//carga la version seleccionada de la jugada
-	$.get('get_data?move='+result+'&version='+version+'&typeMove='+typeMove,function(response){
-		console.log("consultando Version",response);
-	});
-}
-
-//VERSION
-function loadTableVersion(name,colors){
-	//format colors
-	console.log("recibo el loadtableVersion");
-	let text = colors.slice(0,-1).split('.');
-	let columns = [];
-	text.forEach(element =>{
-		columns.push(element.split('-'));
-	})
-	borrarClassTable();
-	for(var i=0; i<columns.length; i++){
-		for(var j=0; j<columns[i].length; j++){
-				var id = "range_r"+i+"c"+j;
-				document.getElementById(id).classList.add("color"+columns[i][j]);
-		}
-	}
-}
-
-//VERSION
-function showButton(element){
-	let hiden = element.classList.contains('is-hidden');
-	if(hiden){
-		element.classList.remove('is-hidden');
-	}
-}
-
-//VERSION
-function load_data_modify(name,description,assign){
-	document.getElementById('modVersion').value = name;
-	document.getElementById('modDesccript').value = description;
-	let modify = document.getElementById('modButton');
-	let deleten = document.getElementById('deleteButton');
-	let asigned = document.getElementById('assignedButton');
-	let desasigned = document.getElementById('desasButton');
-	showButton(modify);
-	showButton(deleten);
-	if(assign){
-		console.log("asign retornado en true",assign);
-		desasigned.classList.remove("is-hidden");
-		asigned.classList.add("is-hidden");
-	}
-	else{
-		console.log("asign retornado en false",assign);
-		desasigned.classList.add("is-hidden");
-		asigned.classList.remove('is-hidden');
-	}
-}
-
-//VERSION
-function loadJSVersion(name,version,typeMove,modify=false){
-	let profile = window.location.href.split('/').pop();
-	let result = options_dict[typeMove][name]
-	$.get('QJSVersion?move='+result+'&version='+version+'&typeMove='+typeMove+'&modify='+modify+'&profile='+profile,function(response){
-		if(modify){
-			respJSN = JSON.parse(response)
-			console.log();
-			load_data_modify(respJSN.name,respJSN.description,respJSN.assign);
-			loadTableVersion(name,respJSN.colors);
-		}
-		else{
-			loadTableVersion(name,response);
-		}
-	});
-}
-
-//VERSION
-function buscarVersion(version,modify=false){
-	//arma el nombre de la jugada elegida
-	let typeMove = 0;
-	let findName = '';
-	col_select.forEach(element=>{
-		if(element){
-			typeMove+=1;
-			findName+=element+' '
-		}
-	})
-	//nombre de la jugada
-	findName=findName.slice(0,-1);
-	//carga la version seleccionada de la jugada
-	console.log("buscarVersion opcion modify",modify);
-	loadJSVersion(findName,version,typeMove,modify);
-}
-
-//VERSION
-
-function changeClass(element){
-	let hiden = element.classList.contains('is-hidden');
-	console.log("element: %s is hiden: %s",element,hiden);
-	if(!hiden){
-		element.classList.add('is-hidden');
-	}
-}
-
-//VERSION
-function hidenButtons(){
-	let modify = document.getElementById('modButton');
-	let deleten = document.getElementById('deleteButton');
-	let asigned = document.getElementById('assignedButton');
-	let desasigned = document.getElementById('desasButton');
-	changeClass(modify);
-	changeClass(deleten);
-	changeClass(asigned);
-	changeClass(desasigned);
-}
-
-
-function loadSingle(name,condition,typemove){
+function loadSingle(name,condition){
 	//consulta colores de la jugada
 	//rellena la tabla
-	let profile = window.location.href.split('/').pop();
 	let result = SINGLES[name]
-	$.get('QSingle?move='+result+'&version=True'+'&profile='+profile,function(response){
+	$.get('QSingle?move='+result,function(response){
 		var formatedCols = formatColors(response);
-		changeVersions(formatedCols[1])
-		asignarRangoEstiloCelda(condition,formatedCols[0]);
+		asignarRangoEstiloCelda(condition,formatedCols);
 	});
 }	
 
@@ -10336,10 +10145,9 @@ function loadDouble(name,condition){
 	//consulta colores de la jugada
 	//rellena la tabla
 	let result = DOUBLES[name];
-	$.get('QDouble?'+'&move='+result+'&version=True',function(response){
+	$.get('QDouble?'+'&move='+result,function(response){
 		var formatedCols = formatColors(response);
-		changeVersions(formatedCols[1])
-		asignarRangoEstiloCelda(condition,formatedCols[0]);
+		asignarRangoEstiloCelda(condition,formatedCols);
 	});
 }
 
@@ -10347,26 +10155,11 @@ function loadTriple(name,condition){
 	//consulta colores de la jugada
 	//rellena la tabla
 	let result = TRIPLES[name];
-	$.get('QTriple?move='+result+'&version=True',function(response){
+	$.get('QTriple?move='+result,function(response){
 		var formatedCols = formatColors(response);
-		changeVersions(formatedCols[1])
-		asignarRangoEstiloCelda(condition,formatedCols[0]);
+		asignarRangoEstiloCelda(condition,formatedCols);
 	});
 }
-
-//CARGA LA JUGADA INDEPENDIENTE DEL TIPO
-function loadmove(name,condition,typemove){
-	//consulta colores de la jugada
-	//rellena la tabla
-	let profile = window.location.href.split('/').pop();
-	let result = options_dict[typemove][name];
-	$.get('QMove?move='+result+'&version=True'+'&profile='+profile+'&typeMove='+typemove,function(response){
-		var formatedCols = formatColors(response);
-		changeVersions(formatedCols[1])
-		asignarRangoEstiloCelda(condition,formatedCols[0]);
-	});
-}	
-
 
 function buscarJugada(data,condition){
 	//arma el nombre de la jugada elegida
@@ -10381,8 +10174,6 @@ function buscarJugada(data,condition){
 	//nombre de la jugada
 	findName=findName.slice(0,-1);
 
-	loadmove(findName,condition,typeMove);
-	/*
 	//carga el tipo de jugada en base al nombre
 	if(typeMove==1){
 		loadSingle(findName,condition);
@@ -10394,17 +10185,12 @@ function buscarJugada(data,condition){
 	
 	else if(typeMove==3){
 		loadTriple(findName,condition);
-	}*/
+	}
 }
 
-
-
 function seleccionPosicion(id,col,cell_name){
-	let version = document.getElementById('versionsSelect');
-	version.classList = '';
-	hidenButtons();
-	//console.log("EJECUTANDO SELECCION posicion version");
-	//console.log("ID del boton: %s\nColumna: %s\nNombre: %s",id,col,cell_name);
+	console.log("EJECUTANDO SELECCION");
+	console.log("ID del boton: %s\nColumna: %s\nNombre: %s",id,col,cell_name);
 	var condicion_name = "";
 
 	// MOSTRAR LAS COLUMNAS CORRESPONDIENTES
@@ -10471,10 +10257,9 @@ function seleccionPosicion(id,col,cell_name){
 
 	asignarTituloRango(condicion_name);
 	asignarMensajeTabla(message);
-	//asignarRangoEstiloCelda(condicion_name);
+	asignarRangoEstiloCelda(condicion_name);
 	//detecta la jugada luego llena la tabla
-	clearVersions();
-	buscarJugada(col_select,condicion_name);
+	//buscarJugada(col_select,condicion_name);
 }
 
 

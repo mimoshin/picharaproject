@@ -13,7 +13,7 @@
                         <a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
                     </li>
                     <li>
-                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Clientes</a>
+                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Usuarios</a>
                     </li>
                 </ul>
             </div>
@@ -30,20 +30,24 @@
                     <thead>
                         <tr>
                             <td class="has-text-white has-text-centered" style="border: 1px solid black;">Nombre</td>
-                            <td class="has-text-white has-text-centered" style="border: 1px solid black;" colspan="3">Opciones</td>
+                            <td class="has-text-white has-text-centered" style="border: 1px solid black;" colspan="4">Opciones</td>
                         </tr>
                     </thead>
                     <tbody>
                         {% for profile in profiles %}
                         <tr>
-                            <td class="has-text-white has-text-centered" style="border: 1px solid black;">
+                            <td class="has-text-white has-text-centered nameProfile" style="border: 1px solid black;" id="{{profile.id}}">
                                 {{profile}}
                             </td>
                             <td class="text-center has-text-centered" style="border: 1px solid black;">
-                                <a type="button" href="" class="button is-small is-link">Ver Perfil</a>
+                                <a type="button" href="{% url 'view_profile' profile.id %}" class="button is-small is-link">Ver Perfil</a>
                             </td>
                             <td class="text-center has-text-centered" style="border: 1px solid black;">
                                 <a type="button" href="{% url 'admin_profile' profile.id %}" class="button is-small is-success">Modificar</a>
+                            </td>
+                            <td class="text-center has-text-centered" style="border: 1px solid black;">
+                                <!--<button class="button is-small is-warning modal-button duplicate" data-target="duplicateModal" id="{{profile.id}}">Duplicar</button>-->
+                                <a type="button" href="{% url 'duplicate_profile' profile.id %}" class="button is-small is-warning">Duplicar</a>
                             </td>
                             <td class="text-center has-text-centered" style="border: 1px solid black;">
                                 <a type="button" href="{% url 'delete_profile' profile.id %}" class="button is-small is-danger">Eliminar</a>
@@ -74,14 +78,40 @@
                     </div>
                 </div>
             </section>
-            <footer class="modal-card-foot" style="background-color: #212121;">
+            <footer class="modal-card-foot" style="background-color: #292929;">
               <button class="button is-link" id="saveForm">Guardar</button>
               <button class="button">Cancelar</button>
             </footer>
           </div>
     </div>
 
+    <!-- Duplicate Modal -->
+    <div class="modal" id="duplicateModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head" style="background-color: #343a40;">
+              <p class="modal-card-title has-text-white">Duplicar perfil</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body" style="background-color: #343a40;">
+                <div class="columns">
+                    <div class="col-6">
+                        <label class="has-text-white">Nombre del Perfil de jugadas</label>
+                        <input class="input" type="text" name="perfil" id="perfilID">
+                        <label class="has-text-white" >Descripción del Perfil</label>
+                        <textarea class="textarea is-small" type="text" name="description" id="descID" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot" style="background-color: #292929;">
+              <button class="button is-link" id="duplicateForm">Guardar</button>
+              <button class="button">Cancelar</button>
+            </footer>
+          </div>
+    </div>
+
     <script>
+        var dupli;
         $('#saveForm').click(function(){
             let texto = '';
             let perfil =$('#perfilID')[0].value;
@@ -94,6 +124,33 @@
                     }
             );
         });
+
+    
+        /*
+        $('.nameProfile').on('click',function(event){
+            console.log("nombre clickeado",$(this)[0],this.className);
+            $(this).html('<input class="input" type="text" name="perfil" id="perfilID">');
+            $(this).removeClass('nameProfile');
+        });*/
+
+        $('.duplicate').on('click',function(){
+            dupli = this.id
+        })
+
+        $('#duplicateForm').click(function(){
+            let texto = '';
+            let perfil =$('#perfilID')[0].value;
+            let descV =  $('#descID')[0].value;
+            let counter = 0;
+           
+            $.post("{% url 'duplicate_profile' 0 %}".replace('0',dupli),
+                    {'csrfmiddlewaretoken':'{{csrf_token}}','name':perfil,'description':descV},
+                    function(response){
+                        location.reload();
+                    }
+            );
+        });
+
 
         document.addEventListener('DOMContentLoaded', () => {
             // Functions to open and close a modal

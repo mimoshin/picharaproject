@@ -12,4 +12,5 @@ urlpatterns = [
     path('delete_client/<int:client>',DeleteClient,name='delete_client'),
     path('View_client/<int:client>',ClientView,name='client_view'),
     path('create_admin',create_adminpoker,name='createadmin'),
+    
 ]

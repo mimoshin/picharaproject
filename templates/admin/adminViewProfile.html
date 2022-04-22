@@ -1,0 +1,30 @@
+{% extends 'admin/BaseAdmin.html' %}
+
+{% block content %}
+    <div class="columns">
+        <div class="column">
+            <div class="tabs is-centered is-boxed">
+                <ul>
+                    <li>
+                        <a class="navbar-item has-text-info" href="{% url 'admin_principal' %}">Jugadas</a>
+                    </li>
+                    <li class="is-active">
+                        <a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
+                    </li>
+                    <li>
+                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Usuarios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-one-fifth"></div>
+        <div class="column is-three-fifths">
+            <h4 class="title has-text-centered has-text-white" style="margin-top: 10px;">{{profile.profileName}}</h4>
+            <p class="text has-text-centered has-text-white" style="margin-top: 10px;">{{profile.description}}</p>
+        </div>
+    </div>
+    {% include 'admin/adminProfilesVersion.html' with view='base' %}
+{% endblock %}

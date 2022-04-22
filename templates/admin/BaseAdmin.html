@@ -20,6 +20,8 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     {% if view == 'version' %}
       <script src="{% static 'indexfuncVersion.js' %}"></script>
+    {% elif view == 'base' %}
+      <script src="{% static 'indexfuncbase.js' %}"></script>
     {% else %}
       <script src="{% static 'indexfunc.js' %}"></script>
     {% endif %}
@@ -27,6 +29,8 @@
     <!--COLORPICKER-->
     <link rel="stylesheet" type="text/css" href="{% static 'spectrum.css' %}">
     <script type="text/javascript" src="{% static 'spectrum.js' %}"></script>
+    {% block docs %}
+    {% endblock %}
   </head>
   <body>
     <div class="container-fluid">
@@ -65,7 +69,8 @@
               <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
             {% endif %}
           </div>
-      
+          
+          <!--
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
@@ -78,6 +83,7 @@
               </div>
             </div>
           </div>
+          -->
         </div>
       </nav>
     </div>

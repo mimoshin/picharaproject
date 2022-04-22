@@ -13,7 +13,7 @@
                         <a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
                     </li>
                     <li>
-                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Clientes</a>
+                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Usuarios</a>
                     </li>
                 </ul>
             </div>
@@ -24,7 +24,7 @@
 
     <h1 class="title has-text-white has-text-centered">{{profile}}</h1>
     <p class="has-text-white has-text-centered">{{profile.description}}</p>
-    <a type="button" class="btn btn-sm btn-secondary mt-2" href="{% url 'profiles_list' %}">Volver</a>
+    <a type="button" class="button is-small is-secondary mt-2" href="{% url 'profiles_list' %}">Volver</a>
 
     {% include 'indexVersion.html' %}
 

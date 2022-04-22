@@ -1,6 +1,10 @@
 {% extends 'admin/BaseAdmin.html' %}
 {% load static %}
 
+{% block docs %}
+    <script type="text/javascript" src="{% static 'clientList.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="columns">
         <div class="column">
@@ -13,7 +17,7 @@
                         <a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
                     </li>
                     <li class="is-active">
-                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Clientes</a>
+                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Usuarios</a>
                     </li>
                 </ul>
             </div>
@@ -24,14 +28,14 @@
         <div class="column is-1"></div>
 
         <div class="column is-10">
-            <h4 class="title has-text-white has-text-centered">Clientes</h4>
-            <a typer="button" class="button is-small is-link" href="{% url 'new_client' %}" style="margin-bottom: 10px;">Nuevo Cliente</a>
+            <h4 class="title has-text-white has-text-centered">Usuarios</h4>
+            <a typer="button" class="button is-small is-link" href="{% url 'new_client' %}" style="margin-bottom: 10px;">Nuevo Usuario</a>
             
             <table class="table table-dark is-fullwidth" style="background-color: #343a40;">
                 <thead>
                     <tr>
                         <td class="has-text-white has-text-centered" style="border: 1px solid black;">Estado</td>
-                        <td class="has-text-white has-text-centered" style="border: 1px solid black;">Cliente</td>
+                        <td class="has-text-white has-text-centered" style="border: 1px solid black;">Usuario</td>
                         <td class="has-text-white has-text-centered" style="border: 1px solid black;"colspan="4">Opciones</td>
                     </tr>
                 </thead>
@@ -45,7 +49,7 @@
                                 <a type="button" href="{% url 'client_modify' client.id %}" class="button is-small is-link">Ver</a>
                             </td>
                             <td class="has-text-centered" style="border: 1px solid black;">
-                                <a type="button" href="{% url 'client_profile' client.id %}" class="button is-small is-success">Perfiles</a>
+                                <button class="button is-small is-success perfilButton" data-target="assignModal" id="{{client.id}}">Perfiles asignados</button>
                             </td>
                             {% if client.is_active %}
                                 <td class="has-text-centered" style="border: 1px solid black;"><a type="button" href="{% url 'desactivate_client' client.id %}" class="button is-small is-warning">Desactivar</a></td>
@@ -66,7 +70,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal delete-->
     <div class="modal" id="deleteModal">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -82,65 +86,51 @@
                     </div>
                 </div>
             </section>
-            <footer class="modal-card-foot" style="background-color: #212121;">
+            <footer class="modal-card-foot" style="background-color: #292929;">
                 <a type="button" class="button is-link" href="" id="seguro">Sí, Seguro.</a>
                 <button class="button" data-dismiss="modal">Cancelar</button>
             </footer>
           </div>
     </div>
-    
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Seguro que desea eliminar el cliente.</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body text-center">
-                <img src="{% static 'iconos.png' %}" alt="">
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <a type="button" class="btn btn-primary" href="" id="seguro">Sí, Seguro.</a>
-            </div>
-        </div>
-        </div>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" >
-        <div class="modal-content" style="background-image: url('{% static "picharapoker_bg.jpg"%}');">
-            <div class="modal-header">
-            <h5 class="modal-title text-light" id="staticBackdropLabel">Nueva Version: {{name}} Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-6">
-                            <label for="versionID" class="form-group text-light">Nombre Cliente</label>
-                            <input type="text" class="form-control" name="perfil" id="perfilID">
-                            <label for="descID" class="form-group text-light">Descripción del Cliente</label>
-                            <textarea class="form-control" name="description" id="descID" cols="30" rows="10"></textarea>
-                    </div>
-                    <div class="col-6">
-                        {% include  'table.html' with admin=True %}
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="saveForm">Guardar</button>
-            </div>
-        </div>
-        </div>
+    <!-- Modal assign -->
+    <div class="modal" id="assignModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head" style="background-color: #343a40;">
+              <p class="modal-card-title has-text-white">Administrar perfiles asignados</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body" style="background-color: #343a40;">
+                <table class="table table-dark is-fullwidth" style="background-color: #343a40;">
+                    <thead>
+                        <tr>
+                            <td class="has-text-white has-text-centered" style="border: 1px solid black;">Perfile</td>
+                            <td class="has-text-white has-text-centered" style="border: 1px solid black;">Estado</td>
+                            <td class="has-text-white has-text-centered" style="border: 1px solid black;"colspan="4">Opciones</td>
+                        </tr>
+                    </thead>
+                    <tbody id="perfilList">
+                    </tbody>
+                </table>
+            </section>
+          </div>
     </div>
+    
+
 
     <script>
+        var clientSel;
+
+        $('#perfilList').on('click .perfilList',function(e){
+            let data = {'csrfmiddlewaretoken':'{{csrf_token}}','client':clientSel,'profile':e.target.id}
+            data['type'] = e.target.dataset.func;
+            $.post("{% url 'action_profile' %}",data,
+                function(response){
+                    location.reload();
+                });
+        });
+
         $('.deleteButton').click(function(){
             $('#seguro')[0].href = "{% url 'delete_client' 0 %}".replace('0',this.id);
         });
@@ -179,10 +169,22 @@
             (document.querySelectorAll('.deleteButton') || []).forEach(($trigger) => {
                 const modal = $trigger.dataset.target;
                 const $target = document.getElementById(modal);
-                console.log($target);
 
                 $trigger.addEventListener('click', () => {
                     openModal($target);
+                });
+            });
+
+             // Add a click event on buttons to open a specific modal
+             (document.querySelectorAll('.perfilButton') || []).forEach(($trigger) => {
+                const modal = $trigger.dataset.target;
+                const $target = document.getElementById(modal);
+               
+
+                $trigger.addEventListener('click', () => {
+                    openModal($target);
+                    clientSel = $trigger.id;
+                    loadProfiles($trigger.id);
                 });
             });
 

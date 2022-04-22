@@ -1,26 +1,8 @@
-{% extends 'admin/BaseAdmin.html'%}
+{% extends 'admin/BaseAdmin.html' %}
+{% load static %}
 
-{% block content %}
-    <div class="columns">
-        <div class="column">
-            <div class="tabs is-centered is-boxed">
-                <ul>
-                    <li>
-                        <a class="navbar-item has-text-info" href="{% url 'admin_principal' %}">Jugadas</a>
-                    </li>
-                    <li>
-                        <a class="navbar-item has-text-info" href="{% url 'profiles_list' %}">Perfiles de jugadas</a>
-                    </li>
-                    <li class="is-active">
-                        <a class="navbar-item has-text-info" href="{% url 'all_clients' %}">Usuarios</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    
-    <h1 class="title has-text-white has-text-centered">{{client.name}}</h1>
-    <form class="mt-4" method="post" action="{% url 'client_modify' client.id %}" autocomplete="off">
+{% block content %} 
+    <form method="post" action="{% url 'new_client' %}" autocomplete="off" style="margin-top: 100px;">
         {% csrf_token %}
 
         <div class="columns">
@@ -29,11 +11,11 @@
                 <div class="field-body">
                     <div class="field">
                         <label class="label has-text-white">Nombre de usuario</label>
-                        <input class="input is-small has-text-danger" type="text" name="username" id="uss" placeholder="{{client.baseUser.username}}" disabled>
+                        <input class="input is-small" type="text" name="username" id="uss" required>
                     </div>
                     <div class="field">
                         <label class="label has-text-white">Contraseña</label>
-                        <input class="input is-small" type="password" name="password" id="pass" placeholder="******" disabled>    
+                        <input class="input is-small" type="password" name="password" id="pass" required>
                     </div>
                 </div>
             </div>
@@ -45,11 +27,11 @@
                 <div class="field-body">
                     <div class="field">
                         <label class="label has-text-white">Nombre</label>
-                        <input class="input is-small" type="text" name="firstname" id="fnam" placeholder="{{client.baseUser.first_name}}">
+                        <input class="input is-small" type="text" name="firstname" id="fnam" required>
                     </div>
                     <div class="field">
                         <label class="label has-text-white">Apellido</label>
-                        <input class="input is-small" type="text" name="lastname" id="lnam" placeholder="{{client.baseUser.last_name}}">
+                        <input class="input is-small" type="text" name="lastname" id="lnam" required>
                     </div>
                 </div>
             </div>
@@ -61,11 +43,11 @@
                 <div class="field-body">
                     <div class="field">
                         <label class="label has-text-white">Correo</label>
-                        <input class="input is-small has-text-danger" type="email" name="email" id="em" placeholder="{{client.baseUser.email}}">
+                        <input class="input is-small" type="email" name="email" id="em" required>
                     </div>
                     <div class="field">
                         <label class="label has-text-white">Telefono</label>
-                        <input class="input is-small" type="text" name="cellphone" id="cell"placeholder="{{client.baseUser.cellphone}}">    
+                        <input class="input is-small" type="text" name="cellphone" maxlength="9" required>
                     </div>
                 </div>
             </div>

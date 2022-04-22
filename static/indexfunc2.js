@@ -9977,7 +9977,7 @@ function asignarRangoEstiloCelda(titulo){
 				var id = "range_r"+i+"c"+j;
 			
 				document.getElementById(id).classList.add("color"+rangos_cell[i][j]);
-			
+				
 		}
 	}
 	

@@ -1,5 +1,6 @@
-def appendVersions(colors,data):
+def appendVersions(colors,data,profile):
     total = colors+'|'
     for x in data:
-        total += x.versionname+':'+str(x.id)+'-'
+        asigned = str(x.detect_asignation(int(profile)))
+        total += x.versionname+':'+str(x.id)+':'+asigned+'-'
     return total
